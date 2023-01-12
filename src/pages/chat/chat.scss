@@ -1,0 +1,74 @@
+$background: #FFFFFF;;
+$background-accent:  #FBFBFB;
+$primery: #3369F3;
+$secondery: #E4EDFD;
+$border: #EAEAEA;
+$background-item: #EFEFEF;
+$text-gray: #999999;
+
+.chat {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 310px auto;
+}
+
+.sidebar {
+    background-color: $background-accent;
+}
+
+
+.main-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &__choice {
+        font-size: 12px;
+        line-height: 12px;
+        color: $text-gray;
+    }
+}
+
+
+.sidebar {
+    border-right: 1px solid $border;
+
+    &__header {
+        border-bottom: 1px solid $border;
+        margin: 10px;
+        height: 102px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__back {
+        display: flex;
+        justify-content: flex-end;
+        p {
+            font-size: 12px;
+            line-height: 12px;
+            color: $text-gray;
+            margin: 21px 0;
+        }
+        svg {
+            margin: 23px 8px;
+        }
+    }
+}
+
+.search {
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    height: 32px;
+    background-color: $background-item;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 14px;
+
+    &::placeholder {
+        text-align: center;
+        color: $text-gray;
+    }
+}

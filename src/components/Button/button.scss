@@ -1,0 +1,44 @@
+$primery: #3369f3;
+$text: #ffffff;
+$exit: #ff0000;
+$background-accent: #fbfbfb;
+
+.button__default {
+  outline: none;
+  border: none;
+  background-color: $text;
+  font-size: 13px;
+  line-height: 13px;
+  color: $primery;
+  cursor: pointer;
+
+  &--red {
+    color: $exit;
+  }
+
+  &--back {
+    background-color: $background-accent;
+    svg {
+        background-color: $background-accent;
+      }
+  }
+}
+
+.button__primery {
+  width: 280px;
+  height: 37px;
+  border-radius: 8px;
+  background-color: $primery;
+  color: $text;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  // margin-bottom: 14px;
+  &:active {
+    transform: translate(0, 1px);
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

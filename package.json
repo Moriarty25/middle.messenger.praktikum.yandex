@@ -1,0 +1,46 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "Приложение веб-мессенджера",
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel index.html --open -p 3000",
+    "build": "parcel build index.html",
+    "start": "npm run build && npm run serve",
+    "serve": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moriarty25/middle.messenger.praktikum.yandex.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Moriarty25/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/Moriarty25/middle.messenger.praktikum.yandex#readme",
+  "targets": {
+    "default": {
+      "sourceMap": false,
+      "engines": {
+        "browsers": ">= 50%"
+      }
+    }
+  },
+  "engines": {
+    "node": ">=12.0.0"
+    },
+  "devDependencies": {
+    "@parcel/transformer-inline-string": "^2.8.2",
+    "@parcel/transformer-sass": "^2.8.2",
+    "express": "^4.18.2",
+    "parcel": "^2.8.2",
+    "parcel-transformer-hbs": "^1.0.4"
+  },
+  "dependencies": {
+    "@parcel/config-default": "^2.8.2",
+    "handlebars": "^4.7.7"
+  }
+}
