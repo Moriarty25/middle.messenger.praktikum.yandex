@@ -20,7 +20,7 @@
 ## Ссылка на pull-request  
 будет позже
 
-## Ссылка на опубликованное приложение  
+## Ссылка на опубликованное приложение  [![Netlify Status](https://api.netlify.com/api/v1/badges/498fb90c-5d7c-416c-95ac-d2c82a3e6003/deploy-status)](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
 * [Страница Чата](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
 * [Страница Профиля](https://deploy--roaring-tanuki-6ce7ec.netlify.app/profile)
 * [Страница Авторизации](https://deploy--roaring-tanuki-6ce7ec.netlify.app/login)
