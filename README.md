@@ -24,6 +24,6 @@
 * [Страница Чата](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
 * [Страница Профиля](https://deploy--roaring-tanuki-6ce7ec.netlify.app/profile)
 * [Страница Авторизации](https://deploy--roaring-tanuki-6ce7ec.netlify.app/login)
-* [Страница Регистрации](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
+* [Страница Регистрации](https://deploy--roaring-tanuki-6ce7ec.netlify.app/signin)
 * [Страница 404](https://deploy--roaring-tanuki-6ce7ec.netlify.app/404)
 * [Страница 500](https://deploy--roaring-tanuki-6ce7ec.netlify.app/500)
