@@ -1,4 +1,4 @@
-$primery: #3369f3;
+$primary: #3369f3;
 $text: #ffffff;
 $exit: #ff0000;
 $background-accent: #fbfbfb;
@@ -9,7 +9,7 @@ $background-accent: #fbfbfb;
   background-color: $text;
   font-size: 13px;
   line-height: 13px;
-  color: $primery;
+  color: $primary;
   cursor: pointer;
 
   &--red {
@@ -19,8 +19,8 @@ $background-accent: #fbfbfb;
   &--back {
     background-color: $background-accent;
     svg {
-        background-color: $background-accent;
-      }
+      background-color: $background-accent;
+    }
   }
 }
 
@@ -28,12 +28,12 @@ $background-accent: #fbfbfb;
   width: 280px;
   height: 37px;
   border-radius: 8px;
-  background-color: $primery;
+  background-color: $primary;
   color: $text;
   outline: none;
   border: none;
   cursor: pointer;
-  // margin-bottom: 14px;
+
   &:active {
     transform: translate(0, 1px);
   }

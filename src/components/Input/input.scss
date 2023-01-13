@@ -1,82 +1,74 @@
-$grey: #999999;
-$invalid: #FF2F2F;
-$primery: #3369F3;
+$secondary: #999999;
+$invalid: #ff2f2f;
+$primary: #3369f3;
 
 .field {
-    display: flex;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  margin-bottom: 36px;
+
+  &__input {
+    width: 280px;
+    font-size: 13px;
+    line-height: 13px;
+    border: none;
+    border-bottom: 1px solid $primary;
+    outline: none;
+
+    &--invalid {
+      color: $invalid;
+    }
+  }
+
+  &__input::placeholder {
+    color: $secondary;
+    padding: 0;
+    padding-bottom: 7px;
+  }
+
+  &__label {
+    position: absolute;
+    left: 1px;
+    bottom: 0;
+    text-align: left;
     align-items: center;
-    width: 100%;
-    position: relative;
-    margin-bottom: 36px;
-  
-    &__input {
-        width: 280px;
-        font-size: 13px;
-        line-height: 13px;
-        border: none;
-        border-bottom: 1px solid $primery;
-        outline: none;
-        &--invalid {
-            color:$invalid
-        }
-    }
+    color: $secondary;
+    opacity: 0;
+    transition: all 150ms ease;
+    pointer-events: none;
+  }
 
-    &__input::placeholder {
-        color: $grey;
-        padding: 0;
-        padding-bottom: 7px;
-    }
+  &__input:focus ~ &__label {
+    opacity: 1;
+    font-size: 8px;
+    line-height: 18px;
+    transform: translate(0, -18px);
+    font-family: "Inter";
+  }
 
-    &__label {
-        position: absolute;
-        left: 1px;
-        bottom: 0;
-        text-align: left;
-        align-items: center;
-        color: $grey;
-        opacity: 0;
-        transition: all 150ms ease;
-        pointer-events: none;
-    }
-    
-    &__input:focus ~ &__label {
-        opacity: 1;
-        font-size: 8px;
-        line-height: 18px;
-        transform: translate(0, -18px);
-        font-family: 'Inter';
-    }
+  &__error {
+    position: absolute;
+    left: 1px;
+    bottom: -14px;
+    font-weight: 400;
+    font-size: 8px;
+    line-height: 8px;
+    color: $invalid;
+    opacity: 0;
+  }
 
-    &__error {
-        position: absolute;
-        left: 1px;
-        bottom: -14px;
-        font-weight: 400;
-        font-size: 8px;
-        line-height: 8px;
-        color: $invalid;
-        opacity: 0;
-    }
+  &__input::-webkit-input-placeholder {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  &__input:focus::-webkit-input-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
 
-    &__input::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
-    &__input:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease;}
-
-    &__input:invalid + &__error {
-       opacity: 1; 
-    }
-
+  &__input:invalid + &__error {
+    opacity: 1;
+  }
 }
-
-
-
-
-
-
-
-
- .text-field__input:focus~.field__invalid,
- .text-field__input:not(:placeholder-shown)~.text-field__label {
-    transform: scale(.85) translateY(-.75rem) translateX(.15rem);
-    color: #03a9f4;
-}
-

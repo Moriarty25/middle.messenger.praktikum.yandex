@@ -1,40 +1,29 @@
 
 ## Описание
 
-Приложение веб-мессенджера, написанное на js.
-- Собирается в parcel.
-- Запускается на express.
-- Деплой в netlify.
+Приложение веб-мессенджера на JavaScript.
+- Собирается в parcel
+- Запускается на express
+- Деплой в netlify
 
-
- собирается в parcel, запускается на express, задеплоено в [netlify](https://storied-sprite-3c3831.netlify.app/)
+В проекте используется шаблонизатор [Handlebars](https://handlebarsjs.com/).
 
 ## Установка
 
 - `npm install` — установка стабильной версии,
-- `npm start` — запуск версии для разработчика,
-- `npm run build:prod` — сборка стабильной версии.
-
-## **Примеры использования**
-
-Хорошо, если сразу после установки пользователь сможет решить свои задачи без изучения проекта. Это особенно верно, если ваш пользователь — не профессиональный разработчик. Но даже профессионал поймёт вас лучше, если показать примеры использования:
-
-![Ссылки](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/link.png)
-
-Для более подробных инструкции добавьте новые разделы или ссылки:
-
-- на документацию,
-- вики проекта,
-- описание API.
-
-В учебном проекте будут полезен раздел с описанием стиля кода и правилами разработки: как работать с ветками, пул-реквестами и релизами.
-
+- `npm run dev` — запуск версии для разработчика,
+- `npm run start` — сборка стабильной версии и запуск на express.
 
 ## Макет  
-https://www.figma.com/file/oPHxTbIG60roBtiF3wMQsN/Chat_external_link-(Copy)?node-id=0%3A1
+[Макет в figma](https://www.figma.com/file/24EUnEHGEDNLdOcxg7ULwV/Chat?node-id=0%3A1&t=d9X32hefZdiDrerX-0)
 
 ## Ссылка на pull-request  
 будет позже
 
 ## Ссылка на опубликованное приложение  
-будет позже
+* [Страница Чата](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
+* [Страница Профиля](https://deploy--roaring-tanuki-6ce7ec.netlify.app/profile)
+* [Страница Авторизации](https://deploy--roaring-tanuki-6ce7ec.netlify.app/login)
+* [Страница Регистрации](https://deploy--roaring-tanuki-6ce7ec.netlify.app/signin)
+* [Страница 404](https://deploy--roaring-tanuki-6ce7ec.netlify.app/404)
+* [Страница 500](https://deploy--roaring-tanuki-6ce7ec.netlify.app/500)
