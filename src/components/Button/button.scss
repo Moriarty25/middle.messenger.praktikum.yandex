@@ -1,12 +1,9 @@
-$primary: #3369f3;
-$text: #ffffff;
-$exit: #ff0000;
-$background-accent: #fbfbfb;
+@import "/src/variables.scss";
 
 .button__default {
   outline: none;
   border: none;
-  background-color: $text;
+  background-color: $background;
   font-size: 13px;
   line-height: 13px;
   color: $primary;
@@ -18,18 +15,19 @@ $background-accent: #fbfbfb;
 
   &--back {
     background-color: $background-accent;
+    
     svg {
       background-color: $background-accent;
     }
   }
 }
 
-.button__primery {
+.button__primary {
   width: 280px;
   height: 37px;
   border-radius: 8px;
   background-color: $primary;
-  color: $text;
+  color: $background;
   outline: none;
   border: none;
   cursor: pointer;

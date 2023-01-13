@@ -1,13 +1,12 @@
-import error from "../src/pages/erorrs/errors";
-import login from "../src/pages/login/login";
 import "./styles.scss";
+import defaultUserPhoto from "../static/defaultUserPhoto.png";
 import input from "./components/Input/input";
 import button from "./components/Button/button";
+import error from "../src/pages/erorrs/errors";
+import login from "../src/pages/login/login";
 import signin from "./pages/signin/signnin";
 import profile from "./pages/profile/profile";
-import defaultUserPhoto from "../static/defaultUserPhoto.png";
 import chat from "./pages/chat/chat";
-
 
 const state = {
   404: {
@@ -41,8 +40,8 @@ const state = {
       }),
     },
     button: {
-      primery: button({
-        isPrimery: true,
+      primary: button({
+        isPrimary: true,
         name: "Войти",
       }),
       default: button({
@@ -105,8 +104,8 @@ const state = {
       }),
     },
     button: {
-      primery: button({
-        isPrimery: true,
+      primary: button({
+        isPrimary: true,
         name: "Зарегистрироваться",
       }),
       default: button({
@@ -116,9 +115,6 @@ const state = {
   },
   profile: {
     button: {
-      return: button({
-        name: "Войти?",
-      }),
       changeData: button({
         name: "Изменить данные",
       }),
@@ -132,8 +128,8 @@ const state = {
       back: button({
         isBack: true,
       }),
-      primery: button({
-        isPrimery: true,
+      primary: button({
+        isPrimary: true,
         name: "Сохранить",
       }),
     },
@@ -155,8 +151,8 @@ const state = {
       back: button({
         isBack: true,
       }),
-      primery: button({
-        isPrimery: true,
+      primary: button({
+        isPrimary: true,
         name: "Сохранить",
       }),
     },
@@ -168,8 +164,8 @@ const state = {
       back: button({
         isBack: true,
       }),
-      primery: button({
-        isPrimery: true,
+      primary: button({
+        isPrimary: true,
         name: "Сохранить",
       }),
     },
@@ -179,7 +175,7 @@ const state = {
 };
 
 const root = document.querySelector("#root");
-const route = document.location.pathname; 
+const route = document.location.pathname;
 
 if (route === "/404") {
   root.innerHTML = error(state[404]);
@@ -212,4 +208,3 @@ if (route === "/changePassword") {
 if (route === "/") {
   document.getElementById("root").innerHTML = chat({});
 }
-console.log();

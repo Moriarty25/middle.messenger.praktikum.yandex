@@ -1,4 +1,4 @@
-$primary: #3369F3;
+@import "/src/variables.scss";
 
 .errors {
     display: flex;
@@ -6,6 +6,7 @@ $primary: #3369F3;
     justify-content: center;
     text-align: center;
     height: 100vh;
+
     &__title {
         font-size: 40px;
         line-height: 40px;
