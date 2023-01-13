@@ -37,12 +37,18 @@
   &__back {
     display: flex;
     justify-content: flex-end;
+
+    a {
+      display: flex;
+    }
+
     p {
       font-size: 12px;
       line-height: 12px;
       color: $secondary;
       margin: 21px 0;
     }
+
     svg {
       margin: 23px 8px;
     }

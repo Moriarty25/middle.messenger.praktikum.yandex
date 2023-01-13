@@ -53,11 +53,8 @@
 
       &:hover {
         opacity: 0.5;
-
-        & ~ p {
-          opacity: 1;
-        }
       }
+
     }
 
     & p {
@@ -140,4 +137,8 @@
 
 .avatar__photo {
   display: none;
+}
+
+.profile__avatar img:hover ~ p{
+  opacity: 1;
 }
