@@ -18,7 +18,7 @@
 [Макет в figma](https://www.figma.com/file/24EUnEHGEDNLdOcxg7ULwV/Chat?node-id=0%3A1&t=d9X32hefZdiDrerX-0)
 
 ## Ссылка на pull-request  
-будет позже
+[Ссылка](https://github.com/Moriarty25/middle.messenger.praktikum.yandex/pull/2)
 
 ## Ссылка на опубликованное приложение  [![Netlify Status](https://api.netlify.com/api/v1/badges/498fb90c-5d7c-416c-95ac-d2c82a3e6003/deploy-status)](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
 * [Страница Чата](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
