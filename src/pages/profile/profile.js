@@ -1,8 +1,8 @@
-import template from './profile.hbs';
-import './profile.scss';
+import template from "./profile.hbs";
+import "./profile.scss";
 
-const profile = (props = {}, photo) => {
-    return template(props, photo)
-}
+const profile = (props = {}) => {
+  return template(props);
+};
 
-export default profile
+export default profile;

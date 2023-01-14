@@ -54,7 +54,6 @@
       &:hover {
         opacity: 0.5;
       }
-
     }
 
     & p {
@@ -124,7 +123,7 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    
+
     &--btn {
       align-items: center;
     }
@@ -139,6 +138,6 @@
   display: none;
 }
 
-.profile__avatar img:hover ~ p{
+.profile__avatar img:hover ~ p {
   opacity: 1;
 }
