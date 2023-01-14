@@ -10,7 +10,10 @@
 {{else}}
 
     <button class="button__default {{#if isPrimary}} button__primary {{/if}} 
-        {{#if isExit}} button__default--red{{/if}}">
+        {{#if isExit}} button__default--red{{/if}}" 
+        {{#if isPrimary}} type="submit" 
+        {{else}} type="button"
+        {{/if}}>
             {{{name}}}
     </button>
 

@@ -2,7 +2,7 @@
   <div class="profile__back">
     {{{button.back}}}
   </div>
-  <div class="profile__wrapper">
+  <main class="profile__wrapper">
     <div class="profile__avatar">
         {{#if defaultUserPhoto}}
         <img src="{{{defaultUserPhoto}}}" alt="userPhoto" />
@@ -12,7 +12,7 @@
     </div>
     <div class="profile__user-name">{{{userData.firstName}}}</div>
     {{#if changePassword}}
-    <div class="profile__content">
+    <form class="profile__content">
         <div class="profile__item">
             <p>Старый пароль</p>
             <input  class="profile__item--gray" placeholder="Введите стырый пароль" name="oldPassword" type="password"/>
@@ -25,10 +25,13 @@
             <p>Повторите новый пароль</p>
             <input  class="profile__item--gray" placeholder="Ваш новый пароль" name="newPassword" type="password"/>
         </div>
-    </div>
+        <div class="profile__footer  profile__footer--btn">
+            {{{button.primary}}} 
+        </div>
+    </form>
     {{/if}}    
     {{#if changeUserData}}
-    <div class="profile__content">
+    <form class="profile__content">
         <div class="profile__item">
             <p>Почта</p>
             <input  class="profile__item--gray" placeholder="Новая почта" name="email" type="email" />
@@ -53,7 +56,10 @@
             <p>Телефон</p>
             <input  class="profile__item--gray" placeholder="Телефон" name="phone" type="tel"/>
         </div>
-    </div>
+        <div class="profile__footer  profile__footer--btn">
+            {{{button.primary}}} 
+        </div>
+    </form>
     {{/if}}  
     {{#if profile}}
     <div class="profile__content">
@@ -82,11 +88,7 @@
             <p class="profile__item--gray">{{{userData.phone}}}</p>
         </div>
     </div>
-    {{/if}}
-    <div class="profile__footer {{#unless profile}} profile__footer--btn  {{/unless}}">
-      {{#unless profile}}
-      {{{button.primary}}} 
-      {{else}}
+    <div class="profile__footer ">
       <a href="changeData">
           <div class="profile__item profile__item--btn">{{{button.changeData}}}</div>
       </a>
@@ -96,7 +98,7 @@
       <a href="login">
           <div class="profile__item profile__item--btn">{{{button.exit}}}</div>
       </a>
-      {{/unless}}
     </div>
-  </div>
+    {{/if}}
+  </main>
 </div>
