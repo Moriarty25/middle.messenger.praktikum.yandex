@@ -1,0 +1,42 @@
+@import "/src/variables.scss";
+
+.button__default {
+  outline: none;
+  border: none;
+  background-color: $background;
+  font-size: 13px;
+  line-height: 13px;
+  color: $primary;
+  cursor: pointer;
+
+  &--red {
+    color: $exit;
+  }
+
+  &--back {
+    background-color: $background-accent;
+    
+    svg {
+      background-color: $background-accent;
+    }
+  }
+}
+
+.button__primary {
+  width: 280px;
+  height: 37px;
+  border-radius: 8px;
+  background-color: $primary;
+  color: $background;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  &:active {
+    transform: translate(0, 1px);
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
