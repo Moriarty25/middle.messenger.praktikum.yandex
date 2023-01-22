@@ -7,6 +7,9 @@ import login from "../src/pages/login/login";
 import signin from "./pages/signin/signnin";
 import profile from "./pages/profile/profile";
 import chat from "./pages/chat/chat";
+import contact from "./components/Contact/contact";
+import message from "./components/Message/message";
+import date from "./components/Date/date";
 
 const state = {
   404: {
@@ -172,10 +175,46 @@ const state = {
     defaultUserPhoto,
     changePassword: true,
   },
+  chat: {
+    defaultUserPhoto,
+    contact: contact({
+      defaultUserPhoto,
+    }),
+    contacts: [
+      contact({
+        defaultUserPhoto,
+        selected: true
+      }),
+      contact({
+        defaultUserPhoto,
+      }),
+      contact({
+        defaultUserPhoto,
+      }),
+      contact({
+        defaultUserPhoto,
+      }),
+      contact({
+        defaultUserPhoto,
+      }),
+      contact({
+        defaultUserPhoto,
+      }),
+      contact({
+        defaultUserPhoto,
+      }),
+      contact({
+        defaultUserPhoto,
+      }),
+    ],
+    message: message(),
+    date: date()
+  },
 };
 
 const root = document.querySelector("#root");
 const route = document.location.pathname;
+
 
 if (route === "/404") {
   root.innerHTML = error(state[404]);
@@ -206,5 +245,5 @@ if (route === "/changePassword") {
 }
 
 if (route === "/") {
-  document.getElementById("root").innerHTML = chat({});
+  document.getElementById("root").innerHTML = chat(state.chat);
 }

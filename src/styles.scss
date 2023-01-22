@@ -12,6 +12,10 @@ $container-size: 768px;
   box-sizing: border-box;
 }
 
+li {
+  list-style-type: none; 
+ }
+
 a,
 a:link {
   color: inherit;
@@ -77,3 +81,26 @@ fieldset {
     list-style-type: none;
    }
 }
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: $background-accent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: $background-item;
+    border-radius: 10px;
+    border: 3px solid $background-accent;
+
+    &:hover {
+      background-color: $border;
+    }
+  }
