@@ -14,7 +14,7 @@
       </header>
     </div>
      <div class="contacts__wrapper">
-       {{#each contacts}}
+       {{#each contactArea}}
            {{{this}}}
        {{/each}}
      </div>
@@ -44,10 +44,10 @@
     </header>
     <div class="main-layout__content">
       {{{date}}}
-      {{{message}}}
-      {{{message}}}
-      {{{message}}}
-      {{{message}}}
+        {{#each messageBoxes}}
+           {{{this}}}
+       {{/each}}
+       {{{me}}}
     </div>
     <footer class="main-layout__footer">
       <button class="insert">

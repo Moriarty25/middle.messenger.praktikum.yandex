@@ -1,15 +1,16 @@
 import "./styles.scss";
 import defaultUserPhoto from "../static/defaultUserPhoto.png";
-import input from "./components/Input/input";
-import button from "./components/Button/button";
-import error from "../src/pages/erorrs/errors";
-import login from "../src/pages/login/login";
-import signin from "./pages/signin/signnin";
-import profile from "./pages/profile/profile";
-import chat from "./pages/chat/chat";
-import contact from "./components/Contact/contact";
-import message from "./components/Message/message";
-import date from "./components/Date/date";
+import input, { Input } from "./components/Input/input";
+import button, { Button } from "./components/Button/button";
+import  { ErrorPage, errorPage404, errorPage500 } from "../src/pages/erorrs/errors";
+import login, { Login } from "../src/pages/login/login";
+import signin, { Signin } from "./pages/signin/signnin";
+import profile, { Profile } from "./pages/profile/profile";
+import chat, { Chat } from "./pages/chat/chat";
+import contact, { Contact } from "./components/Contact/contact";
+import message, { Message } from "./components/Message/message";
+import date, { Date } from "./components/Date/date";
+import { render } from "./utils/render";
 
 const state = {
   404: {
@@ -20,11 +21,12 @@ const state = {
   500: {
     title: "500",
     message: "Уже фиксим",
-    link: "Назад к чатам",
+    link: new Button({
+      name: "Уже фиксим",
+    }),
   },
   login: {
-    input: {
-      login: input({
+      login: new Input({
         inputType: "text",
         inputName: "login",
         inputPlaceholder: "Логин",
@@ -32,7 +34,7 @@ const state = {
         invalid: true,
         message: "Введите логин",
       }),
-      password: input({
+      password: new Input({
         inputName: "password",
         inputType: "password",
         inputPlaceholder: "Пароль",
@@ -41,20 +43,18 @@ const state = {
         passwordInvalid: false,
         message: "Введите пароль",
       }),
-    },
-    button: {
-      primary: button({
+      primary: new Button({
         isPrimary: true,
         name: "Войти",
       }),
-      default: button({
+      default: new Button({
         name: "Нет аккаунта?",
       }),
-    },
+    
   },
   signin: {
-    input: {
-      email: input({
+    
+      email: new Input({
         inputName: "email",
         inputType: "email",
         inputPlaceholder: "Почта",
@@ -62,7 +62,7 @@ const state = {
         invalid: false,
         message: "Неверная почта",
       }),
-      login: input({
+      login: new Input({
         inputName: "login",
         inputType: "text",
         inputPlaceholder: "Логин",
@@ -70,25 +70,25 @@ const state = {
         invalid: false,
         message: "Неверный логин",
       }),
-      firstName: input({
+      firstName: new Input({
         inputName: "first_name",
         inputType: "text",
         inputPlaceholder: "Имя",
         labelName: "Имя",
       }),
-      secondName: input({
+      secondName: new Input({
         inputName: "second_name",
         inputType: "text",
         inputPlaceholder: "Фамилия",
         labelName: "Фамилия",
       }),
-      phone: input({
+      phone: new Input({
         inputName: "phone",
         inputType: "tel",
         inputPlaceholder: "Телефон",
         labelName: "Телефон",
       }),
-      password: input({
+      password: new Input({
         inputName: "password",
         inputType: "password",
         inputPlaceholder: "Пароль",
@@ -96,7 +96,7 @@ const state = {
         invalid: false,
         passwordInvalid: true,
       }),
-      passwordAgain: input({
+      passwordAgain: new Input({
         inputName: "password",
         inputType: "password",
         inputPlaceholder: "Пароль (ещё раз)",
@@ -105,145 +105,175 @@ const state = {
         passwordInvalid: true,
         message: "Пароли не совпадают",
       }),
-    },
-    button: {
-      primary: button({
+    
+      primary: new Button({
         isPrimary: true,
         name: "Зарегистрироваться",
+        events: {
+          click: () => console.log('clicked')
+        }
       }),
-      default: button({
+      default: new Button({
         name: "Войти?",
+        events: {
+          click: () => console.log('clicked')
+        }
       }),
-    },
+    
   },
   profile: {
-    button: {
-      changeData: button({
+
+      profilePage: true,
+
+      changeData: new Button({
         name: "Изменить данные",
       }),
-      changePassword: button({
+      changePassword: new Button({
         name: "Изменить пароль",
       }),
-      exit: button({
+      exit: new Button({
         isExit: true,
         name: "Выйти",
       }),
-      back: button({
+      buttonBack: new Button({
         isBack: true,
       }),
-      primary: button({
-        isPrimary: true,
-        name: "Сохранить",
-      }),
-    },
-    userData: {
-      email: "privet@yandex.com",
-      login: "shaneWrite51",
-      firstName: "Шейн",
-      secondName: "Райт",
-      nameInChat: "Шейнни",
-      phone: "+ 7 (909) 967 30 30",
-    },
+
+    email: "privet@yandex.com",
+    login: "shaneWrite51",
+    first_name: "Шейн",
+    second_name: "Райт",
+    display_name: "Шейнни",
+    phone: "+ 7 (909) 967 30 30",
+      
     defaultUserPhoto,
-    profile: true,
-    changeUserData: false,
-    changePassword: false,
+    
   },
+  
   changeData: {
-    button: {
-      back: button({
+  
+      buttonBack: new Button({
         isBack: true,
       }),
-      primary: button({
+      primary: new Button({
         isPrimary: true,
         name: "Сохранить",
       }),
-    },
+  
     defaultUserPhoto,
     changeUserData: true,
   },
   changePassword: {
-    button: {
-      back: button({
+
+      buttonBack: new Button({
         isBack: true,
       }),
-      primary: button({
+      primary: new Button({
         isPrimary: true,
         name: "Сохранить",
       }),
-    },
+  
     defaultUserPhoto,
-    changePassword: true,
+    changeUserPassword: true,
   },
+  
   chat: {
     defaultUserPhoto,
-    contact: contact({
-      defaultUserPhoto,
+    me:  new Message({isOwner: true, events: {
+      click: () => console.log('clicked me')
+    }}),
+    date: new Date({
+      content: '29 февраля',
     }),
-    contacts: [
-      contact({
-        defaultUserPhoto,
-        selected: true
-      }),
-      contact({
-        defaultUserPhoto,
-      }),
-      contact({
-        defaultUserPhoto,
-      }),
-      contact({
-        defaultUserPhoto,
-      }),
-      contact({
-        defaultUserPhoto,
-      }),
-      contact({
-        defaultUserPhoto,
-      }),
-      contact({
-        defaultUserPhoto,
-      }),
-      contact({
-        defaultUserPhoto,
-      }),
-    ],
-    message: message(),
-    date: date()
+    contactArea: [],
+    messageBoxes: [],
   },
 };
 
+
+let resultMessageArea = []
+for (let i = 0; i < 5; i++){
+resultMessageArea.push(new Message({events: {click: (event) => {console.log(document.querySelector('.input__message').value)}}}))
+}
+(state.chat.messageBoxes) = resultMessageArea;
+
+let resultContactArea = []
+for (let i = 0; i < 10; i++) {
+resultContactArea.push(new Contact({defaultUserPhoto}))
+}
+state.chat.contactArea = resultContactArea;
+state.chat.messageBoxes =  [...state.chat.messageBoxes, new Date({content: '22 декабря'}), new Message({isOwner: true})]
+function lol(text){ alert(text)}
+
+const buttonComponent = new Button({
+  name:'click me',
+  events: {
+    click: () => console.log('clicked')
+  }
+})
+
+const primary =  new Button({
+    isPrimary: true,
+    name: "Зарегистрироваться",
+    events: {
+      click: () => console.log('clicked me')
+    }
+  })
+
+
+
+
+const signinPage = new Signin(state.signin)
+const errorPage = new ErrorPage(state[404]).getContent()
 const root = document.querySelector("#root");
 const route = document.location.pathname;
+// const errorPage = new Error(state[404])
 
+
+//как делать SetProps 
+// state.login.primary.setProps({name: '50055505505', events: { click: ()=>{console.log('heheheheeh');}}})
+// state[500].link.setProps({name: 'back'})
 
 if (route === "/404") {
-  root.innerHTML = error(state[404]);
+  render("#root", errorPage404)
+  // render("#root", errorPage(state[404]))
+}
+console.log(new ErrorPage(state[500]));
+if (route === "/500") {
+  render("#root", errorPage500)
+  // render("#root", errorPage(state[500]))
 }
 
-if (route === "/500") {
-  root.innerHTML = error(state[500]);
-}
+
 
 if (route === "/login") {
-  root.innerHTML = login(state.login);
+  // root.innerHTML = login(state.login);
+    render("#root", new Login(state.login))
 }
 
 if (route === "/signin") {
-  root.innerHTML = signin(state.signin);
+  root.appendChild(signinPage.getContent())
+    //  render("#root", signinPage))
 }
 
 if (route === "/profile") {
-  root.innerHTML = profile(state.profile);
+  // root.innerHTML = profile(state.profile);
+  render("#root", new Profile(state.profile))
 }
 
 if (route === "/changeData") {
-  root.innerHTML = profile(state.changeData);
+  // root.innerHTML = profile(state.changeData);
+  render("#root", new Profile(state.changeData))
 }
 
 if (route === "/changePassword") {
-  root.innerHTML = profile(state.changePassword);
+  // root.innerHTML = profile(state.changePassword);
+  render("#root", new Profile(state.changePassword))
 }
 
 if (route === "/") {
-  document.getElementById("root").innerHTML = chat(state.chat);
+  // document.getElementById("root").innerHTML = chat(state.chat);
+  render("#root", new Chat(state.chat))
 }
+
+
