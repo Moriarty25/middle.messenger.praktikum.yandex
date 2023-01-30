@@ -1,18 +1,18 @@
     <div class="contact__wrapper {{#if selected}}contact--selected{{/if}}">
       <div class="contact {{#if selected}}contact--selected{{/if}}">
         <div class="contact__avatar">
-          <img src="{{{defaultUserPhoto}}}" alt="user-photo">
+          <img src="{{{avatar}}}" alt="user-photo">
         </div>
         <div class="contact__body">
           <p class="contact__title">Андрей</p>
-          <p class="contact__last-message">Изображение</p>
+          <p class="contact__last-message">{{{last_message.content}}}</p>
         </div>
         <div class="contact__info">
           <div class="info__time">
-            <p>10:49</p>
+            <p>{{{last_message.time}}}</p>
           </div>
           <div class="info__unread">
-            <p>5</p>
+            <p>{{{unread_count}}}</p>
           </div>
         </div>
       </div>

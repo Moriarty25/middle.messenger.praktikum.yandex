@@ -6,9 +6,17 @@
         <path d="M13 19L9 14L13 9" stroke="white" stroke-width="1.6"/>
         </svg>
     </a>
-
 {{else}}
 
+    {{#if isMenu}}
+        <button class="header__chat-menu">
+          <svg width="3" height="16" viewBox="0 0 3 16" fill="none">
+          <circle cx="1.5" cy="2" r="1.5"/>
+          <circle cx="1.5" cy="8" r="1.5"/>
+          <circle cx="1.5" cy="14" r="1.5"/>
+          </svg>
+        </button>
+    {{else}}
     <button class="button__default {{#if isPrimary}} button__primary {{/if}} 
         {{#if isExit}} button__default--red{{/if}}" 
         {{#if isPrimary}} type="submit" 
@@ -16,5 +24,5 @@
         {{/if}}>
             {{{name}}}
     </button>
-
+    {{/if}}
 {{/if}}

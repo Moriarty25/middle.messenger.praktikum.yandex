@@ -6,7 +6,7 @@ export default class Block {
     static EVENTS = {
       INIT: "init",
       FLOW_CDM: "flow:component-did-mount",
-       FLOW_CDU: "flow:component-did-update",
+      FLOW_CDU: "flow:component-did-update",
       FLOW_RENDER: "flow:render"
     };
 
@@ -23,8 +23,6 @@ export default class Block {
    * @param {Object} propsWithChildren
    * @returns {void}
    */
-
-  
   constructor(tagName: string | undefined = "div", propsWithChildren: any= {}) {
 
     const eventBus = new EventBus();
@@ -72,6 +70,8 @@ export default class Block {
   }
   
   _createResources() {
+    if (!this._meta) return
+
     const { tagName } = this._meta;
     this._element = this._createDocumentElement(tagName);
   }
@@ -89,7 +89,7 @@ export default class Block {
   componentDidMount() {}
   
 public dispatchComponentDidMount() {
-    this._eventBus().emit(Block.EVENTS.FLOW_CDM);
+    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
   
 private  _componentDidUpdate(oldProps: any, newProps: any) {
@@ -104,9 +104,7 @@ protected  componentDidUpdate(_oldProps: Record<any, any>, _newProps: Record<any
   }
   
   setProps = (nextProps: Record<any, any>) => {
-    if (!nextProps) {
-      return;
-    }
+    if (!nextProps) return;
   
     Object.assign(this.props, nextProps);
   };
@@ -117,13 +115,29 @@ protected  componentDidUpdate(_oldProps: Record<any, any>, _newProps: Record<any
     
   
 private _render() {
+  const fragment = this.render();
 
-        const block = this.render(); // render теперь возвращает DocumentFragment
-        this._removeEvents();
-        this._element.innerHTML = ''; // удаляем предыдущее содержимое
-        this._element = block.firstElementChild as HTMLElement;
-        this._addEvents();
-      
+  let newElement: HTMLElement;
+
+  if (fragment.children.length > 1){
+    newElement = document.createElement('div');
+  } else {
+    newElement = fragment.firstElementChild as HTMLElement;
+  }
+
+
+    
+  if(this._element){
+    this._removeEvents();
+    this._element.replaceWith(newElement);
+    this._element.innerHTML = '';
+    this._element = newElement;
+  }
+  else {
+    this._element = newElement; 
+  }
+
+  this._addEvents();      
   }
     
   
@@ -159,7 +173,7 @@ private _render() {
       });
   }
   
-  _createDocumentElement(tagName: string) {
+  _createDocumentElement(tagName: string): any {
     // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
     
     return document.createElement(tagName);
@@ -180,7 +194,6 @@ private _render() {
 
     protected _addEvents(){
 
-        // const events: Record<string, () => void> = (this.props as any).events;
         const {events = {}} = this.props as { events: Record<string, ()=> void> }
       
         if(!events){
@@ -212,15 +225,17 @@ private _render() {
 
       temp.innerHTML = html;
 
-      Object.entries(this.children).forEach(([key, child]) => {
+      Object.entries(this.children).forEach(([, child]) => {
+        
         if(Array.isArray(child)) {
-          child.forEach(ch => {
-            const stub = temp.content.querySelector(`[data-id="id-${ch.id}"]`);
+          child.forEach(i => {
+            const stub = temp.content.querySelector(`[data-id="id-${i.id}"]`);
             if (!stub)
               return;
-            stub.replaceWith(ch.getContent() as Node);
+            stub.replaceWith(i.getContent() as Node);
           })
         }
+       
         else {
           const stub = temp.content.querySelector(`[data-id="id-${child.id}"]`);
           

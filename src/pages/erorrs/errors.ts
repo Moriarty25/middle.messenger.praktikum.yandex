@@ -17,8 +17,6 @@ interface ErrorProps {
 export class ErrorPage extends Block {
   constructor(props: ErrorProps) {
     super("div", props)
-    console.log(props);
-    
   }
   
 

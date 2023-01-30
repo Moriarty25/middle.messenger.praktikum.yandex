@@ -1,0 +1,94 @@
+@import "/src/variables.scss";
+
+.head-tooltip {
+  width: 230px;
+  height: 150px;
+  // background: antiquewhite;  
+  position: absolute;
+  right: 10px;
+  top: 25px;
+  display: none;
+  
+}
+.chat-menu {
+
+    &__wrapper {
+      position: absolute;
+      right: 0px;
+      top: 37px;
+      box-shadow: $shadow;
+      border-radius: 12px;
+      display: none;
+      // align-items: center;
+      background-color: $background;
+      width: 210px;
+      height: 90px;
+      font-size: 12px;
+      line-height: 14px;
+      z-index: 1;
+      display: grid;
+      
+      p {
+        margin: 0;
+        padding-left: 15px;
+      }
+    }
+  
+    &__list {
+      display: grid;
+      grid-row-gap: 10px;
+      padding: 0;
+    }
+  
+    &__item {
+      display: flex;
+      align-items: center;
+      padding-left: 15px; 
+      stroke: $primary;
+  
+      &:hover {
+        color: $primary;
+        cursor: pointer;
+      }
+  
+      &:nth-child(2):hover {
+        color: $exit;
+        fill: $exit;
+        stroke: $exit;
+      }
+      &:nth-child(2):hover .item__image--red { 
+        border-color: $exit;
+      }
+    }
+  
+  }
+  
+  .item__image {
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid $primary;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+  
+    &--red:hover {
+      border-color: $exit;
+    }
+  }
+  
+  .image__cross {
+    transform: rotate(45deg);
+  }
+  
+  .header__chat-menu:hover ~ .chat-menu__wrapper:target {
+    display: grid;
+  }
+  .chat-menu__wrapper:target {
+    display: grid;
+  }
+  
+  // #menu {
+  //   display: none;
+  
+  // }
+  // #menu:target {display: block;}

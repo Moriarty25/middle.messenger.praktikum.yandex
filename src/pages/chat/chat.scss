@@ -26,7 +26,7 @@
 .sidebar__wrapper {
   position: relative;
   position: sticky;
-  top: 10px;
+  top: 0px;
   background-color: $background-accent;
 }
 
@@ -38,6 +38,7 @@
     border-bottom: 1px solid $border;
     margin: 10px;
     margin-bottom: 0;
+    margin-top: 0;
     height: 102px;
     display: flex;
     flex-direction: column;
@@ -143,7 +144,7 @@
   height: 25px;
   border-radius: 50%;
   cursor: pointer;
-
+  z-index: 500;
 
   &:active, &:hover svg {
     fill: $primary;
@@ -213,5 +214,6 @@
     color: $secondary;
   }
 }
+
 
 

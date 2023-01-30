@@ -5,12 +5,15 @@ export interface Contact {
     avatar:       string;
     unread_count: number;
     last_message: LastMessage;
+    events : {
+      click: (event?: Event) => void
+    }
   }
   
   
   export interface LastMessage {
-    user:    User;
-    time:    Date;
+    user:    User | string;
+    time:    Date | string;
     content: string;
   }
   

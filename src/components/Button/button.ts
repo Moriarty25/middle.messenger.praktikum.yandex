@@ -5,10 +5,13 @@ import "./button.scss";
 interface ButtonProps {
   name?: string;
   isBack?: boolean;
+  isMenu?: boolean;
   isPrimary?: boolean;
   isExit?: boolean;
   events?: {
-    click?: () => void;
+    click?: (event:MouseEvent) => void;
+    mouseenter?: (event:MouseEvent) => void;
+    mouseleave?: (event:MouseEvent) => void;
   };
 }
 

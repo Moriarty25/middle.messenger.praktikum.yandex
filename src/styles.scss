@@ -46,6 +46,7 @@ fieldset {
 
 
 .nav {
+  background-color: $background;
   position:absolute;
   left: 30;
   bottom: 30;
@@ -79,6 +80,22 @@ fieldset {
 
    &__item {
     list-style-type: none;
+   }
+
+   &__btn{
+    color: $secondary;
+    color: $exit;
+    outline: none;
+    border: none;
+    box-shadow: $shadow;
+    background-color:$background-accent;
+    border-radius: 12px;
+
+    &:hover {
+      background-color: $background-item;
+      cursor: pointer;
+    }
+    
    }
 }
 

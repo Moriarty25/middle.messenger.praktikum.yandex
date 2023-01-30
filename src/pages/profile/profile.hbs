@@ -15,15 +15,18 @@
     <form class="profile__content">
         <div class="profile__item">
             <p>Старый пароль</p>
-            <input  class="profile__item--gray" placeholder="Введите стырый пароль" name="oldPassword" type="password"/>
+            {{{oldPasswordInput}}}
+            {{!-- <input  class="profile__item--gray" placeholder="Введите стырый пароль" name="oldPassword" type="password"/> --}}
         </div>
         <div class="profile__item">
             <p>Новый пароль</p>
-            <input  class="profile__item--gray" placeholder="Ваш новый пароль" name="newPassword" type="password"/>
+            {{{newPasswordInput}}}
+            {{!-- <input  class="profile__item--gray" placeholder="Ваш новый пароль" name="newPassword" type="password"/> --}}
         </div>
         <div class="profile__item">
             <p>Повторите новый пароль</p>
-            <input  class="profile__item--gray" placeholder="Ваш новый пароль" name="newPassword" type="password"/>
+           {{{newPasswordAgainInput}}}
+            {{!-- <input  class="profile__item--gray" placeholder="Ваш новый пароль" name="newPassword" type="password"/> --}}
         </div>
         <div class="profile__footer  profile__footer--btn">
             {{{primary}}} 
@@ -35,27 +38,34 @@
     <form class="profile__content">
         <div class="profile__item">
             <p>Почта</p>
-            <input  class="profile__item--gray" placeholder="Новая почта" name="email" type="email" />
+            {{!-- <input  class="profile__item--gray" placeholder="Новая почта" name="email" type="email" /> --}}
+            {{{emailInpit}}}
+             {{!-- <p class="error-message">{{{error}}}</p> --}}
         </div>
         <div class="profile__item">
             <p>Логин</p>
-            <input  class="profile__item--gray" placeholder="Новый логин" name="login" type="text"/>
+            {{{loginInpit}}}
+            {{!-- <input  class="profile__item--gray" placeholder="Новый логин" name="login" type="text"/> --}}
         </div>
         <div class="profile__item">
             <p>Имя</p>
-            <input  class="profile__item--gray" placeholder="Введите имя" name="first_name" type="text"/>
+            {{{firstNameInpit}}}
+            {{!-- <input  class="profile__item--gray" placeholder="Введите имя" name="first_name" type="text"/> --}}
         </div>
         <div class="profile__item">
             <p>Фамилия</p>
-            <input  class="profile__item--gray" placeholder="Введите фамилию" name="second_name" type="text"/>
+            {{!-- <input  class="profile__item--gray" placeholder="Введите фамилию" name="second_name" type="text"/> --}}
+            {{{secondNameInpit}}}
         </div>
         <div class="profile__item">
             <p>Имя в чате</p>
-            <input  class="profile__item--gray" placeholder="Желаемое имя в чате" name="display_name" type="text"/>
+            {{{displayNameInpit}}}
+            {{!-- <input  class="profile__item--gray" placeholder="Желаемое имя в чате" name="display_name" type="text"/> --}}
         </div>
         <div class="profile__item">
             <p>Телефон</p>
-            <input  class="profile__item--gray" placeholder="Телефон" name="phone" type="tel"/>
+            {{{phoneInpit}}}
+            {{!-- <input  class="profile__item--gray" placeholder="Телефон" name="phone" type="tel"/> --}}
         </div>
         <div class="profile__footer  profile__footer--btn">
             {{{primary}}} 

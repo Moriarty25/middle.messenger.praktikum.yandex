@@ -11,6 +11,7 @@ export default message;
 
 interface MessageProps {
   text?: string;
+  isOwner?: boolean;
   events?: {
     click?: () => void;
   };

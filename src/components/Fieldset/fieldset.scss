@@ -5,9 +5,14 @@ $primary: #3369f3;
 .field {
   display: flex;
   align-items: center;
-  width: 100%;
+  // width: 100%;
   position: relative;
   margin-bottom: 36px;
+
+  &--position {
+    justify-content: flex-end;
+    margin: 0;
+  }
 
   &__input {
     width: 280px;
@@ -56,7 +61,12 @@ $primary: #3369f3;
     font-size: 8px;
     line-height: 8px;
     color: $invalid;
-    opacity: 0;
+    // opacity: 0;
+
+    &--position {
+      left: auto;
+      right: 1px;
+    }
   }
 
   &__input::-webkit-input-placeholder {

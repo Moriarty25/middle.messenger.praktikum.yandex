@@ -34,20 +34,16 @@
           Пётр
         </p>
       </div>
-      <button class="header__chat-menu">
-        <svg width="3" height="16" viewBox="0 0 3 16" fill="none">
-        <circle cx="1.5" cy="2" r="1.5"/>
-        <circle cx="1.5" cy="8" r="1.5"/>
-        <circle cx="1.5" cy="14" r="1.5"/>
-        </svg>
-      </button>
+      {{{buttonMenu}}}      
+      {{{headTooltip}}}
     </header>
     <div class="main-layout__content">
       {{{date}}}
-        {{#each messageBoxes}}
+        {{#each messageArea}}
            {{{this}}}
        {{/each}}
        {{{me}}}
+       {{{massenger}}}
     </div>
     <footer class="main-layout__footer">
       <button class="insert">
@@ -61,7 +57,8 @@
         <path fill-rule="evenodd" clip-rule="evenodd" d="M9.70092 16.0144C7.95751 17.7578 7.95123 20.5782 9.68689 22.3138C11.4226 24.0495 14.2429 24.0432 15.9863 22.2998L15.0435 21.357C13.8231 22.5774 11.8489 22.5818 10.6339 21.3668C9.41894 20.1518 9.42334 18.1776 10.6437 16.9572L9.70092 16.0144Z"/>
         </svg>
       </button>
-      <input type="text" name="message" class="input__message" placeholder="Сообщение"/>
+      {{{inputMessehger}}}
+      {{!-- <input type="text" name="message" class="input__message" placeholder="Сообщение"/> --}}
       <svg
         width="28"
         height="28"
