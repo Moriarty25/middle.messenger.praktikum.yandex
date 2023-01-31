@@ -42,7 +42,7 @@ export default class Block {
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
   }
-
+ 
  private _getChildrenAndProps(childrenAndProps: any) {
   
     const props: any = {};

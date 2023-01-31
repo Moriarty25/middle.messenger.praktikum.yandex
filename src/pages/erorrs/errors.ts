@@ -1,12 +1,6 @@
-import Block from '../../utils/Block';
-import template from './erorrs.hbs';
-import './erorrs.scss';
-
-// const error = ({ title, message, link }) => {
-//   return template({ title, message, link });
-// };
-
-// export default error;
+import Block from "../../utils/Block";
+import template from "./erorrs.hbs";
+import "./erorrs.scss";
 
 interface ErrorProps {
   title: string;
@@ -16,16 +10,13 @@ interface ErrorProps {
 
 export class ErrorPage extends Block {
   constructor(props: ErrorProps) {
-    super("div", props)
+    super("div", props);
   }
-  
 
   render() {
-    return this.compile (template, {...this.props})
-  }  
- 
+    return this.compile(template, { ...this.props });
+  }
 }
-
 
 const state = {
   404: {
@@ -38,10 +29,7 @@ const state = {
     message: "Уже фиксим",
     link: "Назад к чатам",
   },
-}
+};
 
-
-export const errorPage500 = new ErrorPage(state[500])
-export const errorPage404 = new ErrorPage(state[404])
-
-
+export const errorPage500 = new ErrorPage(state[500]);
+export const errorPage404 = new ErrorPage(state[404]);

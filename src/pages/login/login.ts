@@ -10,17 +10,6 @@ import {
 } from "../../utils/validate";
 import { Input } from "../../components/Input/input";
 
-// const login = (props = {}) => {
-//   return template(props);
-// };
-
-// export default login;
-
-// const signin = (props = {}) => {
-//   return template(props);
-// };
-
-// export default signin;
 const state = {
   formAutorization: {
     login: "",
@@ -56,7 +45,7 @@ const pageBuilder = {
           state.formAutorization.login = onValidate(
             event,
             pageBuilder.login,
-            validateLogin
+            validateLogin,
           );
         },
       },
@@ -76,7 +65,7 @@ const pageBuilder = {
           state.formAutorization.password = onValidate(
             event,
             pageBuilder.password,
-            validatePassword
+            validatePassword,
           );
         },
       },
@@ -95,24 +84,14 @@ const pageBuilder = {
         // document.querySelector('[name=login]').focus()
 
         if (
-          validateLogin(state.formAutorization.login) === "" &&
-          validatePassword(state.formAutorization.password) === ""
+          validateLogin(state.formAutorization.login) === ""
+          && validatePassword(state.formAutorization.password) === ""
         ) {
+          // eslint-disable-next-line no-console
           console.log(state.formAutorization);
-          // } else {
-          //   state.login.setProps({
-          //     message: validateLogin(state.formAutorization.login),
-          //   });
-          //   state.password.setProps({
-          //     message: validatePassword(state.formAutorization.login),
-          //   });
-          //   console.log("Пожалуйста, исправьте ошибки");
-          //   console.log(state.password.setProps({
-          //     message: validatePassword(state.formAutorization.login),
-          //   }));
         } else if (
-          !state.formAutorization.login &&
-          !state.formAutorization.password
+          !state.formAutorization.login
+          && !state.formAutorization.password
         ) {
           pageBuilder.login.setProps({
             message: validateLogin(state.formAutorization.login),
@@ -137,14 +116,4 @@ const pageBuilder = {
   }),
 };
 
-// const form = document.querySelector('form')?.addEventListener('submit', handler(event))
-// function handler(event) {
-//   console.log(event);
-
-// }
-// console.log(form);
-
 export const loginPage = new Login(pageBuilder);
-
-// div ckeck
-//отдельно вызывать ыет пропс после инициализации

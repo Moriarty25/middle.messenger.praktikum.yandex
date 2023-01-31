@@ -3,11 +3,6 @@ import Block from "../../utils/Block";
 import template from "./fieldset.hbs";
 import "./fieldset.scss";
 
-const input = (props = {}) => {
-  return template(props);
-};
-export default input;
-
 interface FieldsetProps {
   input: Input;
   inputType?: string;

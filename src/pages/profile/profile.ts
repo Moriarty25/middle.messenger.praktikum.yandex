@@ -1,18 +1,15 @@
+/* eslint-disable no-console */
 import { Button } from "../../components/Button/button";
 import Block from "../../utils/Block";
 import template from "./profile.hbs";
 import "./profile.scss";
-import defaultUserPhoto from "../../../static/defaultUserPhoto.png"
+import defaultUserPhoto from "../../../static/defaultUserPhoto.png";
 import { Input } from "../../components/Input/input";
-import { onValidate, validateEmail, validateFirstName, validateLogin, validatePassword, validatePhone, validateSecondName } from "../../utils/validate";
+import {
+  onValidate, validateEmail, validateFirstName, validateLogin, validatePassword, validatePhone,
+  validateSecondName,
+} from "../../utils/validate";
 import { Fieldset } from "../../components/Fieldset/fieldset";
-
-
-const profile = (props = {}) => {
-  return template(props);
-};
-
-export default profile;
 
 interface ProfileProps {
   profilePage?: boolean;
@@ -34,18 +31,17 @@ interface ProfileProps {
 
 export class Profile extends Block {
   constructor(props: ProfileProps) {
-    super('div', props)
+    super("div", props);
   }
 
   render() {
-    
-    return this.compile (template, {...this.props})
-  } 
+    return this.compile(template, { ...this.props });
+  }
 }
 
 const state = {
   oldPasswordCheck: "1234567890F",
-  userData:{
+  userData: {
     email: "privet@yandex.com",
     login: "shaneWrite51",
     first_name: "Шейн",
@@ -54,10 +50,9 @@ const state = {
     phone: "8800553535",
     oldPassword: "",
     newPassword: "",
-    newPasswordAgain: ""
+    newPasswordAgain: "",
   },
-}
-
+};
 
 const pageBuilder = {
   profile: {
@@ -96,22 +91,21 @@ const pageBuilder = {
       name: "Сохранить",
       events: {
         click: (event) => {
-          
           event.preventDefault();
           // document.querySelector('[name=login]').focus()
           if (
-            validateLogin(state.userData.login) === "" &&
-            validateEmail(state.userData.email) === "" &&
-            validateFirstName(state.userData.first_name) === "" &&
-            validateSecondName(state.userData.second_name) === "" &&
-            validatePhone(state.userData.phone) === "" 
+            validateLogin(state.userData.login) === ""
+            && validateEmail(state.userData.email) === ""
+            && validateFirstName(state.userData.first_name) === ""
+            && validateSecondName(state.userData.second_name) === ""
+            && validatePhone(state.userData.phone) === ""
           ) {
-            console.log(Object.fromEntries(Object.entries(state.userData).slice(0, 6 )));
+            console.log(Object.fromEntries(Object.entries(state.userData).slice(0, 6)));
           } else {
             console.log("Пожалуйста, исправьте ошибки");
           }
-        }
-      }
+        },
+      },
     }),
     emailInpit: new Fieldset({
       input: new Input({
@@ -124,10 +118,8 @@ const pageBuilder = {
             state.userData.email = onValidate(
               event,
               pageBuilder.changeData.emailInpit,
-              validateEmail
+              validateEmail,
             );
-            
-            
           },
         },
       }),
@@ -146,10 +138,8 @@ const pageBuilder = {
             state.userData.login = onValidate(
               event,
               pageBuilder.changeData.loginInpit,
-              validateLogin
+              validateLogin,
             );
-            
-            
           },
         },
       }),
@@ -168,7 +158,7 @@ const pageBuilder = {
             state.userData.first_name = onValidate(
               event,
               pageBuilder.changeData.firstNameInpit,
-              validateFirstName
+              validateFirstName,
             );
           },
         },
@@ -188,7 +178,7 @@ const pageBuilder = {
             state.userData.second_name = onValidate(
               event,
               pageBuilder.changeData.secondNameInpit,
-              validateSecondName
+              validateSecondName,
             );
           },
         },
@@ -224,7 +214,7 @@ const pageBuilder = {
             state.userData.phone = onValidate(
               event,
               pageBuilder.changeData.phoneInpit,
-              validatePhone
+              validatePhone,
             );
           },
         },
@@ -245,48 +235,45 @@ const pageBuilder = {
       name: "Сохранить",
       events: {
         click: (event) => {
-          
           event.preventDefault();
-          
+
           if (
-            validatePassword(state.userData.newPassword) === "" &&
-            validatePassword(state.userData.newPasswordAgain) === "" &&
-            state.userData.newPassword === state.userData.newPasswordAgain &&
-            state.userData.oldPassword === state.oldPasswordCheck
+            validatePassword(state.userData.newPassword) === ""
+            && validatePassword(state.userData.newPasswordAgain) === ""
+            && state.userData.newPassword === state.userData.newPasswordAgain
+            && state.userData.oldPassword === state.oldPasswordCheck
           ) {
             console.log(Object.fromEntries(Object.entries(state.userData).slice(-3)));
           } else if (
-            state.userData.oldPassword !== state.oldPasswordCheck &&
-            state.userData.oldPassword !== ""
-          ){
+            state.userData.oldPassword !== state.oldPasswordCheck
+            && state.userData.oldPassword !== ""
+          ) {
             pageBuilder.changePassword.oldPasswordInput.setProps({
-              message: "Старый пароль неверный"
-            })
-            console.log("Ведите старый пароль: " + state.oldPasswordCheck);
-            
-          }else if(validatePassword(state.userData.newPassword) === "" &&
-          validatePassword(state.userData.newPasswordAgain) === "" &&
-          state.userData.newPassword !== state.userData.newPasswordAgain){
+              message: "Старый пароль неверный",
+            });
+            console.log(`Ведите старый пароль: ${state.oldPasswordCheck}`);
+          } else if (validatePassword(state.userData.newPassword) === ""
+            && validatePassword(state.userData.newPasswordAgain) === ""
+            && state.userData.newPassword !== state.userData.newPasswordAgain) {
             pageBuilder.changePassword.newPasswordAgainInput.setProps({
-              message: "Пароли не совпадают"
-            })
-          }
-          else {
+              message: "Пароли не совпадают",
+            });
+          } else {
             console.log("Пожалуйста, исправьте ошибки");
-          pageBuilder.changePassword.newPasswordInput.setProps({
-            message:  validatePassword(state.userData.newPassword)
-          })
-          pageBuilder.changePassword.newPasswordAgainInput.setProps({
-            message:  validatePassword(state.userData.newPasswordAgain)
-          })
-          pageBuilder.changePassword.oldPasswordInput.setProps({
-            message:  validatePassword(state.userData.oldPassword)
-          })
+            pageBuilder.changePassword.newPasswordInput.setProps({
+              message: validatePassword(state.userData.newPassword),
+            });
+            pageBuilder.changePassword.newPasswordAgainInput.setProps({
+              message: validatePassword(state.userData.newPasswordAgain),
+            });
+            pageBuilder.changePassword.oldPasswordInput.setProps({
+              message: validatePassword(state.userData.oldPassword),
+            });
           }
-        }
-      }
+        },
+      },
     }),
-     oldPasswordInput: new Fieldset({
+    oldPasswordInput: new Fieldset({
       input: new Input({
         inputName: "oldPassword",
         inputType: "password",
@@ -297,7 +284,7 @@ const pageBuilder = {
             state.userData.oldPassword = onValidate(
               event,
               pageBuilder.changePassword.oldPasswordInput,
-              validatePassword
+              validatePassword,
             );
           },
         },
@@ -306,7 +293,7 @@ const pageBuilder = {
       isChangingPage: true,
       message: "",
     }),
-     newPasswordInput: new Fieldset({
+    newPasswordInput: new Fieldset({
       input: new Input({
         inputName: "newPassword",
         inputType: "password",
@@ -317,7 +304,7 @@ const pageBuilder = {
             state.userData.newPassword = onValidate(
               event,
               pageBuilder.changePassword.newPasswordInput,
-              validatePassword
+              validatePassword,
             );
           },
         },
@@ -326,7 +313,7 @@ const pageBuilder = {
       isChangingPage: true,
       message: "",
     }),
-     newPasswordAgainInput: new Fieldset({
+    newPasswordAgainInput: new Fieldset({
       input: new Input({
         inputName: "newPassword",
         inputType: "password",
@@ -337,7 +324,7 @@ const pageBuilder = {
             state.userData.newPasswordAgain = onValidate(
               event,
               pageBuilder.changePassword.newPasswordAgainInput,
-              validatePassword
+              validatePassword,
             );
           },
         },
@@ -350,10 +337,8 @@ const pageBuilder = {
     defaultUserPhoto,
     changeUserPassword: true,
   },
-}
+};
 
-
-export const profilePage = new Profile(pageBuilder.profile)
-export const changeDataPage = new Profile(pageBuilder.changeData)
-export const changePassword = new Profile(pageBuilder.changePassword)
-
+export const profilePage = new Profile(pageBuilder.profile);
+export const changeDataPage = new Profile(pageBuilder.changeData);
+export const changePassword = new Profile(pageBuilder.changePassword);

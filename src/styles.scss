@@ -13,8 +13,8 @@ $container-size: 768px;
 }
 
 li {
-  list-style-type: none; 
- }
+  list-style-type: none;
+}
 
 a,
 a:link {
@@ -44,10 +44,9 @@ fieldset {
   min-width: 0;
 }
 
-
 .nav {
   background-color: $background;
-  position:absolute;
+  position: absolute;
   left: 30;
   bottom: 30;
   font-size: 13px;
@@ -59,65 +58,63 @@ fieldset {
   align-items: center;
   z-index: 100;
 
-    h1 {
-      margin: 5px;
+  h1 {
+    margin: 5px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 6px;
+  }
+
+  li {
+    padding-top: 3px;
+    text-align: center;
+    color: $primary;
+
+    :hover {
+      color: $exit;
     }
+  }
 
-    ul {
-      margin: 0;
-      padding: 6px;
-    }
-
-    li {
-      padding-top: 3px;
-      text-align: center;
-      color: $primary;
-
-      :hover {
-        color: $exit
-      }
-    }
-
-   &__item {
+  &__item {
     list-style-type: none;
-   }
+  }
 
-   &__btn{
+  &__btn {
     color: $secondary;
     color: $exit;
     outline: none;
     border: none;
     box-shadow: $shadow;
-    background-color:$background-accent;
+    background-color: $background-accent;
     border-radius: 12px;
 
     &:hover {
       background-color: $background-item;
       cursor: pointer;
     }
-    
-   }
+  }
 }
 
 /* ===== Scrollbar CSS ===== */
-  /* Firefox */
+/* Firefox */
 
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
 
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 12px;
+*::-webkit-scrollbar-track {
+  background: $background-accent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $background-item;
+  border-radius: 10px;
+  border: 3px solid $background-accent;
+
+  &:hover {
+    background-color: $border;
   }
-
-  *::-webkit-scrollbar-track {
-    background: $background-accent;
-  }
-
-  *::-webkit-scrollbar-thumb {
-    background-color: $background-item;
-    border-radius: 10px;
-    border: 3px solid $background-accent;
-
-    &:hover {
-      background-color: $border;
-    }
-  }
+}

@@ -10,6 +10,18 @@
   display: none;
   
 }
+
+.foot-tooltip {
+  width: 240px;
+  height: 150px;
+  // background: antiquewhite;  
+  position: absolute;
+  left: -60px;
+  bottom: 35px;
+  display: none;
+
+
+}
 .chat-menu {
 
     &__wrapper {
@@ -28,6 +40,13 @@
       z-index: 1;
       display: grid;
       
+      &--foot {
+        right: 10px;
+        top: 10px;
+        width: 162px;
+        height: 128px;
+      }
+
       p {
         margin: 0;
         padding-left: 15px;
@@ -45,6 +64,10 @@
       align-items: center;
       padding-left: 15px; 
       stroke: $primary;
+
+      &--foot {
+        stroke: none;
+      }
   
       &:hover {
         color: $primary;
@@ -56,6 +79,13 @@
         fill: $exit;
         stroke: $exit;
       }
+
+      &--foot:nth-child(2):hover {
+        color: $primary;
+        fill: $primary;
+        stroke: none;
+      }
+
       &:nth-child(2):hover .item__image--red { 
         border-color: $exit;
       }

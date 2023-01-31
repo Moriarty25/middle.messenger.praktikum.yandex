@@ -59,7 +59,7 @@ const pageBuilder = {
           state.formRegistration.email = onValidate(
             event,
             pageBuilder.email,
-            validateEmail
+            validateEmail,
           );
         },
       },
@@ -78,7 +78,7 @@ const pageBuilder = {
           state.formRegistration.login = onValidate(
             event,
             pageBuilder.login,
-            validateLogin
+            validateLogin,
           );
           // const text = (event.target as HTMLInputElement).value;
           // pageBuilder.login.setProps({
@@ -102,7 +102,7 @@ const pageBuilder = {
           state.formRegistration.first_name = onValidate(
             event,
             pageBuilder.firstName,
-            validateFirstName
+            validateFirstName,
           );
         },
       },
@@ -121,7 +121,7 @@ const pageBuilder = {
           state.formRegistration.second_name = onValidate(
             event,
             pageBuilder.secondName,
-            validateSecondName
+            validateSecondName,
           );
         },
       },
@@ -140,7 +140,7 @@ const pageBuilder = {
           state.formRegistration.phone = onValidate(
             event,
             pageBuilder.phone,
-            validatePhone
+            validatePhone,
           );
         },
       },
@@ -198,21 +198,22 @@ const pageBuilder = {
         event.preventDefault();
         // document.querySelector('[name=login]').focus()
         if (
-          state.formRegistration.password !==
-          state.formRegistration.passwordAgain
+          state.formRegistration.password
+          !== state.formRegistration.passwordAgain
         ) {
           pageBuilder.passwordAgain.setProps({
             message: "Пароли не совпадают",
           });
         } else if (
-          validateLogin(state.formRegistration.login) === "" &&
-          validateEmail(state.formRegistration.email) === "" &&
-          validateFirstName(state.formRegistration.first_name) === "" &&
-          validateSecondName(state.formRegistration.second_name) === "" &&
-          validatePhone(state.formRegistration.phone) === "" &&
-          validatePassword(state.formRegistration.password) === "" &&
-          validatePassword(state.formRegistration.passwordAgain) === ""
+          validateLogin(state.formRegistration.login) === ""
+          && validateEmail(state.formRegistration.email) === ""
+          && validateFirstName(state.formRegistration.first_name) === ""
+          && validateSecondName(state.formRegistration.second_name) === ""
+          && validatePhone(state.formRegistration.phone) === ""
+          && validatePassword(state.formRegistration.password) === ""
+          && validatePassword(state.formRegistration.passwordAgain) === ""
         ) {
+          // eslint-disable-next-line no-console
           console.log(state.formRegistration);
         } else {
           pageBuilder.login.setProps({
@@ -237,25 +238,11 @@ const pageBuilder = {
             message: validatePassword(state.formRegistration.passwordAgain),
           });
         }
-
-        // else if (!state.formRegistration.login) {
-        //   pageBuilder.login.setProps({
-        //     message: validateLogin(state.formRegistration.login),
-        //   });
-        // } else if (!state.formRegistration.password) {
-        //   pageBuilder.password.setProps({
-        //     message: validatePassword(state.formRegistration.password),
-        //   });
-
-        // }
       },
     },
   }),
   default: new Button({
     name: "Войти?",
-    events: {
-      click: () => console.log("clicked"),
-    },
   }),
 };
 

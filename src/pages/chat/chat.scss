@@ -28,6 +28,7 @@
   position: sticky;
   top: 0px;
   background-color: $background-accent;
+  box-shadow: $shadow;
 }
 
 .sidebar {
@@ -117,6 +118,7 @@
   }
 
   &__footer {
+    position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -186,6 +188,7 @@
   outline: none;
   border: none;
   background: $background;
+  z-index: 5;
 
   &:active, &:hover svg {
     fill: $primary;
@@ -204,13 +207,11 @@
   border-radius: 30px;
   height: 32px;
   background-color: $background-item;
-  // text-align: center;
   padding-left: 20px;
   width: 100%;
   margin: 11px 10px;
 
   &::placeholder {
-    // padding-left: 20px;
     color: $secondary;
   }
 }
