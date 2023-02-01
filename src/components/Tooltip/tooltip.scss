@@ -1,0 +1,108 @@
+@import "/src/variables.scss";
+
+.head-tooltip {
+  width: 230px;
+  height: 150px;
+  position: absolute;
+  right: 10px;
+  top: 25px;
+  display: none;
+}
+
+.foot-tooltip {
+  width: 240px;
+  height: 150px;
+  position: absolute;
+  left: -60px;
+  bottom: 35px;
+  display: none;
+}
+
+.item {
+  &__image {
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid $primary;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+
+    &--red:hover {
+      border-color: $exit;
+    }
+  }
+}
+
+.chat-menu {
+  &__wrapper {
+    position: absolute;
+    right: 0;
+    top: 37px;
+    box-shadow: $shadow;
+    border-radius: 12px;
+    background-color: $background;
+    width: 210px;
+    height: 90px;
+    font-size: 12px;
+    line-height: 14px;
+    z-index: 1;
+    display: grid;
+
+    &--foot {
+      right: 10px;
+      top: 10px;
+      width: 162px;
+      height: 128px;
+    }
+
+    p {
+      margin: 0;
+      padding-left: 15px;
+    }
+  }
+
+  &__list {
+    display: grid;
+    grid-row-gap: 10px;
+    padding: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    stroke: $primary;
+
+    &--foot {
+      stroke: none;
+    }
+
+    &:hover {
+      color: $primary;
+      cursor: pointer;
+    }
+
+    &:nth-child(2):hover {
+      color: $exit;
+      fill: $exit;
+      stroke: $exit;
+    }
+
+    &--foot:nth-child(2):hover {
+      color: $primary;
+      fill: $primary;
+      stroke: none;
+    }
+
+    /* stylelint-disable-next-line selector-class-pattern */
+    &:nth-child(2):hover .item__image--red {
+      border-color: $exit;
+    }
+  }
+}
+
+.image {
+  &__cross {
+    transform: rotate(45deg);
+  }
+}

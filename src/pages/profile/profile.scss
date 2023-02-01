@@ -39,10 +39,6 @@
     background-color: $black;
     position: relative;
 
-    &:hover img {
-      opacity: 0.5;
-    }
-
     & img {
       margin: auto;
       background-color: $border;
@@ -54,7 +50,10 @@
       &:hover {
         opacity: 0.5;
       }
+    }
 
+    &:hover img {
+      opacity: 0.5;
     }
 
     & p {
@@ -101,6 +100,10 @@
     align-items: center;
     border-bottom: 1px solid $border;
 
+    &--btn {
+      margin-bottom: 10px;
+    }
+
     & input {
       border: none;
       outline: none;
@@ -114,19 +117,16 @@
     &--gray {
       color: $secondary;
     }
-
-    & :nth-child(n) {
-      margin: 10px 0;
-    }
   }
 
   &__footer {
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    
+
     &--btn {
       align-items: center;
+      margin-top: 50px;
     }
 
     & :last-child {
@@ -135,10 +135,15 @@
   }
 }
 
-.avatar__photo {
+.avatar-photo {
   display: none;
 }
 
-.profile__avatar img:hover ~ p{
+/* stylelint-disable-next-line selector-class-pattern */
+.profile__avatar img:hover ~ p {
   opacity: 1;
+}
+
+.error-message {
+  color: $exit;
 }
