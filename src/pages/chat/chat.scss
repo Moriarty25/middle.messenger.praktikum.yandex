@@ -9,33 +9,17 @@
 .sidebar {
   background-color: $background-accent;
   overflow-y: auto;
-}
-
-.main-layout {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &__title {
-    font-size: 12px;
-    line-height: 12px;
-    color: $secondary;
-  }
-}
-
-.sidebar__wrapper {
-  position: relative;
-  position: sticky;
-  top: 0px;
-  background-color: $background-accent;
-  box-shadow: $shadow;
-}
-
-.sidebar {
   border-right: 1px solid $border;
 
-  &__header {
+  &__wrapper {
+    position: relative;
+    position: sticky;
+    top: 0;
+    background-color: $background-accent;
+    box-shadow: $shadow;
+  }
 
+  &__header {
     border-bottom: 1px solid $border;
     margin: 10px;
     margin-bottom: 0;
@@ -84,82 +68,95 @@
 }
 
 .main-layout {
+  display: flex;
+  align-items: center;
   overflow: hidden;
   margin: 0 20px;
   background-color: $background;
-  display: flex;
   flex-direction: column;
   justify-content: space-between;
 
+  &--placeholder {
+    justify-content: center;
+  }
+
+  &__title {
+    font-size: 12px;
+    line-height: 12px;
+    color: $secondary;
+  }
+
   &__header {
-      height: 54px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between; 
-      border-bottom:  1px solid $border;
-      margin: 10px 20px;
-      width: 100%;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $border;
+    margin: 10px 20px;
+    width: 100%;
   }
 
   &__content {
-      overflow-y: auto;
-      margin: 0 20px;
-      width: 100%;
-      height: 100%;
-      
-      &::-webkit-scrollbar-track {
-        background: $background;
-      }
+    overflow-y: auto;
+    margin: 0 20px;
+    width: 100%;
+    height: 100%;
 
-      &::-webkit-scrollbar-thumb {
-        background-color: $background-item;
-        border: 3px solid $background;
-      }
+    &::-webkit-scrollbar-track {
+      background: $background;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $background-item;
+      border: 3px solid $background;
+    }
   }
 
   &__footer {
     position: relative;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 11px;
-      border-top:  1px solid $border;
-      margin: 10px 20px;
-      margin-bottom: 0;
-      height: 54px;
-      width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 11px;
+    border-top: 1px solid $border;
+    margin: 10px 20px;
+    margin-bottom: 0;
+    height: 54px;
+    width: 100%;
   }
 }
 
-.header__chat-person {
-  display: flex;
-  align-items: center;
-}
-
-.header__chat-menu {
-  padding: 0;
-  margin: 0;
-  outline: none;
-  border: none;
-  background: $menu;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 500;
-
-  &:active, &:hover svg {
-    fill: $primary;
-    color: $primary; 
+.header {
+  &__chat-person {
+    display: flex;
+    align-items: center;
   }
 
-  svg {
-    fill: $text;
+  &__chat-menu {
+    padding: 0;
+    margin: 0;
+    outline: none;
+    border: none;
+    background: $menu;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 500;
+
+    svg {
+      fill: $text;
+    }
+
+    &:active,
+    &:hover svg {
+      fill: $primary;
+      color: $primary;
+    }
   }
 }
 
 .chat-person {
-
   &__name {
     margin-top: 10px;
     margin-bottom: 21px;
@@ -168,18 +165,18 @@
   }
 
   &__avatar {
-      display: flex;
-      align-items: center;
+    display: flex;
+    align-items: center;
 
-      img {
-        margin: 10px;
-        margin-top: 0;
-        font-size: 10px;
-        border-radius: 50%;
-        width: 47px;
-        height: 47px;
-      }
-}
+    img {
+      margin: 10px;
+      margin-top: 0;
+      font-size: 10px;
+      border-radius: 50%;
+      width: 47px;
+      height: 47px;
+    }
+  }
 }
 
 .insert {
@@ -190,31 +187,32 @@
   background: $background;
   z-index: 5;
 
-  &:active, &:hover svg {
-    fill: $primary;
-    color: $primary; 
-  }
-
+  /* stylelint-disable-next-line no-descending-specificity */
   svg {
     fill: $secondary;
     cursor: pointer;
   }
-}
 
-.input__message {
-  border: none;
-  outline: none;
-  border-radius: 30px;
-  height: 32px;
-  background-color: $background-item;
-  padding-left: 20px;
-  width: 100%;
-  margin: 11px 10px;
-
-  &::placeholder {
-    color: $secondary;
+  &:active,
+  &:hover svg {
+    fill: $primary;
+    color: $primary;
   }
 }
 
+.input {
+  &__message {
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    height: 32px;
+    background-color: $background-item;
+    padding-left: 20px;
+    width: 100%;
+    margin: 11px 10px;
 
-
+    &::placeholder {
+      color: $secondary;
+    }
+  }
+}

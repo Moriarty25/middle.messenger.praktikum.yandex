@@ -8,8 +8,10 @@
     "build": "parcel build static/index.html",
     "start": "npm run build && npm run serve",
     "serve": "node server.js",
-    "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix"
+    "lint": "eslint \"**/*.ts\"",
+    "lint:fix": "eslint ./src --fix",
+    "stylelint": "stylelint \"**/*.scss\"",
+    "stylelint:fix": "stylelint \"**/*.scss\" --fix"
   },
   "repository": {
     "type": "git",
@@ -36,16 +38,18 @@
   "devDependencies": {
     "@parcel/transformer-inline-string": "2.8.2",
     "@parcel/transformer-sass": "2.8.2",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.50.0",
-    "eslint": "^8.33.0",
-    "eslint-config-airbnb": "^19.0.4",
+    "@typescript-eslint/eslint-plugin": "5.50.0",
+    "@typescript-eslint/parser": "5.50.0",
+    "eslint": "8.33.0",
     "express": "4.18.2",
     "parcel": "2.8.2",
-    "parcel-transformer-hbs": "1.0.4"
+    "parcel-transformer-hbs": "1.0.4",
+    "stylelint": "^14.16.1",
+    "stylelint-config-standard": "29.0.0"
   },
   "dependencies": {
     "@parcel/config-default": "2.8.2",
+    "eslint-config-airbnb-base": "15.0.0",
     "handlebars": "4.7.7",
     "typescript": "4.9.4",
     "uuid": "^9.0.0"

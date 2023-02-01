@@ -39,10 +39,6 @@
     background-color: $black;
     position: relative;
 
-    &:hover img {
-      opacity: 0.5;
-    }
-
     & img {
       margin: auto;
       background-color: $border;
@@ -54,6 +50,10 @@
       &:hover {
         opacity: 0.5;
       }
+    }
+
+    &:hover img {
+      opacity: 0.5;
     }
 
     & p {
@@ -135,10 +135,11 @@
   }
 }
 
-.avatar__photo {
+.avatar-photo {
   display: none;
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .profile__avatar img:hover ~ p {
   opacity: 1;
 }
