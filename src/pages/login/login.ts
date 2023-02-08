@@ -80,34 +80,8 @@ const pageBuilder = {
     name: "Войти",
     events: {
       click: (event) => {
-        event.preventDefault();
-        // document.querySelector('[name=login]').focus()
-
-        if (
-          validateLogin(state.formAutorization.login) === ""
-          && validatePassword(state.formAutorization.password) === ""
-        ) {
-          // eslint-disable-next-line no-console
-          console.log(state.formAutorization);
-        } else if (
-          !state.formAutorization.login
-          && !state.formAutorization.password
-        ) {
-          pageBuilder.login.setProps({
-            message: validateLogin(state.formAutorization.login),
-          });
-          pageBuilder.password.setProps({
-            message: validatePassword(state.formAutorization.password),
-          });
-        } else if (!state.formAutorization.login) {
-          pageBuilder.login.setProps({
-            message: validateLogin(state.formAutorization.login),
-          });
-        } else if (!state.formAutorization.password) {
-          pageBuilder.password.setProps({
-            message: validatePassword(state.formAutorization.password),
-          });
-        }
+        // eslint-disable-next-line no-use-before-define
+        onSubmitvalidationLogin(event);
       },
     },
   }),
@@ -115,5 +89,36 @@ const pageBuilder = {
     name: "Нет аккаунта?",
   }),
 };
+
+function onSubmitvalidationLogin(event: MouseEvent) {
+  event.preventDefault();
+  // document.querySelector('[name=login]').focus()
+
+  if (
+    validateLogin(state.formAutorization.login) === ""
+    && validatePassword(state.formAutorization.password) === ""
+  ) {
+    // eslint-disable-next-line no-console
+    console.log(state.formAutorization);
+  } else if (
+    !state.formAutorization.login
+    && !state.formAutorization.password
+  ) {
+    pageBuilder.login.setProps({
+      message: validateLogin(state.formAutorization.login),
+    });
+    pageBuilder.password.setProps({
+      message: validatePassword(state.formAutorization.password),
+    });
+  } else if (!state.formAutorization.login) {
+    pageBuilder.login.setProps({
+      message: validateLogin(state.formAutorization.login),
+    });
+  } else if (!state.formAutorization.password) {
+    pageBuilder.password.setProps({
+      message: validatePassword(state.formAutorization.password),
+    });
+  }
+}
 
 export const loginPage = new Login(pageBuilder);

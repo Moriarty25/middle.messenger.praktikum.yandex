@@ -195,49 +195,8 @@ const pageBuilder = {
     name: "Зарегистрироваться",
     events: {
       click: (event) => {
-        event.preventDefault();
-        // document.querySelector('[name=login]').focus()
-        if (
-          state.formRegistration.password
-          !== state.formRegistration.passwordAgain
-        ) {
-          pageBuilder.passwordAgain.setProps({
-            message: "Пароли не совпадают",
-          });
-        } else if (
-          validateLogin(state.formRegistration.login) === ""
-          && validateEmail(state.formRegistration.email) === ""
-          && validateFirstName(state.formRegistration.first_name) === ""
-          && validateSecondName(state.formRegistration.second_name) === ""
-          && validatePhone(state.formRegistration.phone) === ""
-          && validatePassword(state.formRegistration.password) === ""
-          && validatePassword(state.formRegistration.passwordAgain) === ""
-        ) {
-          // eslint-disable-next-line no-console
-          console.log(state.formRegistration);
-        } else {
-          pageBuilder.login.setProps({
-            message: validateLogin(state.formRegistration.login),
-          });
-          pageBuilder.email.setProps({
-            message: validateEmail(state.formRegistration.email),
-          });
-          pageBuilder.firstName.setProps({
-            message: validateFirstName(state.formRegistration.first_name),
-          });
-          pageBuilder.secondName.setProps({
-            message: validateSecondName(state.formRegistration.second_name),
-          });
-          pageBuilder.phone.setProps({
-            message: validatePhone(state.formRegistration.phone),
-          });
-          pageBuilder.password.setProps({
-            message: validatePassword(state.formRegistration.password),
-          });
-          pageBuilder.passwordAgain.setProps({
-            message: validatePassword(state.formRegistration.passwordAgain),
-          });
-        }
+        // eslint-disable-next-line no-use-before-define
+        onSubmitvalidationSignin(event);
       },
     },
   }),
@@ -245,5 +204,51 @@ const pageBuilder = {
     name: "Войти?",
   }),
 };
+
+function onSubmitvalidationSignin(event: MouseEvent) {
+  event.preventDefault();
+  // document.querySelector('[name=login]').focus()
+  if (
+    state.formRegistration.password
+    !== state.formRegistration.passwordAgain
+  ) {
+    pageBuilder.passwordAgain.setProps({
+      message: "Пароли не совпадают",
+    });
+  } else if (
+    validateLogin(state.formRegistration.login) === ""
+    && validateEmail(state.formRegistration.email) === ""
+    && validateFirstName(state.formRegistration.first_name) === ""
+    && validateSecondName(state.formRegistration.second_name) === ""
+    && validatePhone(state.formRegistration.phone) === ""
+    && validatePassword(state.formRegistration.password) === ""
+    && validatePassword(state.formRegistration.passwordAgain) === ""
+  ) {
+    // eslint-disable-next-line no-console
+    console.log(state.formRegistration);
+  } else {
+    pageBuilder.login.setProps({
+      message: validateLogin(state.formRegistration.login),
+    });
+    pageBuilder.email.setProps({
+      message: validateEmail(state.formRegistration.email),
+    });
+    pageBuilder.firstName.setProps({
+      message: validateFirstName(state.formRegistration.first_name),
+    });
+    pageBuilder.secondName.setProps({
+      message: validateSecondName(state.formRegistration.second_name),
+    });
+    pageBuilder.phone.setProps({
+      message: validatePhone(state.formRegistration.phone),
+    });
+    pageBuilder.password.setProps({
+      message: validatePassword(state.formRegistration.password),
+    });
+    pageBuilder.passwordAgain.setProps({
+      message: validatePassword(state.formRegistration.passwordAgain),
+    });
+  }
+}
 
 export const signinPage = new Signin(pageBuilder);

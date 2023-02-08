@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-console */
 import { Button } from "../../components/Button/button";
 import Block from "../../utils/Block";
@@ -55,6 +56,7 @@ const state = {
 };
 
 const pageBuilder = {
+
   profile: {
     profilePage: true,
 
@@ -91,19 +93,7 @@ const pageBuilder = {
       name: "Сохранить",
       events: {
         click: (event) => {
-          event.preventDefault();
-          // document.querySelector('[name=login]').focus()
-          if (
-            validateLogin(state.userData.login) === ""
-            && validateEmail(state.userData.email) === ""
-            && validateFirstName(state.userData.first_name) === ""
-            && validateSecondName(state.userData.second_name) === ""
-            && validatePhone(state.userData.phone) === ""
-          ) {
-            console.log(Object.fromEntries(Object.entries(state.userData).slice(0, 6)));
-          } else {
-            console.log("Пожалуйста, исправьте ошибки");
-          }
+          onSubmitValidationChangeData(event);
         },
       },
     }),
@@ -226,6 +216,7 @@ const pageBuilder = {
     defaultUserPhoto,
     changeUserData: true,
   },
+
   changePassword: {
     buttonBack: new Button({
       isBack: true,
@@ -235,41 +226,7 @@ const pageBuilder = {
       name: "Сохранить",
       events: {
         click: (event) => {
-          event.preventDefault();
-
-          if (
-            validatePassword(state.userData.newPassword) === ""
-            && validatePassword(state.userData.newPasswordAgain) === ""
-            && state.userData.newPassword === state.userData.newPasswordAgain
-            && state.userData.oldPassword === state.oldPasswordCheck
-          ) {
-            console.log(Object.fromEntries(Object.entries(state.userData).slice(-3)));
-          } else if (
-            state.userData.oldPassword !== state.oldPasswordCheck
-            && state.userData.oldPassword !== ""
-          ) {
-            pageBuilder.changePassword.oldPasswordInput.setProps({
-              message: "Старый пароль неверный",
-            });
-            console.log(`Ведите старый пароль: ${state.oldPasswordCheck}`);
-          } else if (validatePassword(state.userData.newPassword) === ""
-            && validatePassword(state.userData.newPasswordAgain) === ""
-            && state.userData.newPassword !== state.userData.newPasswordAgain) {
-            pageBuilder.changePassword.newPasswordAgainInput.setProps({
-              message: "Пароли не совпадают",
-            });
-          } else {
-            console.log("Пожалуйста, исправьте ошибки");
-            pageBuilder.changePassword.newPasswordInput.setProps({
-              message: validatePassword(state.userData.newPassword),
-            });
-            pageBuilder.changePassword.newPasswordAgainInput.setProps({
-              message: validatePassword(state.userData.newPasswordAgain),
-            });
-            pageBuilder.changePassword.oldPasswordInput.setProps({
-              message: validatePassword(state.userData.oldPassword),
-            });
-          }
+          onSubmitValidationChangePassword(event);
         },
       },
     }),
@@ -338,6 +295,60 @@ const pageBuilder = {
     changeUserPassword: true,
   },
 };
+
+function onSubmitValidationChangeData(event: MouseEvent) {
+  event.preventDefault();
+  // document.querySelector('[name=login]').focus()
+  if (
+    validateLogin(state.userData.login) === ""
+    && validateEmail(state.userData.email) === ""
+    && validateFirstName(state.userData.first_name) === ""
+    && validateSecondName(state.userData.second_name) === ""
+    && validatePhone(state.userData.phone) === ""
+  ) {
+    console.log(Object.fromEntries(Object.entries(state.userData).slice(0, 6)));
+  } else {
+    console.log("Пожалуйста, исправьте ошибки");
+  }
+}
+
+function onSubmitValidationChangePassword(event: MouseEvent) {
+  event.preventDefault();
+
+  if (
+    validatePassword(state.userData.newPassword) === ""
+    && validatePassword(state.userData.newPasswordAgain) === ""
+    && state.userData.newPassword === state.userData.newPasswordAgain
+    && state.userData.oldPassword === state.oldPasswordCheck
+  ) {
+    console.log(Object.fromEntries(Object.entries(state.userData).slice(-3)));
+  } else if (
+    state.userData.oldPassword !== state.oldPasswordCheck
+    && state.userData.oldPassword !== ""
+  ) {
+    pageBuilder.changePassword.oldPasswordInput.setProps({
+      message: "Старый пароль неверный",
+    });
+    console.log(`Ведите старый пароль: ${state.oldPasswordCheck}`);
+  } else if (validatePassword(state.userData.newPassword) === ""
+    && validatePassword(state.userData.newPasswordAgain) === ""
+    && state.userData.newPassword !== state.userData.newPasswordAgain) {
+    pageBuilder.changePassword.newPasswordAgainInput.setProps({
+      message: "Пароли не совпадают",
+    });
+  } else {
+    console.log("Пожалуйста, исправьте ошибки");
+    pageBuilder.changePassword.newPasswordInput.setProps({
+      message: validatePassword(state.userData.newPassword),
+    });
+    pageBuilder.changePassword.newPasswordAgainInput.setProps({
+      message: validatePassword(state.userData.newPasswordAgain),
+    });
+    pageBuilder.changePassword.oldPasswordInput.setProps({
+      message: validatePassword(state.userData.oldPassword),
+    });
+  }
+}
 
 export const profilePage = new Profile(pageBuilder.profile);
 export const changeDataPage = new Profile(pageBuilder.changeData);

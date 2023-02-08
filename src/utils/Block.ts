@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import EventBus from "./EventBus";
 
-export default class Block {
+export default abstract class Block<Props extends Record<string, any> = any> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -15,7 +15,7 @@ export default class Block {
 
   private _meta: Record<any, string> | null = null;
 
-  protected props: Record<any, any>;
+  protected props: Props;
 
   protected children: Record<string, any>;
 
@@ -176,7 +176,7 @@ export default class Block {
   }
 
   protected _removeEvents() {
-    const { events = {} } = this.props as { events: Record<string, ()=> void> };
+    const { events = {} } = this.props as { events?: Record<string, ()=> void> };
 
     if (!events) {
       return;
@@ -188,7 +188,7 @@ export default class Block {
   }
 
   protected _addEvents() {
-    const { events = {} } = this.props as { events: Record<string, ()=> void> };
+    const { events = {} } = this.props as { events?: Record<string, ()=> void> };
 
     if (!events) {
       return;
