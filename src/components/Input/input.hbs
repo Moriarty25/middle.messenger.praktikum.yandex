@@ -1,13 +1,9 @@
-<fieldset class="field">
   <input
     class="field__input {{#if invalid }}{{#if passwordInvalid}}field__input--invalid{{/if}}{{/if}} "
     type="{{{inputType}}}"
     name="{{{inputName}}}"
     placeholder="{{{inputPlaceholder}}}" 
     maxlength="50"
+    value="{{{value}}}"
     required
   />
-   {{#if invalid}}<div class="field__error">{{{message}}}</div>{{/if}} 
-  <label for="" class="field__label">{{{labelName}}}</label>    
-
-</fieldset>

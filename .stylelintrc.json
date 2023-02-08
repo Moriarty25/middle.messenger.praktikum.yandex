@@ -1,0 +1,13 @@
+{
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "color-hex-case": "lower",
+      "import-notation": null
+    },
+    "ignoreFiles": [
+      "dist/*",
+      "node_modules/*",
+      ".parcel-cache/*",
+      "src/varibales.scss"
+    ]
+  } 

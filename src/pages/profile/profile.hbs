@@ -1,104 +1,113 @@
 <div class="profile">
   <div class="profile__back">
-    {{{button.back}}}
+    {{{buttonBack}}}
   </div>
   <main class="profile__wrapper">
     <div class="profile__avatar">
-        {{#if defaultUserPhoto}}
+      {{#if defaultUserPhoto}}
         <img src="{{{defaultUserPhoto}}}" alt="userPhoto" />
-        <input class="avatar__photo" type="file" accept="image/*" name="avatar">
-        {{/if}}
-        <p>Поменять аватар</p>
+        <input
+          class="avatar-photo"
+          type="file"
+          accept="image/*"
+          name="avatar"
+        />
+      {{/if}}
+      <p>Поменять аватар</p>
     </div>
-    <div class="profile__user-name">{{{userData.firstName}}}</div>
-    {{#if changePassword}}
-    <form class="profile__content">
+    <div class="profile__user-name">{{{first_name}}}</div>
+    {{#if changeUserPassword}}
+      <form class="profile__content">
         <div class="profile__item">
-            <p>Старый пароль</p>
-            <input  class="profile__item--gray" placeholder="Введите стырый пароль" name="oldPassword" type="password"/>
-        </div>
-        <div class="profile__item">
-            <p>Новый пароль</p>
-            <input  class="profile__item--gray" placeholder="Ваш новый пароль" name="newPassword" type="password"/>
+          <p>Старый пароль</p>
+          {{{oldPasswordInput}}}
         </div>
         <div class="profile__item">
-            <p>Повторите новый пароль</p>
-            <input  class="profile__item--gray" placeholder="Ваш новый пароль" name="newPassword" type="password"/>
+          <p>Новый пароль</p>
+          {{{newPasswordInput}}}
         </div>
-        <div class="profile__footer  profile__footer--btn">
-            {{{button.primary}}} 
+        <div class="profile__item">
+          <p>Повторите новый пароль</p>
+          {{{newPasswordAgainInput}}}
         </div>
-    </form>
-    {{/if}}    
+        <div class="profile__footer profile__footer--btn">
+          {{{primary}}}
+        </div>
+      </form>
+    {{/if}}
+
     {{#if changeUserData}}
-    <form class="profile__content">
+      <form class="profile__content">
         <div class="profile__item">
-            <p>Почта</p>
-            <input  class="profile__item--gray" placeholder="Новая почта" name="email" type="email" />
-        </div>
-        <div class="profile__item">
-            <p>Логин</p>
-            <input  class="profile__item--gray" placeholder="Новый логин" name="login" type="text"/>
+          <p>Почта</p>
+          {{{emailInpit}}}
+          {{!-- <p class="error-message">{{{error}}}</p> --}}
         </div>
         <div class="profile__item">
-            <p>Имя</p>
-            <input  class="profile__item--gray" placeholder="Введите имя" name="first_name" type="text"/>
+          <p>Логин</p>
+          {{{loginInpit}}}
         </div>
         <div class="profile__item">
-            <p>Фамилия</p>
-            <input  class="profile__item--gray" placeholder="Введите фамилию" name="second_name" type="text"/>
+          <p>Имя</p>
+          {{{firstNameInpit}}}
         </div>
         <div class="profile__item">
-            <p>Имя в чате</p>
-            <input  class="profile__item--gray" placeholder="Желаемое имя в чате" name="display_name" type="text"/>
+          <p>Фамилия</p>
+          {{{secondNameInpit}}}
         </div>
         <div class="profile__item">
-            <p>Телефон</p>
-            <input  class="profile__item--gray" placeholder="Телефон" name="phone" type="tel"/>
-        </div>
-        <div class="profile__footer  profile__footer--btn">
-            {{{button.primary}}} 
-        </div>
-    </form>
-    {{/if}}  
-    {{#if profile}}
-    <div class="profile__content">
-        <div class="profile__item">
-            <p>Почта</p>
-            <p  class="profile__item--gray">{{{userData.email}}}</p>
+          <p>Имя в чате</p>
+          {{{displayNameInpit}}}
         </div>
         <div class="profile__item">
-            <p>Логин</p>
-            <p class="profile__item--gray">{{{userData.login}}}</p>
+          <p>Телефон</p>
+          {{{phoneInpit}}}
+        </div>
+        <div class="profile__footer profile__footer--btn">
+          {{{primary}}}
+        </div>
+      </form>
+    {{/if}}
+    {{#if profilePage}}
+      <div class="profile__content">
+        <div class="profile__item">
+          <p>Почта</p>
+          <p class="profile__item--gray">{{{email}}}</p>
         </div>
         <div class="profile__item">
-            <p>Имя</p>
-            <p class="profile__item--gray">{{{userData.firstName}}}</p>
+          <p>Логин</p>
+          <p class="profile__item--gray">{{{login}}}</p>
         </div>
         <div class="profile__item">
-            <p>Фамилия</p>
-            <p class="profile__item--gray">{{{userData.secondName}}}</p>
+          <p>Имя</p>
+          <p class="profile__item--gray">{{{first_name}}}</p>
         </div>
         <div class="profile__item">
-            <p>Имя в чате</p>
-            <p class="profile__item--gray">{{{userData.nameInChat}}}</p>
+          <p>Фамилия</p>
+          <p class="profile__item--gray">{{{second_name}}}</p>
         </div>
         <div class="profile__item">
-            <p>Телефон</p>
-            <p class="profile__item--gray">{{{userData.phone}}}</p>
+          <p>Имя в чате</p>
+          <p class="profile__item--gray">{{{display_name}}}</p>
         </div>
-    </div>
-    <div class="profile__footer ">
-      <a href="changeData">
-          <div class="profile__item profile__item--btn">{{{button.changeData}}}</div>
-      </a>
-      <a href="changePassword">
-          <div class="profile__item profile__item--btn">{{{button.changePassword}}}</div>
-      </a>
-      <a href="login">
-          <div class="profile__item profile__item--btn">{{{button.exit}}}</div>
-      </a>
-    </div>
+        <div class="profile__item">
+          <p>Телефон</p>
+          <p class="profile__item--gray">{{{phone}}}</p>
+        </div>
+      </div>
+      <div class="profile__footer">
+        <a href="changeData">
+          <div class="profile__item profile__item--btn">{{{changeData}}}</div>
+        </a>
+        <a href="changePassword">
+          <div
+            class="profile__item profile__item--btn"
+          >{{{changePassword}}}</div>
+        </a>
+        <a href="login">
+          <div class="profile__item profile__item--btn">{{{exit}}}</div>
+        </a>
+      </div>
     {{/if}}
   </main>
 </div>

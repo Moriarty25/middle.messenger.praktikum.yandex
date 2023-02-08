@@ -1,6 +1,6 @@
 @import "/src/variables.scss";
 
-.button__default {
+.button-default {
   outline: none;
   border: none;
   background-color: $background;
@@ -15,14 +15,21 @@
 
   &--back {
     background-color: $background-accent;
-    
+
     svg {
       background-color: $background-accent;
     }
   }
 }
 
-.button__primary {
+.send {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: $background;
+}
+
+.button-primary {
   width: 280px;
   height: 37px;
   border-radius: 8px;
