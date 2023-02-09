@@ -1,10 +1,6 @@
 import Block from "../utils/Block";
 import { render } from "../utils/render";
 
-function isEqual(lhs: any, rhs: any): boolean {
-  return lhs === rhs;
-}
-
 export default class Route {
   public _pathname: string;
 
@@ -42,7 +38,7 @@ export default class Route {
   }
 
   match(pathname: string): boolean {
-    return isEqual(pathname, this._pathname);
+    return pathname === this._pathname;
   }
 
   render(): void {
