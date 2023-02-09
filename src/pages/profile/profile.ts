@@ -11,6 +11,7 @@ import {
   validateSecondName,
 } from "../../utils/validate";
 import { Fieldset } from "../../components/Fieldset/fieldset";
+import { router } from "../../router/router";
 
 interface ProfileProps {
   profilePage?: boolean;
@@ -62,16 +63,44 @@ const pageBuilder = {
 
     changeData: new Button({
       name: "Изменить данные",
+      link: "/changeData",
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          router.go("/changeData");
+        },
+      },
     }),
     changePassword: new Button({
       name: "Изменить пароль",
+      link: "/changePassword",
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          router.go("/changePassword");
+        },
+      },
     }),
     exit: new Button({
       isExit: true,
       name: "Выйти",
+      link: "/login",
+      events: {
+        click: (event) => {
+          event?.preventDefault();
+          router.go("/login");
+        },
+      },
     }),
     buttonBack: new Button({
       isBack: true,
+      link: "/",
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          router.go("/");
+        },
+      },
     }),
 
     email: "privet@yandex.com",
@@ -87,6 +116,13 @@ const pageBuilder = {
   changeData: {
     buttonBack: new Button({
       isBack: true,
+      link: "profile",
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          router.go("/profile");
+        },
+      },
     }),
     primary: new Button({
       isPrimary: true,
@@ -220,6 +256,13 @@ const pageBuilder = {
   changePassword: {
     buttonBack: new Button({
       isBack: true,
+      link: "profile",
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          router.go("/profile");
+        },
+      },
     }),
     primary: new Button({
       isPrimary: true,

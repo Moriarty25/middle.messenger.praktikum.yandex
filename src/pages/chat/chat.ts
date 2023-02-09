@@ -7,6 +7,7 @@ import Block from "../../utils/Block";
 import template from "./chat.hbs";
 import "./chat.scss";
 import { Button } from "../../components/Button/button";
+import { router } from "../../router/router";
 
 interface ChatProps {
   defaultUserPhoto: string;
@@ -29,6 +30,15 @@ const pageBuilder = {
   defaultUserPhoto,
   me: new Message({
     isOwner: true,
+  }),
+  buttonProfile: new Button({
+    isProfile: true,
+    events: {
+      click: (event) => {
+        event.preventDefault();
+        router.go("/profile");
+      },
+    },
   }),
   buttonSend: new Button({
     isSend: true,

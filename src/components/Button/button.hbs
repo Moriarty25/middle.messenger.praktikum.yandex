@@ -1,5 +1,5 @@
 {{#if isBack}}
-    <a href="/" class="button-default button-default--back">
+    <a href="{{link}}" class="button-default button-default--back">
         <svg width="28" height="28"  fill="none">
         <circle cx="14" cy="14" r="14" transform="rotate(-180 14 14)" fill="#3369F3"/>
         <rect x="20" y="14.8" width="11" height="1.6" transform="rotate(-180 20 14.8)" fill="white"/>
@@ -31,24 +31,42 @@
                     </svg>
                 </button>
                 {{else}}
-                
-                    {{#if isSend}}
-                    <button type="button" class="send">
-                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                            <circle cx="14" cy="14" r="14" fill="#3369F3"></circle>
-                            <rect x="8" y="13.2" width="11" height="1.6" fill="white"></rect>
-                            <path d="M15 9L19 14L15 19" stroke="white" stroke-width="1.6"></path>
-                        </svg>
-                    </button>
-                    {{else}}
 
-                    <button class="button-default {{#if isPrimary}} button-primary {{/if}} 
+                    {{#if isProfile}}
+                        <a href="/profile">                           
+                            <p>Профиль</p>
+                            <svg width="6" height="10" viewBox="0 0 6 10" fill="none">
+                            <path d="M1 9L5 5L1 1" stroke="#999999"></path>
+                            </svg>
+                        </a>
+                        {{else}}
+
+                            {{#if isSend}}
+                            <button type="button" class="send">
+                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                                    <circle cx="14" cy="14" r="14" fill="#3369F3"></circle>
+                                    <rect x="8" y="13.2" width="11" height="1.6" fill="white"></rect>
+                                    <path d="M15 9L19 14L15 19" stroke="white" stroke-width="1.6"></path>
+                                </svg>
+                            </button>
+                            {{else}}
+
+                                {{#if isPrimary}}
+                                    <button class="button-default button-primary" 
+                                        {{#if isPrimary}} type="submit"{{/if}}>
+                                        {{{name}}}
+                                    </button>
+                                {{else}}
+
+                    <a href="{{{link}}}" class="button-default {{#if isPrimary}} button-primary {{/if}} 
                         {{#if isExit}} button-default--red{{/if}}" 
                         {{#if isPrimary}} type="submit" 
                         {{else}} type="button"
                         {{/if}}>
                         {{{name}}}
-                    </button>
+                    </a>
+                    {{/if}}
+                {{/if}}
             {{/if}}
         {{/if}}
     {{/if}}

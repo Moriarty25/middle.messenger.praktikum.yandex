@@ -13,6 +13,7 @@ import {
 } from "../../utils/validate";
 import template from "./signin.hbs";
 import "./signin.scss";
+import { router } from "../../router/router";
 
 interface SigninProps {
   email: Fieldset;
@@ -202,6 +203,12 @@ const pageBuilder = {
   }),
   default: new Button({
     name: "Войти?",
+    events: {
+      click: (event) => {
+        event.preventDefault();
+        router.go("/login");
+      },
+    },
   }),
 };
 

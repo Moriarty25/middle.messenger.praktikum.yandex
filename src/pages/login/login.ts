@@ -9,6 +9,7 @@ import {
   validatePassword,
 } from "../../utils/validate";
 import { Input } from "../../components/Input/input";
+import { router } from "../../router/router";
 
 const state = {
   formAutorization: {
@@ -87,6 +88,13 @@ const pageBuilder = {
   }),
   default: new Button({
     name: "Нет аккаунта?",
+    link: "signin",
+    events: {
+      click: (event) => {
+        event.preventDefault();
+        router.go("/signin");
+      },
+    },
   }),
 };
 

@@ -4,8 +4,10 @@ import "./button.scss";
 
 interface ButtonProps {
   name?: string;
+  link?: string;
   isBack?: boolean;
   isMenu?: boolean;
+  isProfile?: boolean;
   isAttachment?: boolean;
   isSend?: boolean;
   isPrimary?: boolean;

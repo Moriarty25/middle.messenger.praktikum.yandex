@@ -36,6 +36,10 @@
 
     a {
       display: flex;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      background-color: $background-accent;
     }
 
     p {
