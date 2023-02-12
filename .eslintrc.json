@@ -19,6 +19,8 @@
     "no-param-reassign": "off",
     "no-use-before-define": "off",
     "no-constructor-return": "off",
+    "no-restricted-syntax": "off",
+    "no-continue": "off",
     "linebreak-style": ["error", "windows"]
   }  
 }

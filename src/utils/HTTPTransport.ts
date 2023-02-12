@@ -28,6 +28,12 @@ function queryStringify(data: Data) {
 }
 
 export class HTTPTransport {
+  private readonly baseURl: string;
+
+  constructor(baseURL: string) {
+    this.baseURl = baseURL;
+  }
+
   get: Method = (url, options = {}) => this.request(
     url,
     { ...options, method: METHODS.GET },
@@ -64,7 +70,7 @@ export class HTTPTransport {
       const xhr = new XMLHttpRequest();
       const isGet = method === METHODS.GET;
 
-      xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
+      xhr.open(method, isGet && !!data ? `${this.baseURl}${url}${queryStringify(data)}` : `${this.baseURl}${url}`);
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
