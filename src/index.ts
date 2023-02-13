@@ -1,5 +1,5 @@
 import "./styles.scss";
-import  {errorPage404, errorPage500 } from "./pages/erorrs/errors";
+import  {ErrorPage, errorPage404, errorPage500 } from "./pages/erorrs/errors";
 import { loginPage } from "./pages/login/login";
 import { signinPage } from "./pages/signin/signnin";
 import { changeDataPage, changePassword, profilePage } from "./pages/profile/profile";
@@ -12,19 +12,19 @@ document.querySelector(".nav__btn")?.addEventListener("click", () => {
   document.querySelector<HTMLElement>(".nav")!.style.display = "none";
 });
 
-window.AppStore = store
+window.AppStore = store;
 
 // const route = document.location.pathname;
 
 router
-  .use("/404", "error 404 - заголовок", errorPage404)
-  .use("/500", "error 500 - заголовок", errorPage500)
-  .use("/login", "log in - заголовок", loginPage)
-  .use("/signin", "sign in - заголовок", signinPage)
-  .use("/profile", "profile - заголовок", profilePage)
-  .use("/changeData", "change data - заголовок", changeDataPage)
-  .use("/changePassword", "change password - заголовок", changePassword)
-  .use("/", "messenger - заголовок", chatPage)
+  .use("/404", "error 404 - заголовок", ErrorPage)
+  .use("/500", "error 500 - заголовок", ErrorPage)
+  // .use("/login", "log in - заголовок", loginPage)
+  // .use("/signin", "sign in - заголовок", signinPage)
+  // .use("/profile", "profile - заголовок", profilePage)
+  // .use("/changeData", "change data - заголовок", changeDataPage)
+  // .use("/changePassword", "change password - заголовок", changePassword)
+  // .use("/", "messenger - заголовок", chatPage)
   .start();
 // console.log(router);
 // setTimeout(() => {

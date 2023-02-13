@@ -16,8 +16,77 @@ interface ErrorProps {
 export class ErrorPage extends Block {
   constructor(props: ErrorProps) {
     super("div", props);
+
+    // this.props[404] = {
+    //   title: "404",
+    //   message: "Вы не туда попали",
+    //   link: new Button({
+    //     name: "Назад к чатам",
+    //     link: "/",
+    //     events: {
+    //       click: (event) => {
+    //         event.preventDefault();
+    //         router.go("/");
+    //       },
+    //     },
+    //   }),
+    // };
+
+    this.props[500] = {
+      title: "500",
+      message: "Уже фиксим",
+      link: new Button({
+        name: "Назад к чатам",
+        link: "/",
+        events: {
+          click: (event) => {
+            event.preventDefault();
+            // router.go("/");
+        
+                   // подписываемся на событие
+      store.on(StoreEvents.Updated, () => {
+        // вызываем обновление компонента, передав данные из хранилища
+        // state[500].setProps(store.getState());
+          });
+          addText("text");
+          },
+        },
+      }),
+    };
   }
 
+  init() {
+    console.log(router.getRoute("/404")?._pathname);
+    if (window.location.pathname === "/404")
+    {
+      this.props.title = "404";
+    this.props.message = "Вы не туда попали";
+    } else if (window.location.pathname === "/500") {
+    this.props.title = "500";
+    this.props.message = "Уже фиксим";
+    }
+    //   title: "404",
+    //   message: "Вы не туда попали",
+    // };
+    // this.props[500] = {
+    //   title: "500",
+    //   message: "Уже фиксим",
+    // };
+
+    this.children.link = new Button({
+      name: "Назад к чатам",
+      link: "/",
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          router.go("/500");
+        },
+      },
+    });
+  console.log(this.props.link);
+  
+  }
+  
   render() {
     return this.compile(template, { ...this.props });
   }
