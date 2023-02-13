@@ -1,3 +1,4 @@
+import { StoreEvents } from './../../store/store';
 import { Tooltip } from "../../components/Tooltip/tooltip";
 import defaultUserPhoto from "../../../static/defaultUserPhoto.png";
 import { Contact } from "../../components/Contact/contact";
@@ -8,6 +9,8 @@ import template from "./chat.hbs";
 import "./chat.scss";
 import { Button } from "../../components/Button/button";
 import { router } from "../../router/router";
+import Actions from "../../store/actions";
+import store from "../../store/store";
 
 interface ChatProps {
   defaultUserPhoto: string;
@@ -18,6 +21,23 @@ interface ChatProps {
 export class Chat extends Block {
   constructor(props: ChatProps) {
     super("div", props);
+    // подписываемся на событие
+    store.on(StoreEvents.Updated, () => {
+      // вызываем обновление компонента, передав данные из хранилища
+      // state[500].setProps(store.getState());
+      console.log(pageBuilder.date.setProps({content: store.getState().user}));
+      
+    });
+  }
+
+  componentDidMount(): void {
+    console.log(this.children);
+    Actions.getUserController();
+    let user = null;
+    user =  store.getState()
+    console.log( user);
+    name().then(Actions.getUserController()).then(console.log(store.getState()));
+
   }
 
   render() {
@@ -128,5 +148,10 @@ for (let i = 0; i < 10; i++) {
   new Date({ content: "22 декабря" }),
   new Message({ isOwner: true }),
 ];
+async function name() {
+  return await Actions.getUserController();
+}
+
+
 
 export const chatPage = new Chat(pageBuilder);

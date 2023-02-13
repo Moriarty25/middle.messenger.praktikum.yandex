@@ -59,7 +59,7 @@ export class HTTPTransport {
   );
 
   request = (url: Url, options: Options = {}, timeout = 5000) => {
-    const { headers = {}, method, data } = options;
+    const { headers = { "Content-Type": "application/json" }, method, data } = options;
 
     return new Promise((resolve, reject) => {
       if (!method) {
@@ -71,6 +71,7 @@ export class HTTPTransport {
       const isGet = method === METHODS.GET;
 
       xhr.open(method, isGet && !!data ? `${this.baseURl}${url}${queryStringify(data)}` : `${this.baseURl}${url}`);
+      xhr.withCredentials = true;
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
@@ -89,7 +90,7 @@ export class HTTPTransport {
       if (isGet || !data) {
         xhr.send();
       } else {
-        xhr.send(data);
+        xhr.send(JSON.stringify(data));
       }
     });
   };

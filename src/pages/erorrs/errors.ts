@@ -1,5 +1,8 @@
 import { Button } from "../../components/Button/button";
 import { router } from "../../router/router";
+import { addText } from "../../store/actions";
+import connect from "../../store/connect";
+import store, { StoreEvents } from "../../store/store";
 import Block from "../../utils/Block";
 import template from "./erorrs.hbs";
 import "./erorrs.scss";
@@ -44,7 +47,14 @@ const state = {
       events: {
         click: (event) => {
           event.preventDefault();
-          router.go("/");
+          // router.go("/");
+      
+                 // подписываемся на событие
+    store.on(StoreEvents.Updated, () => {
+      // вызываем обновление компонента, передав данные из хранилища
+      // state[500].setProps(store.getState());
+        });
+        addText("text");
         },
       },
     }),
@@ -53,3 +63,4 @@ const state = {
 
 export const errorPage500 = new ErrorPage(state[500]);
 export const errorPage404 = new ErrorPage(state[404]);
+// export default connect(mapUserToProps)(errorPage404);

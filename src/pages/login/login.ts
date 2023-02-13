@@ -10,6 +10,7 @@ import {
 } from "../../utils/validate";
 import { Input } from "../../components/Input/input";
 import { router } from "../../router/router";
+import Actions from "../../store/actions";
 
 const state = {
   formAutorization: {
@@ -108,6 +109,7 @@ function onSubmitvalidationLogin(event: MouseEvent) {
   ) {
     // eslint-disable-next-line no-console
     console.log(state.formAutorization);
+    Actions.loginController(state.formAutorization);
   } else if (
     !state.formAutorization.login
     && !state.formAutorization.password

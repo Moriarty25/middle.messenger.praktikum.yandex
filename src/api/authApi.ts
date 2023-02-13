@@ -15,7 +15,7 @@ export interface LoginFormData {
   password: string;
 }
 
-const authAPIInstance = new HTTPTransport("api/v1/auth");
+const authAPIInstance = new HTTPTransport("https://ya-praktikum.tech/api/v2");
 
 class AuthAPI extends BaseAPI {
   signUp(data: RegisterFormData) {

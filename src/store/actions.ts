@@ -1,18 +1,51 @@
+
+// import { chatPage } from './../pages/chat/chat';
 import { authAPI } from "../api/authApi";
+import { chatPage } from "../pages/chat/chat";
+import { profilePage } from "../pages/profile/profile";
+import { router } from "../router/router";
 import store from "./store";
 
-export function signupContoller(data: any) {
+function signupContoller(data: any) {
   authAPI.signUp(data)?.then((response: any) => {
     if (response.status === 200) {
-      authAPI.getUserInfo()?.then((response: any) => {
-        if (response.status === 200) {
-          authAPI.getUserInfo()?.then((response: any) => {
-            store.set("user", JSON.parse(response.response));
-          });
-        }
-        console.log(store);
-      });
-    } else console.log("errorrrrr");
+      if (response.status === 200) {
+        authAPI.getUserInfo()?.then((response: any) => {
+          store.set("user", JSON.parse(response.response));
+          console.log(JSON.parse(response.response));
+        });
+      } else console.log("errorrrrr");
+      console.log(store);
+    }
+  });
+}
+
+function getUserController() {
+  authAPI.getUserInfo()?.then((response: any) => {
+    store.set("user", JSON.parse(response.response));
+    console.log(JSON.parse(response.response));
+  }).then(() => { 
+    console.log(store.getState(), 'dwqdqw') 
+    profilePage.setProps({proplogin: 'lalall'})});
+    console.log(profilePage);
+    
+
+}
+
+function loginController(data: any) {
+  authAPI.signIn(data)?.then((response: any) => {
+    if (response.status === 200) {
+      if (response.status === 200) {
+        authAPI.getUserInfo()?.then((response: any) => {
+          store.set("user", JSON.parse(response.response));
+          console.log(JSON.parse(response.response));
+        });
+      } else console.log("errorrrrr");
+      console.log(store);
+    } else {
+      getUserController();
+      router.go("/");
+    }
   });
 }
 
@@ -34,3 +67,37 @@ export const addUserData = (add: any) => {
 
   store.set("user", user);
 };
+
+const getFormState = () => {
+
+	const 	state= store.getState(),
+			form = state.form ?? {};
+
+	return Object.assign(
+		{ 
+			text : '',
+			_lines: [],
+			_times: []
+		},
+		form
+	);
+}
+
+const explodeText = text => {
+	return text.split("\n").map(i => i.trim());
+}
+
+export const addText = add => {
+
+	const 	form  = getFormState(),
+			_lines= explodeText(add),
+			_times= (Array(_lines.length)).fill((new Date()).toString());
+
+	form._lines = form._lines.concat(_lines);
+	form._times = form._times.concat(_times);
+	form.text = form._lines.join("\n");
+
+	store.set('form', form);
+}
+
+export default { signupContoller, getUserController, loginController };

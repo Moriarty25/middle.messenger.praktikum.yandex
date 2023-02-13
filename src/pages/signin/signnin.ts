@@ -14,6 +14,9 @@ import {
 import template from "./signin.hbs";
 import "./signin.scss";
 import { router } from "../../router/router";
+import Actions from "../../store/actions";
+
+// import { signupContoller } from "../../store/actions";
 
 interface SigninProps {
   email: Fieldset;
@@ -214,6 +217,7 @@ const pageBuilder = {
 
 function onSubmitvalidationSignin(event: MouseEvent) {
   event.preventDefault();
+  event.stopPropagation();
   // document.querySelector('[name=login]').focus()
   if (
     state.formRegistration.password
@@ -232,7 +236,8 @@ function onSubmitvalidationSignin(event: MouseEvent) {
     && validatePassword(state.formRegistration.passwordAgain) === ""
   ) {
     // eslint-disable-next-line no-console
-    console.log(state.formRegistration);
+    console.log(Object.fromEntries(Object.entries(state.formRegistration).slice(0, 6)));
+    Actions.signupContoller(Object.fromEntries(Object.entries(state.formRegistration).slice(0, 6)));
   } else {
     pageBuilder.login.setProps({
       message: validateLogin(state.formRegistration.login),

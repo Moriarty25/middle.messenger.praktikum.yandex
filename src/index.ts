@@ -1,15 +1,18 @@
 import "./styles.scss";
-import { errorPage404, errorPage500 } from "./pages/erorrs/errors";
+import  {errorPage404, errorPage500 } from "./pages/erorrs/errors";
 import { loginPage } from "./pages/login/login";
 import { signinPage } from "./pages/signin/signnin";
 import { changeDataPage, changePassword, profilePage } from "./pages/profile/profile";
 import { chatPage } from "./pages/chat/chat";
 // import { render } from "./utils/render";
 import { router } from "./router/router";
+import store from "./store/store";
 
 document.querySelector(".nav__btn")?.addEventListener("click", () => {
   document.querySelector<HTMLElement>(".nav")!.style.display = "none";
 });
+
+window.AppStore = store
 
 // const route = document.location.pathname;
 
