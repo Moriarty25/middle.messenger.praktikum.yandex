@@ -1,8 +1,5 @@
-
-// import { chatPage } from './../pages/chat/chat';
+import { chatPage } from './../pages/chat/chat';
 import { authAPI } from "../api/authApi";
-import { chatPage } from "../pages/chat/chat";
-import { profilePage } from "../pages/profile/profile";
 import { router } from "../router/router";
 import store from "./store";
 
@@ -22,14 +19,11 @@ function signupContoller(data: any) {
 
 function getUserController() {
   authAPI.getUserInfo()?.then((response: any) => {
-    store.set("user", JSON.parse(response.response));
+  store.set("user", JSON.parse(response.response));
     console.log(JSON.parse(response.response));
-  }).then(() => { 
-    console.log(store.getState(), 'dwqdqw') 
-    profilePage.setProps({proplogin: 'lalall'})});
-    console.log(profilePage);
-    
-
+  }).then(() => {  console.log(store.getState(), 'dwqdqw')
+  return user = store.getState().user
+});
 }
 
 function loginController(data: any) {

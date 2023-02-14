@@ -1,4 +1,3 @@
-import { StoreEvents } from './../../store/store';
 import { Tooltip } from "../../components/Tooltip/tooltip";
 import defaultUserPhoto from "../../../static/defaultUserPhoto.png";
 import { Contact } from "../../components/Contact/contact";
@@ -10,7 +9,7 @@ import "./chat.scss";
 import { Button } from "../../components/Button/button";
 import { router } from "../../router/router";
 import Actions from "../../store/actions";
-import store from "../../store/store";
+import store, { StoreEvents } from "../../store/store";
 
 interface ChatProps {
   defaultUserPhoto: string;
@@ -21,22 +20,22 @@ interface ChatProps {
 export class Chat extends Block {
   constructor(props: ChatProps) {
     super("div", props);
+    Actions.getUserController();
+
     // подписываемся на событие
     store.on(StoreEvents.Updated, () => {
       // вызываем обновление компонента, передав данные из хранилища
-      // state[500].setProps(store.getState());
-      console.log(pageBuilder.date.setProps({content: store.getState().user}));
-      
+      this.setProps(store.getState());
+      console.log(this.props.user.login);
     });
   }
 
   componentDidMount(): void {
-    console.log(this.children);
-    Actions.getUserController();
-    let user = null;
-    user =  store.getState()
-    console.log( user);
-    name().then(Actions.getUserController()).then(console.log(store.getState()));
+    // console.log(this.children);
+    // console.log(Actions.getUserController() );
+    
+    // console.log( store.getState());
+    // name().then(Actions.getUserController()).then(console.log(store.getState().user));
 
   }
 

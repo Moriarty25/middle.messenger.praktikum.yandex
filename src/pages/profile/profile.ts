@@ -12,6 +12,7 @@ import {
 } from "../../utils/validate";
 import { Fieldset } from "../../components/Fieldset/fieldset";
 import { router } from "../../router/router";
+import store, { StoreEvents } from "../../store/store";
 
 interface ProfileProps {
   profilePage?: boolean;
@@ -34,6 +35,19 @@ interface ProfileProps {
 export class Profile extends Block {
   constructor(props: ProfileProps) {
     super("div", props);
+    // подписываемся на событие
+    store.on(StoreEvents.Updated, () => {
+      // вызываем обновление компонента, передав данные из хранилища
+      this.setProps(store.getState());
+      console.log(this.props.user.login);
+      this.props.login = this.props.user.login;
+      this.props.email = this.props.user.email;
+      this.props.first_name = this.props.user.first_name;
+      this.props.second_name = this.props.user.second_name;
+      this.props.display_name = this.props.user.display_name ? this.props.user.display_name
+        : "не задано";
+      this.props.phone = this.props.user.phone;
+    });
   }
 
   render() {
@@ -338,6 +352,8 @@ const pageBuilder = {
     changeUserPassword: true,
   },
 };
+if (store.getState().user) {pageBuilder.profile.login =  store.getState().user.login}
+console.log(pageBuilder.profile.login);
 
 function onSubmitValidationChangeData(event: MouseEvent) {
   event.preventDefault();
