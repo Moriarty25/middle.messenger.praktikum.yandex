@@ -136,7 +136,18 @@
 }
 
 .avatar-photo {
-  display: none;
+  // display: none;
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  opacity: 0;
+  z-index: 5;
+  cursor: pointer;
+}
+
+.avatar-photo:hover ~ p {
+  opacity: 1;
+  cursor: pointer;
 }
 
 /* stylelint-disable-next-line selector-class-pattern */

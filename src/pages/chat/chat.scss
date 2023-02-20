@@ -30,6 +30,16 @@
     justify-content: space-between;
   }
 
+  &__create-chat {
+    position: absolute;
+    bottom: 10px;
+    width: 322px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;  
+    gap: 15px;
+  }
+
   &__back {
     display: flex;
     justify-content: flex-end;
@@ -68,6 +78,53 @@
   &::placeholder {
     text-align: center;
     color: $secondary;
+  }
+}
+
+.create-chat {
+  &--hidden {
+    display: none;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__input {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__modal {
+    display: flex;
+    justify-content: flex-start;
+    // flex-direction: column;
+    // height: 100px;
+    // gap: 10px;
+    position: relative;
+    // height: 50px;
+    // top: -100px;
+    background-color: $background;
+    border-radius: 12px;
+    width: 303px;
+    height: 100px;
+    padding: 20px;
+    // position: absolute;
+    // bottom: 10px;
+    // left: 11px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 15px;
+    border: 2px solid $border;
+  }
+
+  &__send {
+    z-index: 5;
+    position: absolute;
+    right: 10px;
+    background-color: $background;
   }
 }
 
@@ -220,3 +277,7 @@
     }
   }
 }
+
+
+
+

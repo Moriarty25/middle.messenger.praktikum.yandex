@@ -8,7 +8,7 @@ enum METHODS {
 
 interface Options {
     headers?: Record<string, string>
-    data?: string,
+    data?: Record<string, any>,
     method?: METHODS,
     timeout?: number,
 }
@@ -59,7 +59,7 @@ export class HTTPTransport {
   );
 
   request = (url: Url, options: Options = {}, timeout = 5000) => {
-    const { headers = { "Content-Type": "application/json" }, method, data } = options;
+    const { headers = {}, method, data } = options;
 
     return new Promise((resolve, reject) => {
       if (!method) {
@@ -89,7 +89,10 @@ export class HTTPTransport {
 
       if (isGet || !data) {
         xhr.send();
+      } else if (data instanceof FormData) {
+        xhr.send(data);
       } else {
+        xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify(data));
       }
     });

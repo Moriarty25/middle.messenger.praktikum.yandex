@@ -9,6 +9,8 @@ interface ButtonProps {
   isMenu?: boolean;
   isProfile?: boolean;
   isAttachment?: boolean;
+  isAddUser?: boolean;
+  isDeleteUser?: boolean;
   isSend?: boolean;
   isPrimary?: boolean;
   isExit?: boolean;

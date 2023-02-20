@@ -21,6 +21,7 @@
     "no-constructor-return": "off",
     "no-restricted-syntax": "off",
     "no-continue": "off",
+    "no-shadow": "off",
     "linebreak-style": ["error", "windows"]
   }  
 }

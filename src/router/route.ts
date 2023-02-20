@@ -32,7 +32,7 @@ export default class Route {
 
   leave(): void {
     if (this._block) {
-      // this._block.element.remove();
+      this._block.element.remove();
       this._block = null;
     }
   }
@@ -45,9 +45,9 @@ export default class Route {
     if (!this._block) {
       document.title = this.title;
 
-      this._block = this._blockClass;
-
-      render(this._props.rootQuery, new this._block());
+      this._block = new this._blockClass();
+      window.chat = this._block
+      render(this._props.rootQuery, this._block);
       return;
     }
 

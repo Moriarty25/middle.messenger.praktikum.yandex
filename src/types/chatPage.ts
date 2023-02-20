@@ -1,11 +1,4 @@
-export interface User {
-    first_name: string;
-    second_name: string;
-    avatar: string;
-    email: string;
-    login: string;
-    phone: string;
-  }
+import { User } from "./user";
 
 export interface LastMessage {
     user: User | string;
@@ -14,12 +7,23 @@ export interface LastMessage {
   }
 
 export interface Contact {
+    selected: boolean;
     id: number;
     title: string;
-    avatar: string;
+    avatar?: string;
     unread_count: number;
-    last_message: LastMessage;
+    last_message?: LastMessage;
     events : {
       click: (event?: Event) => void
     }
   }
+
+export interface CreateChat {
+    title: string;
+}
+
+export type getChatParamers = {
+  offset?: number,
+  limit?: number,
+  title?: string
+}

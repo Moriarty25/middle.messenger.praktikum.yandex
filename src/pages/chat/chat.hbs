@@ -9,17 +9,56 @@
       </header>
     </div>
      <div class="contacts__wrapper">
-       {{#each contactArea}}
-           {{{this}}}
-       {{/each}}
+      {{{chats}}}
      </div>
+
+      <div class="sidebar__create-chat">
+        <div class="create-chat__button">
+          {{{buttonCreateChat}}}
+        </div>
+          {{{createChattooltip}}}
+     </div>
+
+   
   </div>
-  {{!-- <main class="main-layout main-layout--placeholder">
-    <p class="main-layout__title">
-      Выберите чат чтобы отправить сообщение
-    </p>
-  </main> --}}
-    <div class="main-layout">
+  {{#if chatIsActive}}
+      <div class="main-layout">
+    <header class="main-layout__header">
+      <div class="header__chat-person">
+        <div class="chat-person__avatar">
+          <img src="{{{defaultUserPhoto}}}" alt="user-avatar">
+        </div>
+        <p class="chat-person__name">
+          {{name}}
+        </p>
+      </div>
+      {{{buttonMenu}}}      
+      {{{headTooltip}}}
+    </header>
+    <div class="main-layout__content">
+      {{{date}}}
+              
+              
+              
+              {{{dialog}}}
+                       
+                  
+       {{{me}}}
+       {{{massenger}}}
+    </div>
+    <footer class="main-layout__footer">
+     
+      {{{buttonAttachment}}}
+      {{{footTooltip}}}
+      {{{inputMessehger}}}
+      <input type="text" name="message" class="input__message" placeholder="Сообщение"/>
+      {{{buttonSend}}}
+    </footer>
+  </div>
+    {{else}}
+    {{{placeholder}}}
+  {{/if}}
+    {{!-- <div class="main-layout">
     <header class="main-layout__header">
       <div class="header__chat-person">
         <div class="chat-person__avatar">
@@ -48,6 +87,8 @@
       <input type="text" name="message" class="input__message" placeholder="Сообщение"/>
       {{{buttonSend}}}
     </footer>
-  </div>
-
+  </div> --}}
+  {{#if popup}}
+  {{{popup}}}
+  {{/if}}
 </div>

@@ -24,15 +24,15 @@ class Store extends EventBus {
 
     super();
 
-    const savedState = localStorage.getItem(Store.STORE_NAME);
+    // const savedState = localStorage.getItem(Store.STORE_NAME);
 
-    this.state = savedState ? JSON.parse(savedState) ?? {} : {};
+    // this.state = savedState ? JSON.parse(savedState) ?? {} : {};
 
-    Store._instance = this;
+    // Store._instance = this;
 
-    this.on(Store.EVENT_UPDATE, () => {
-      localStorage.setItem(Store.STORE_NAME, JSON.stringify(this.state));
-    });
+    // this.on(Store.EVENT_UPDATE, () => {
+    //   localStorage.setItem(Store.STORE_NAME, JSON.stringify(this.state));
+    // });
   }
 
   public getState() {

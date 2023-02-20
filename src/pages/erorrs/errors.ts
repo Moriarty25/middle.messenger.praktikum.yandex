@@ -56,15 +56,9 @@ export class ErrorPage extends Block {
   }
 
   init() {
-    console.log(router.getRoute("/404")?._pathname);
-    if (window.location.pathname === "/404")
-    {
-      this.props.title = "404";
+   
+    this.props.title = "404";
     this.props.message = "Вы не туда попали";
-    } else if (window.location.pathname === "/500") {
-    this.props.title = "500";
-    this.props.message = "Уже фиксим";
-    }
     //   title: "404",
     //   message: "Вы не туда попали",
     // };
@@ -79,14 +73,12 @@ export class ErrorPage extends Block {
       events: {
         click: (event) => {
           event.preventDefault();
-          router.go("/500");
+          router.go("/");
         },
       },
     });
-  console.log(this.props.link);
-  
   }
-  
+
   render() {
     return this.compile(template, { ...this.props });
   }

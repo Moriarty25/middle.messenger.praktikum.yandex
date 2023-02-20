@@ -27,6 +27,10 @@
   border: none;
   cursor: pointer;
   background-color: $background;
+
+  &:active {
+    transform: translateX(3px);
+  }
 }
 
 .button-primary {

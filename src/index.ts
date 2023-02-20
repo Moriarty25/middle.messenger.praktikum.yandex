@@ -1,12 +1,19 @@
 import "./styles.scss";
-import  {ErrorPage, errorPage404, errorPage500 } from "./pages/erorrs/errors";
-import { loginPage } from "./pages/login/login";
+import {ErrorPage, errorPage404, errorPage500 } from "./pages/erorrs/errors";
+// import { Login, loginPage } from "./pages/login/login";
 import { signinPage } from "./pages/signin/signnin";
-import { changeDataPage, changePassword, profilePage } from "./pages/profile/profile";
 import { chatPage } from "./pages/chat/chat";
 // import { render } from "./utils/render";
 import { router } from "./router/router";
 import store from "./store/store";
+import { ErrorPage500 } from "./pages/erorrs/error500";
+import Login from "./pages/login";
+import Signin from "./pages/signin";
+import Profile from "./pages/profile/profile";
+import ChangeData from "./pages/profile/changeData";
+import changePassword from "./pages/profile/changePassword";
+import Chat from "./pages/chat";
+import actions from "./store/actions";
 
 document.querySelector(".nav__btn")?.addEventListener("click", () => {
   document.querySelector<HTMLElement>(".nav")!.style.display = "none";
@@ -14,17 +21,25 @@ document.querySelector(".nav__btn")?.addEventListener("click", () => {
 
 window.AppStore = store;
 
-// const route = document.location.pathname;
+function withAuth(block) {
+  const { user = {} } = store.getState();
+  if (user) {
+    return block;
+  }
+  return ErrorPage;
+}
 
+// const route = document.location.pathname;
+window.chat = Chat
 router
   .use("/404", "error 404 - заголовок", ErrorPage)
-  .use("/500", "error 500 - заголовок", ErrorPage)
-  // .use("/login", "log in - заголовок", loginPage)
-  // .use("/signin", "sign in - заголовок", signinPage)
-  // .use("/profile", "profile - заголовок", profilePage)
-  // .use("/changeData", "change data - заголовок", changeDataPage)
-  // .use("/changePassword", "change password - заголовок", changePassword)
-  // .use("/", "messenger - заголовок", chatPage)
+  .use("/500", "error 500 - заголовок", ErrorPage500)
+  .use("/login", "log in - заголовок", Login)
+  .use("/signin", "sign in - заголовок", Signin)
+  .use("/profile", "profile - заголовок", withAuth(Profile))
+  .use("/changeData", "change data - заголовок", ChangeData)
+  .use("/changePassword", "change password - заголовок", changePassword)
+  .use("/", "messenger - заголовок", Chat)
   .start();
 // console.log(router);
 // setTimeout(() => {

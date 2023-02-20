@@ -16,7 +16,6 @@ function connect(mapStateToProps: (state: Indexed) => Indexed) {
         store.on(StoreEvents.Updated, () => {
           // при обновлении получаем новое состояние
           const newState = mapStateToProps(store.getState());
-
           // если что-то из используемых данных поменялось, обновляем компонент
           if (!isEqual(state, newState)) {
             this.setProps({ ...newState });
@@ -29,8 +28,5 @@ function connect(mapStateToProps: (state: Indexed) => Indexed) {
     };
   };
 }
-
-export const withUser = connect((state) => ({ user: state.user }));
-export const withChats = connect((state) => ({ chats: state.chats }));
 
 export default connect;

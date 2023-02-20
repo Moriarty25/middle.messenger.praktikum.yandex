@@ -1,9 +1,11 @@
-
-// import { chatPage } from './../pages/chat/chat';
+/* eslint-disable no-console */
 import { authAPI } from "../api/authApi";
-import { chatPage } from "../pages/chat/chat";
-import { profilePage } from "../pages/profile/profile";
+import { chatAPI } from "../api/chatApi";
+import { userAPI } from "../api/userApi";
+import chat from "../pages/chat";
 import { router } from "../router/router";
+import { CreateChat } from "../types/chatPage";
+import { User, UserPassword } from "../types/user";
 import store from "./store";
 
 function signupContoller(data: any) {
@@ -12,7 +14,6 @@ function signupContoller(data: any) {
       if (response.status === 200) {
         authAPI.getUserInfo()?.then((response: any) => {
           store.set("user", JSON.parse(response.response));
-          console.log(JSON.parse(response.response));
         });
       } else console.log("errorrrrr");
       console.log(store);
@@ -21,15 +22,11 @@ function signupContoller(data: any) {
 }
 
 function getUserController() {
-  authAPI.getUserInfo()?.then((response: any) => {
-    store.set("user", JSON.parse(response.response));
-    console.log(JSON.parse(response.response));
-  }).then(() => { 
-    console.log(store.getState(), 'dwqdqw') 
-    profilePage.setProps({proplogin: 'lalall'})});
-    console.log(profilePage);
-    
-
+  authAPI
+    .getUserInfo()
+    ?.then((response: any) => {
+      store.set("user", JSON.parse(response.response));
+    });
 }
 
 function loginController(data: any) {
@@ -39,6 +36,7 @@ function loginController(data: any) {
         authAPI.getUserInfo()?.then((response: any) => {
           store.set("user", JSON.parse(response.response));
           console.log(JSON.parse(response.response));
+          router.go("/");
         });
       } else console.log("errorrrrr");
       console.log(store);
@@ -49,55 +47,99 @@ function loginController(data: any) {
   });
 }
 
-const getUserState = () => {
-  const state = store.getState();
-  const user = state.user ?? {};
+function logoutController() {
+  authAPI.getUserInfo()?.then((response: any) => {
+    if (response.status === 200) {
+      authAPI.logout()?.then(() => {
+        if (
+          store.getState().selectChat
+          && store.getState().selectChat.socket
+        ) {
+          // закрываем сокет
+          if (store.getState().selectChat.socket.readyState) {
+            store.getState().selectChat.socket.close();
+          }
+        }
+        store.removeState();
+      });
+    }
+  });
+  router.go("/login");
+}
 
-  return {
-    _data: [],
-    _times: [],
-    ...user,
-  };
+function changeUserDataController(data: User) {
+  userAPI.changeUserProfile(data)?.then((response: any) => {
+    if (response.status === 200) {
+      store.set("user", JSON.parse(response.response));
+      router.go("/profile");
+    } else {
+      const error = JSON.parse(response.response).reason;
+      // errorTextLabel?.classList.add("invalid");
+      console.log(error);
+    }
+  });
+}
+
+function changeUserPasswordController(data: UserPassword) {
+  userAPI.changePassword(data)?.then((response: any) => {
+    if (response.status === 200) {
+      store.set("user", JSON.parse(response.response));
+      router.go("/profile");
+    } else {
+      const error = JSON.parse(response.response).reason;
+      console.log(error);
+    }
+  });
+}
+
+function changeAvatarController(data: FormData) {
+  userAPI.changeAvatar(data)?.then((response: any) => {
+    if (response.status === 200) {
+      store.set("user", {
+        ...store.getState().user,
+        avatar: JSON.parse(response.response).avatar,
+      });
+    } else {
+      const error = JSON.parse(response.response).reason;
+      console.log(error);
+    }
+  });
+}
+
+function createChatController(data: CreateChat) {
+  chatAPI.createChat(data)?.then((response: any) => {
+    if (response.status === 200) {
+      chatAPI.getChat()?.then((response: any) => {
+        store.set("chats", JSON.parse(response.response));
+      });
+    } else {
+      const error = JSON.parse(response.response).reason;
+      console.log(error);
+    }
+  });
+}
+
+function getChatscontroller() {
+  chatAPI.getChat()?.then((response: any) => {
+    if (response.status === 200) {
+      store.set("chats", JSON.parse(response.response));
+    } else console.log(JSON.parse(response.response).reason);
+  });
+}
+
+function selectChat(id: number | null) {
+  store.set("selectedChat", id);
+}
+
+export default {
+  signupContoller,
+  getUserController,
+  loginController,
+  logoutController,
+  changeUserDataController,
+  changeUserPasswordController,
+  changeAvatarController,
+  createChatController,
+  getChatscontroller,
+  selectChat,
 };
-
-export const addUserData = (add: any) => {
-  const user = getUserState();
-  user._data.push(add);
-  user._times.push(new Date().toString());
-
-  store.set("user", user);
-};
-
-const getFormState = () => {
-
-	const 	state= store.getState(),
-			form = state.form ?? {};
-
-	return Object.assign(
-		{ 
-			text : '',
-			_lines: [],
-			_times: []
-		},
-		form
-	);
-}
-
-const explodeText = text => {
-	return text.split("\n").map(i => i.trim());
-}
-
-export const addText = add => {
-
-	const 	form  = getFormState(),
-			_lines= explodeText(add),
-			_times= (Array(_lines.length)).fill((new Date()).toString());
-
-	form._lines = form._lines.concat(_lines);
-	form._times = form._times.concat(_times);
-	form.text = form._lines.join("\n");
-
-	store.set('form', form);
-}
-
-export default { signupContoller, getUserController, loginController };

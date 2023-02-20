@@ -13,6 +13,7 @@ interface InputProps {
     focus?: () => void;
     blur?: (event: FocusEvent) => void;
     input?: (event: InputEvent) => void;
+    change?: (event: InputEvent) => void;
   };
 }
 
