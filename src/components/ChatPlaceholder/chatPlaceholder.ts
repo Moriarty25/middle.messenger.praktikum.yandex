@@ -1,5 +1,5 @@
-import template from "./chatPlaceholder.hbs";
 import Block from "../../utils/Block";
+import template from "./chatPlaceholder.hbs";
 
 export class ChatPlaceholder extends Block {
   constructor(props: {}) {
