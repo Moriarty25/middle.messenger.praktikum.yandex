@@ -291,7 +291,7 @@ function deleteUserFromchat(data: DeleteChatUserData) {
 async function isUserAuthorized() {
   const user = await authAPI.getUserInfo();
   if (user.status === 200) {
-    store.set("auth", true);
+    // store.set("auth", true);
   }
   if (user.status !== 200) {
     throw new Error("");

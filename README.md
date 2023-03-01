@@ -31,10 +31,10 @@
 
 ## Ссылка на опубликованное приложение [![Netlify Status](https://api.netlify.com/api/v1/badges/498fb90c-5d7c-416c-95ac-d2c82a3e6003/deploy-status)](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
 
-- [Страница Чата](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
-- [Страница Профиля](https://deploy--roaring-tanuki-6ce7ec.netlify.app/profile)
-- [Страница Авторизации](https://deploy--roaring-tanuki-6ce7ec.netlify.app/login)
-- [Страница Регистрации](https://deploy--roaring-tanuki-6ce7ec.netlify.app/signin)
+- [Страница Чата](https://deploy--roaring-tanuki-6ce7ec.netlify.app/messenger)
+- [Страница Профиля](https://deploy--roaring-tanuki-6ce7ec.netlify.app/settings)
+- [Страница Авторизации](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
+- [Страница Регистрации](https://deploy--roaring-tanuki-6ce7ec.netlify.app/sign-up)
 - [Страница 404](https://deploy--roaring-tanuki-6ce7ec.netlify.app/404)
 - [Страница 500](https://deploy--roaring-tanuki-6ce7ec.netlify.app/500)
 

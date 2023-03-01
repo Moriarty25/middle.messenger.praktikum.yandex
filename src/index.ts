@@ -50,7 +50,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     .use(ROUTES.PROFILE, "Профиль", Profile)
     .use(ROUTES.CHANGE_DATA, "Изменить данные", ChangeData)
     .use(ROUTES.CHANGE_PASSWORD, "Изменить пароль", changePassword)
-    .use("/messenger", "Мессенджер", Chat);
+    .use(ROUTES.MESSENGER, "Мессенджер", Chat);
 
   let isProtectedRoute = true;
 
