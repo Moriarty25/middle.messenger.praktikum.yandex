@@ -10,7 +10,7 @@ import { Button } from "../../components/Button/button";
 import { router } from "../../router/router";
 import Actions from "../../store/actions";
 import { Input } from "../../components/Input/input";
-import { ChatPlaceholder } from "../../components/ChatPlaceholder/chatPlaceholder";
+import { ChatPlaceholder } from "../../components/ChatPlaceholder/ChatPlaceholder";
 import ContactList from "../../components/ContactList";
 import DialogList from "../../components/DialogList";
 import Popup from "../../components/Popup";
