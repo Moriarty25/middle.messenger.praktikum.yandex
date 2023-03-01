@@ -5,17 +5,7 @@ import Block from "../../utils/Block";
 import template from "./erorrs.hbs";
 import "./erorrs.scss";
 
-// interface ErrorProps {
-//   title: string;
-//   message: string;
-//   link: Button;
-// }
-
 export class ErrorPage extends Block {
-  // constructor(props: ErrorProps) {
-  //   super("div", props);
-  // }
-
   init() {
     this.props.title = "404";
     this.props.message = "Вы не туда попали";
