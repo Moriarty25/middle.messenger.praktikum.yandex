@@ -10,7 +10,7 @@ import { Button } from "../../components/Button/button";
 import { router } from "../../router/router";
 import Actions from "../../store/actions";
 import { Input } from "../../components/Input/input";
-import { ChatPlaceholder } from "../../components/ChatPlaceholder/chatPlaceholder";
+import { Placeholder } from "../../components/Placeholder/Placeholder";
 import ContactList from "../../components/ContactList";
 import DialogList from "../../components/DialogList";
 import Popup from "../../components/Popup";
@@ -299,7 +299,7 @@ export class Chat extends Block {
       },
     });
 
-    this.children.placeholder = new ChatPlaceholder({});
+    this.children.placeholder = new Placeholder({});
     this.children.dialog = new DialogList({});
     this.props.chatIsActive = false;
     if (this.props?.selectedChat) {

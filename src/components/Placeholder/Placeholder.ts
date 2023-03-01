@@ -1,7 +1,7 @@
 import Block from "../../utils/Block";
-import template from "./ChatPlaceholder.hbs";
+import template from "./Placeholder.hbs";
 
-export class ChatPlaceholder extends Block {
+export class Placeholder extends Block {
   constructor(props: {}) {
     super("div", props);
   }
