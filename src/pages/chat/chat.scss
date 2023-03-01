@@ -30,12 +30,26 @@
     justify-content: space-between;
   }
 
+  &__create-chat {
+    position: absolute;
+    bottom: 10px;
+    width: 322px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 15px;
+  }
+
   &__back {
     display: flex;
     justify-content: flex-end;
 
     a {
       display: flex;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      background-color: $background-accent;
     }
 
     p {
@@ -64,6 +78,44 @@
   &::placeholder {
     text-align: center;
     color: $secondary;
+  }
+}
+
+.create-chat {
+  &--hidden {
+    display: none;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__input {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__modal {
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    background-color: $background;
+    border-radius: 12px;
+    width: 303px;
+    height: 100px;
+    padding: 20px;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 15px;
+    border: 2px solid $border;
+  }
+
+  &__send {
+    z-index: 5;
+    position: absolute;
+    right: 10px;
+    background-color: $background;
   }
 }
 
@@ -138,8 +190,8 @@
     outline: none;
     border: none;
     background: $menu;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 500;

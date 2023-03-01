@@ -2,28 +2,24 @@
 <div class="head-tooltip">
   <div class="chat-menu__wrapper">
           <ul class="chat-menu__list">
-            <li class="chat-menu__item">
-              <div class="item__image">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <line x1="5.99988" y1="0.5" x2="5.99988" y2="11.5" stroke="#3369F3" stroke-width="1.5"/>
-                  <line x1="0.499878" y1="6" x2="11.4999" y2="6" stroke="#3369F3" stroke-width="1.5"/>
-                </svg>
-              </div>
-              <p>Добавить пользователя</p>
-            </li>
-            <li class="chat-menu__item">
-              <div class="item__image item__image--red">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" class="image__cross">
-                  <line x1="5.99988" y1="0.5" x2="5.99988" y2="11.5"  stroke-width="1.5"/>
-                  <line x1="0.499878" y1="6" x2="11.4999" y2="6"  stroke-width="1.5"/>
-                </svg>
-              </div>
-              <p>Удалить пользователя</p>
-            </li>
+            {{{addUser}}}
+            {{{deleteUser}}}
           </ul>
   </div>
 </div>
 {{else}}
+  {{#if createChatSend}}
+      <div style="display: none">
+        <div class="create-chat__modal">
+          <div class="create-chat__input">
+            {{{inputCreateChat}}}
+          </div>
+          <div class="create-chat__send">
+           {{{createChatSend}}}
+          </div>
+        </div>
+      </div>
+    {{else}}
 <div class="foot-tooltip">
   <div class="chat-menu__wrapper chat-menu__wrapper--foot">
           <ul class="chat-menu__list">
@@ -48,4 +44,5 @@
           </ul>
   </div>
 </div>
+ {{/if}}
 {{/if}}

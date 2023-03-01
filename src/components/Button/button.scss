@@ -27,6 +27,10 @@
   border: none;
   cursor: pointer;
   background-color: $background;
+
+  &:active {
+    transform: translateX(3px);
+  }
 }
 
 .button-primary {
@@ -45,5 +49,15 @@
 
   &:hover {
     opacity: 0.9;
+  }
+}
+
+.button-basket {
+  width: 20px;
+  color: $primary;
+
+  &:hover {
+    color: $exit;
+    cursor: pointer;
   }
 }

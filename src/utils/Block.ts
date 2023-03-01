@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import EventBus from "./EventBus";
 
-export default class Block {
+export default abstract class Block<Props extends Record<string, any> = any> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -15,19 +15,13 @@ export default class Block {
 
   private _meta: Record<any, string> | null = null;
 
-  protected props: Record<any, any>;
+  protected props: Props;
 
   protected children: Record<string, any>;
 
   protected eventBus: () => EventBus;
 
-  /**
-   * JSDoc
-   * @param {string} tagName
-   * @param {Object} propsWithChildren
-   * @returns {void}
-   */
-  constructor(tagName: string | undefined = "div", propsWithChildren: any = {}) {
+  constructor(tagName: string = "div", propsWithChildren: any = {}) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
@@ -64,7 +58,7 @@ export default class Block {
   }
 
   _registerEvents(eventBus: EventBus) {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
+    eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
@@ -77,9 +71,13 @@ export default class Block {
     this._element = this._createDocumentElement(tagName);
   }
 
-  init() {
+  private _init() {
     this._createResources();
+    this.init();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+  }
+
+  protected init() {
   }
 
   _componentDidMount() {
@@ -176,7 +174,7 @@ export default class Block {
   }
 
   protected _removeEvents() {
-    const { events = {} } = this.props as { events: Record<string, ()=> void> };
+    const { events = {} } = this.props as { events?: Record<string, ()=> void> };
 
     if (!events) {
       return;
@@ -188,7 +186,7 @@ export default class Block {
   }
 
   protected _addEvents() {
-    const { events = {} } = this.props as { events: Record<string, ()=> void> };
+    const { events = {} } = this.props as { events?: Record<string, ()=> void> };
 
     if (!events) {
       return;
@@ -234,7 +232,7 @@ export default class Block {
   }
 
   show() {
-    this.getContent()!.style.display = "block";
+    this.getContent()!.style.display = "grid";
   }
 
   hide() {

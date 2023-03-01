@@ -3,6 +3,12 @@
 .contact-wrapper {
   padding: 0 10px;
   padding-top: 10px;
+  cursor: pointer;
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  &:hover:not(.contact--selected) {
+    background: $background-item;
+  }
 }
 
 .contact {

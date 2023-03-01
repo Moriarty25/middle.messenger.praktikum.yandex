@@ -2,6 +2,7 @@ import Block from "../../utils/Block";
 import template from "./input.hbs";
 
 interface InputProps {
+  isMessage?: boolean;
   inputType?: string;
   inputName?: string;
   inputPlaceholder?: string;
@@ -12,7 +13,8 @@ interface InputProps {
     click?: () => void;
     focus?: () => void;
     blur?: (event: FocusEvent) => void;
-    input?: (event: InputEvent) => void;
+    input?: (event: { target: HTMLInputElement }) => void;
+    change?: (event: { target: HTMLInputElement }) => void;
   };
 }
 
