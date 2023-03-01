@@ -1,4 +1,3 @@
-import store, { StoreEvents } from "../../store/store";
 import { Tooltip } from "../../components/Tooltip/tooltip";
 import defaultUserPhoto from "../../../static/defaultUserPhoto.png";
 import { Contact } from "../../components/Contact/contact";
@@ -10,12 +9,15 @@ import "./chat.scss";
 import { Button } from "../../components/Button/button";
 import { router } from "../../router/router";
 import Actions from "../../store/actions";
-import Input from "../../components/Input";
+import { Input } from "../../components/Input/input";
 import ContactList from "../../components/ContactList";
 import { ChatPlaceholder } from "../../components/ChatPlaceholder/chatPlaceholder";
 import DialogList from "../../components/DialogList";
 import Popup from "../../components/Popup";
 import Fieldset from "../../components/Fieldset";
+import SearchList from "../../components/SearchList";
+import { debounce } from "../../utils/debounce";
+import { Navigation } from "../../components/Navigation/navigation";
 
 interface ChatProps {
   defaultUserPhoto: string;
@@ -24,33 +26,48 @@ interface ChatProps {
 }
 
 export class Chat extends Block {
-  newChatTitle: string | null;
+  newChatTitle: string;
+
+  addUserInDialog: string;
 
   activeChat: number | undefined;
+
+  newMessage: string | null;
 
   constructor(props: ChatProps) {
     super("div", props);
     this.props.defaultUserPhoto = defaultUserPhoto;
-    this.newChatTitle = null;
+    this.newChatTitle = "";
+    this.addUserInDialog = "";
+    this.newMessage = null;
+  }
+
+  cleanInputAfterSend() {
+    this.newMessage = null;
+    (document.querySelector("[name=message]") as HTMLInputElement).value = "";
   }
 
   protected init(): void {
-    this.children.me = new Message({
-      isOwner: true,
-    });
-
     this.children.buttonProfile = new Button({
       isProfile: true,
       events: {
         click: (event) => {
           event.preventDefault();
-          router.go("/profile");
+          router.go("/settings");
         },
       },
     });
 
     this.children.buttonSend = new Button({
       isSend: true,
+      events: {
+        click: () => {
+          if (this.newMessage) {
+            Actions.sendMessage(this.newMessage);
+          }
+          this.cleanInputAfterSend();
+        },
+      },
     });
 
     this.children.buttonMenu = new Button({
@@ -87,9 +104,53 @@ export class Chat extends Block {
         isAddUser: true,
         events: {
           click: () => {
-            if (this.children.popup.element?.style.display === "none") {
-              this.children.popup.show();
-            } else this.children.popup.hide();
+            this.children.popup = new Popup({
+              isAddUserPopup: true,
+              name: "Добавить пользователя",
+              events: {
+                click: (event:{ target: HTMLInputElement }) => {
+                  if ((event.target as HTMLInputElement).className === "popup__body") {
+                    this.props.popupIsActive = false;
+                  }
+                },
+              },
+              inputLogin: new Fieldset({
+                input: new Input({
+                  inputType: "text",
+                  inputName: "login",
+                  inputPlaceholder: "Логин",
+                  events: {
+                    input: (event: { target: HTMLInputElement }) => {
+                      this.addUserInDialog = (event.target as HTMLInputElement)?.value;
+                      const searchUser = () => {
+                        Actions.searchUserController({
+                          login: this.addUserInDialog,
+                        });
+                      };
+                      debounce(searchUser, 300)();
+                    },
+                  },
+                }),
+                labelName: "Логин",
+                invalid: true,
+                message: "",
+              }),
+              addUserBtn: new Button({
+                isPrimary: true,
+                name: "Добавить",
+                events: {
+                  click: (event) => {
+                    event.preventDefault();
+                    Actions.addUsersInChat({
+                      users: [this.props.searchedUserId],
+                      chatId: this.props?.selectedChat,
+                    });
+                    this.props.popupIsActive = false;
+                  },
+                },
+              }),
+            });
+            this.props.popupIsActive = true;
           },
         },
       }),
@@ -97,7 +158,56 @@ export class Chat extends Block {
         isDeleteUser: true,
         events: {
           click: () => {
-            console.log("clicked");
+            Actions.getChatUsers(this.props.selectedChat);
+            this.children.popup = new Popup({
+              callback: (id: number) => {
+                Actions.deleteUserFromchat({
+                  users: [id],
+                  chatId: this.props?.selectedChat,
+                });
+                this.props.popupIsActive = false;
+              },
+              name: "Удалить пользователя",
+              serchedUsers: new SearchList({}),
+              events: {
+                click: (event: { target: HTMLInputElement }) => {
+                  if (event.target.className === "popup__body") {
+                    // this.children.popup.hide();
+                    this.props.popupIsActive = false;
+                  }
+                },
+              },
+              inputLogin: new Fieldset({
+                input: new Input({
+                  inputType: "text",
+                  inputName: "login",
+                  inputPlaceholder: "Логин",
+                  events: {
+                    input: (event:{ target: HTMLInputElement }) => {
+                      (this.addUserInDialog = event.target?.value);
+                      Actions.searchUserController({
+                        login: this.addUserInDialog,
+                      });
+                      this.children.popup.show();
+                    },
+                  },
+                }),
+                labelName: "Логин",
+                invalid: true,
+                message: "",
+              }),
+              addUserBtn: new Button({
+                isPrimary: true,
+                name: "Закрыть",
+                events: {
+                  click: (event) => {
+                    event.preventDefault();
+                    this.props.popupIsActive = false;
+                  },
+                },
+              }),
+            });
+            this.props.popupIsActive = true;
           },
         },
       }),
@@ -141,7 +251,7 @@ export class Chat extends Block {
         inputPlaceholder: "Введите название нового чата",
         value: "",
         events: {
-          change: (event) => {
+          change: (event: { target: HTMLInputElement }) => {
             this.newChatTitle = event.target.value;
           },
         },
@@ -152,15 +262,6 @@ export class Chat extends Block {
           click: () => {
             const value = this.newChatTitle;
             Actions.createChatController({ title: value });
-            if (arrChats) {
-              this.children.chats.setProps({
-                content: arrChats.unshift(new Contact({
-                  title: value,
-                  avatar: defaultUserPhoto,
-                  unread_count: 0,
-                })),
-              });
-            }
           },
         },
       }),
@@ -170,117 +271,39 @@ export class Chat extends Block {
       content: "4 декабря",
     });
 
-    this.children.contactArea = [];
-    this.children.messageArea = [];
-
-    const arrChats = this.props.chats?.map((chat: Contact, i: number) => new Contact({
-      selected: false,
-      id: chat.id,
-      title: chat.title,
-      avatar: chat.avatar ? chat.avatar : defaultUserPhoto,
-      unread_count: chat.unread_count,
-      last_message: {
-        user: "",
-        time: "10:48",
-        content: chat.content,
-      },
+    this.children.inputMessenger = new Input({
+      isMessage: true,
       events: {
-        click: () => {
-          if (this.children.chats.children.content[i].props.selected === false) {
-            this.children.chats.children.content[i].setProps({ selected: true });
-            Actions.selectChat(chat.id);
-            this.props.chatIsActive = true
-            // router.use(`/chat/${chat.id}`)
-            // router.go(`/chat/${chat.id}`)
-          } else {
-            this.children.chats.children.content[i].setProps({ selected: false });
-            this.props.chatIsActive = false
-
-          }
-          // this.children.chats.children.content[i].setProps({ selected: false });
+        input: (event: { target: HTMLInputElement }) => {
+          const message = (
+            event.target as HTMLInputElement
+          ).value;
+          this.newMessage = message;
         },
       },
-    }));
-
-    // this.children.contactArea.forEach((item, i)=>{
-    //   // return this.children.contactArea = arrChats?.[0]; 
-    // })
-    // this.setProps({contactArea: arrChats})
-    // console.log(this.setProps({ contactArea: arrChats }));
-    // this.children.contactsArr = arrChats
-    // this.children.contactArea = [...this.children.contactArea, test[0]];
+    });
 
     this.children.chats = new ContactList({
-      content: this.props.chats?.map((chat: Contact, i: number) => new Contact({
-        selected: false,
-        id: chat.id,
-        title: chat.title,
-        avatar: chat.avatar ? chat.avatar : defaultUserPhoto,
-        unread_count: chat.unread_count,
-        last_message: {
-          user: "",
-          time: "10:48",
-          content: chat.content,
-        },
-        events: {
-          click: () => {
-            if (this.children.chats.children.content[i].props.selected === false) {
-              this.children.chats.children.content[i].setProps({ selected: true });
-              Actions.selectChat(chat.id);
-              this.props.chatIsActive = true
-              // router.use(`/chat/${chat.id}`)
-              // router.go(`/chat/${chat.id}`)
-            } else {
-              this.children.chats.children.content[i].setProps({ selected: false });
-              this.props.chatIsActive = false
-  
-            }
-            // this.children.chats.children.content[i].setProps({ selected: false });
-          },
-        },
-      })),
+      callback: () => {
+        (this.props.chatIsActive = true);
+        Actions.createDialogSocketController({
+          chatId: this.props?.selectedChat,
+        });
+        Actions.startDialogController(
+          this.props?.user?.id,
+          this.props?.selectedChat,
+        );
+      },
     });
 
     this.children.placeholder = new ChatPlaceholder({});
     this.children.dialog = new DialogList({
-      content: [new Message({})],
     });
     this.props.chatIsActive = false;
-    this.props.name = this.props?.chat?.title ?? "Беседа";
-
-    this.children.popup = new Popup({
-      name: "Добавить пользователя",
-      events: {
-        click: (event) => {
-          if (event.target.className === "popup__body") {
-            this.children.popup.hide();
-          }
-        },
-      },
-      inputLogin: new Fieldset({
-        input: new Input({
-          inputType: "text",
-          inputName: "login",
-          inputPlaceholder: "Логин",
-          events: {
-            blur: (event) => {
-              // state.formAutorization.login = onValidate(
-              //   event,
-              //   this.children.login,
-              //   validateLogin,
-              // );
-            },
-          },
-        }),
-        labelName: "Логин",
-        invalid: true,
-        message: "",
-      }),
-      addUserBtn: new Button({
-        isPrimary: true,
-        name: "Add"
-      }),
-    });
+    if (this.props?.selectedChat) {
+      this.props.chatIsActive = true;
+    }
+    this.children.nav = new Navigation({});
   }
 
   componentDidMount(): void {
@@ -292,109 +315,3 @@ export class Chat extends Block {
     return this.compile(template, { ...this.props });
   }
 }
-
-// const pageBuilder = {
-
-//   defaultUserPhoto,
-//   me: new Message({
-//     isOwner: true,
-//   }),
-//   buttonProfile: new Button({
-//     isProfile: true,
-//     events: {
-//       click: (event) => {
-//         event.preventDefault();
-//         router.go("/profile");
-//       },
-//     },
-//   }),
-//   buttonSend: new Button({
-//     isSend: true,
-//   }),
-//   buttonMenu: new Button({
-//     isMenu: true,
-//     events: {
-//       mouseenter: () => {
-//         pageBuilder.headTooltip.show();
-//       },
-//       click: () => {
-//         if (pageBuilder.headTooltip.element?.style.display === "none") {
-//           pageBuilder.headTooltip.show();
-//         } else pageBuilder.headTooltip.hide();
-//       },
-//     },
-//   }),
-//   buttonAttachment: new Button({
-//     isAttachment: true,
-//     events: {
-//       mouseenter: () => {
-//         pageBuilder.footTooltip.show();
-//       },
-//       click: () => {
-//         if (pageBuilder.footTooltip.element?.style.display === "none") {
-//           pageBuilder.footTooltip.show();
-//         } else pageBuilder.footTooltip.hide();
-//       },
-//     },
-//   }),
-//   headTooltip:
-//     new Tooltip({
-//       headTooltip: true,
-//       events: {
-//         mouseleave: () => {
-//           pageBuilder.headTooltip.hide();
-//         },
-//       },
-//     }),
-//   footTooltip:
-//     new Tooltip({
-//       events: {
-//         mouseleave: () => {
-//           pageBuilder.footTooltip.hide();
-//         },
-//       },
-//     }),
-//   date: new Date({
-//     content: "4 декабря",
-//   }),
-//   contactArea: [],
-//   messageArea: [],
-// };
-
-// const resultMessageArea: Array<Message> = [];
-// for (let i = 0; i < 5; i++) {
-//   resultMessageArea.push(
-//     new Message({}),
-//   );
-// }
-// (pageBuilder.messageArea as Message[]) = resultMessageArea;
-
-// const resultContactArea: Array<Contact> = [];
-// for (let i = 0; i < 10; i++) {
-//   resultContactArea.push(new Contact({
-//     id: i,
-//     title: "",
-//     avatar: defaultUserPhoto,
-//     unread_count: 4,
-//     last_message: {
-//       user: "",
-//       time: "10:48",
-//       content: "Изображение",
-//     },
-//     events: {
-//       click: () => {
-//         // resultContactArea[i].setProps({
-//         //   selected: true
-//         // })
-//       },
-//     },
-//   }));
-// }
-// (pageBuilder.contactArea as Contact[]) = resultContactArea;
-// (pageBuilder.messageArea as Message[]) = [
-//   ...pageBuilder.messageArea,
-//   new Date({ content: "22 декабря" }),
-//   new Message({ isOwner: true }),
-// ];
-
-// export const chatPage = new Chat(pageBuilder);

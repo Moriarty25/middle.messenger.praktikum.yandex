@@ -2,11 +2,12 @@ import { User } from "./user";
 
 export interface LastMessage {
     user: User | string;
-    time: Date | string;
-    content: string;
+    time: string;
+    content: string | undefined;
   }
 
 export interface Contact {
+    isCount?: boolean;
     selected: boolean;
     id: number;
     title: string;
@@ -27,3 +28,16 @@ export type getChatParamers = {
   limit?: number,
   title?: string
 }
+
+export interface AddChatUserData {
+  users: number[],
+  chatId: number
+}
+
+export interface DeleteChatUserData extends AddChatUserData {}
+
+export interface getChatToken {
+  chatId: number;
+}
+
+export interface getChatUserData extends getChatToken {}

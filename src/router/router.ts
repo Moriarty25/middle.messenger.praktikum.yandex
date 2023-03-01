@@ -25,11 +25,12 @@ export default class Router {
     Router.__instance = this;
   }
 
-  use(pathname: string, title: string, block: Block) {
-    const route = new Route(pathname, title, block, { rootQuery: this._rootQuery });
+  use(pathname: string, title: string, block: typeof Block) {
+    const route = new Route(pathname, title, block, {
+      rootQuery: this._rootQuery,
+    });
 
     this.routes.push(route);
-
     return this;
   }
 
@@ -45,7 +46,9 @@ export default class Router {
 
   _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
+
     if (!route) {
+      router.go("/404");
       return;
     }
 
@@ -56,7 +59,6 @@ export default class Router {
     this._currentRoute = route;
 
     route.render();
-    // (route.render(route, pathname));
   }
 
   go(pathname: string) {

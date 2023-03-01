@@ -7,7 +7,11 @@ import "./profile.scss";
 import defaultUserPhoto from "../../../static/defaultUserPhoto.png";
 import Input from "../../components/Input";
 import {
-  onValidate, validateEmail, validateFirstName, validateLogin, validatePassword, validatePhone,
+  onValidate,
+  validateEmail,
+  validateFirstName,
+  validateLogin,
+  validatePhone,
   validateSecondName,
 } from "../../utils/validate";
 import Fieldset from "../../components/Fieldset";
@@ -16,7 +20,8 @@ import connect from "../../store/connect";
 import actions from "../../store/actions";
 import { getFormData } from "../../utils/file";
 import UserAvatar from "../../components/UserAvatar";
-import store, { StoreEvents } from "../../store/store";
+import { Navigation } from "../../components/Navigation/navigation";
+import { storeDataType } from "../../store/store";
 
 interface ProfileProps {
   profilePage?: boolean;
@@ -27,7 +32,7 @@ interface ProfileProps {
   exit?: Button;
   buttonBack: Button;
   email?: string;
-  emailInpit?: Fieldset;
+  // emailInpit?: Fieldset;
   login?: string;
   first_name?: string;
   second_name?: string;
@@ -35,37 +40,70 @@ interface ProfileProps {
   phone?: string | number;
   defaultUserPhoto: string;
 }
+interface userData {
+  email?: string;
+  login?: string;
+  first_name?: string;
+  second_name?: string;
+  display_name?: string;
+  phone?: string;
+}
+interface localState {
+  userData: userData;
+}
 
 export class changeData extends Block {
+  localState: localState = {
+    userData: {},
+  };
+
   constructor(props: ProfileProps) {
     super("div", props);
     this.props.defaultUserPhoto = defaultUserPhoto;
     this.props.changeUserData = true;
   }
 
-  lState = {
-    oldPasswordCheck: "1234567890F",
-    userData: {
-      email: this.props.email,
-      login: this.props?.login,
-      first_name: "Шейн",
-      second_name: "Райт",
-      display_name: "Шейнни",
-      phone: "8800553535",
-      oldPassword: "",
-      newPassword: "",
-      newPasswordAgain: "",
-    },
-  };
-
   protected init(): void {
+    this.children.userAvatar = new UserAvatar({
+      events: {
+        change: (event: Event) => {
+          actions.changeAvatarController(getFormData(event));
+        },
+      },
+    });
+
+    this.children.nav = new Navigation({});
+  }
+
+  onSubmitValidationChangeData(event: MouseEvent) {
+    event.preventDefault();
+    // document.querySelector('[name=login]').focus()
+    if (
+      validateLogin(this.localState?.userData?.login) === ""
+      && validateEmail(this.localState?.userData?.email) === ""
+      && validateFirstName(this.localState?.userData?.first_name) === ""
+      && validateSecondName(this.localState.userData?.second_name) === ""
+      && validatePhone(this.localState.userData?.phone) === ""
+    ) {
+      actions.changeUserDataController(this.localState?.userData);
+    } else {
+      console.log("Пожалуйста, исправьте ошибки");
+    }
+  }
+
+  componentDidMount(): void {
+    actions.getUserController();
+  }
+
+  preCompile() {
     this.children.buttonBack = new Button({
       isBack: true,
       link: "profile",
       events: {
         click: (event) => {
           event.preventDefault();
-          router.go("/profile");
+          console.log(this.localState);
+          router.go("/settings");
         },
       },
     });
@@ -85,11 +123,10 @@ export class changeData extends Block {
         inputName: "email",
         inputType: "email",
         inputPlaceholder: "Новая почта",
-        value: this.props.email ? this.props.email : state.userData.email,
+        value: this.props.email ? this.props.email : "Загрузка...",
         events: {
-          blur: (event) => {
-            console.log(this.lState.userData.email);
-            state.userData.email = onValidate(
+          blur: (event: FocusEvent) => {
+            this.localState.userData!.email = onValidate(
               event,
               this.children.emailInpit,
               validateEmail,
@@ -107,10 +144,10 @@ export class changeData extends Block {
         inputName: "login",
         inputType: "text",
         inputPlaceholder: "Новый логин",
-        value: this.props?.login,
+        value: this.props?.login ?? "Загрузка...",
         events: {
-          blur: (event) => {
-            state.userData.login = onValidate(
+          blur: (event: FocusEvent) => {
+            this.localState.userData!.login = onValidate(
               event,
               this.children.loginInpit,
               validateLogin,
@@ -128,10 +165,10 @@ export class changeData extends Block {
         inputName: "first_name",
         inputType: "text",
         inputPlaceholder: "Введите имя",
-        value: this.props?.first_name,
+        value: this.props?.first_name ?? "Загрузка...",
         events: {
-          blur: (event) => {
-            state.userData.first_name = onValidate(
+          blur: (event: FocusEvent) => {
+            this.localState.userData!.first_name = onValidate(
               event,
               this.children.firstNameInpit,
               validateFirstName,
@@ -149,10 +186,10 @@ export class changeData extends Block {
         inputName: "second_name",
         inputType: "text",
         inputPlaceholder: "Введите фамилию",
-        value: this.props?.second_name,
+        value: this.props?.second_name ?? "Загрузка...",
         events: {
-          blur: (event) => {
-            state.userData.second_name = onValidate(
+          blur: (event: FocusEvent) => {
+            this.localState.userData!.second_name = onValidate(
               event,
               this.children.secondNameInpit,
               validateSecondName,
@@ -170,10 +207,10 @@ export class changeData extends Block {
         inputName: "display_name",
         inputType: "text",
         inputPlaceholder: "Желаемое имя в чате",
-        value: this.props?.display_name,
+        value: this.props?.display_name ?? "Загрузка...",
         events: {
-          blur: (event) => {
-            state.userData.display_name = (
+          blur: (event: { target: HTMLInputElement }) => {
+            this.localState.userData!.display_name = (
               event.target as HTMLInputElement
             ).value;
           },
@@ -189,10 +226,10 @@ export class changeData extends Block {
         inputName: "phone",
         inputType: "tel",
         inputPlaceholder: "Телефон",
-        value: state.userData.phone,
+        value: this.props?.phone ?? "Загрузка...",
         events: {
-          blur: (event) => {
-            state.userData.phone = onValidate(
+          blur: (event: FocusEvent) => {
+            this.localState.userData!.phone = onValidate(
               event,
               this.children.phoneInpit,
               validatePhone,
@@ -207,68 +244,42 @@ export class changeData extends Block {
 
     this.children.userAvatar = new UserAvatar({
       events: {
-        change: (event) => {
+        change: (event: Event) => {
           actions.changeAvatarController(getFormData(event));
         },
       },
     });
-  }
 
-  onSubmitValidationChangeData(event: MouseEvent) {
-    event.preventDefault();
-    // document.querySelector('[name=login]').focus()
-    if (
-      validateLogin(state.userData.login) === ""
-      && validateEmail(state.userData.email) === ""
-      && validateFirstName(state.userData.first_name) === ""
-      && validateSecondName(state.userData.second_name) === ""
-      && validatePhone(state.userData.phone) === ""
-    ) {
-      console.log(Object.fromEntries(Object.entries(state.userData).slice(0, 6)));
-      actions.changeUserDataController(Object
-        .fromEntries(Object.entries(state.userData).slice(0, 6)))
-    } else {
-      console.log("Пожалуйста, исправьте ошибки");
-    }
-  }
-
-  componentDidMount(): void {
-    actions.getUserController();
-    // this.props.phone = this.props.user.phone;
-    // this.setProps({ email: this.props.email });
+    this.localState = {
+      userData: {
+        email: this.props.email,
+        login: this.props?.login,
+        first_name: this.props?.first_name,
+        second_name: this.props?.second_name,
+        display_name: this.props?.display_name,
+        phone: this.props?.phone,
+      },
+    };
   }
 
   render() {
+    this.preCompile();
     return this.compile(template, { ...this.props });
   }
 }
 
-const state = {
-  oldPasswordCheck: "1234567890F",
-  userData: {
-    email: "privet@yandex.com",
-    login: "shaneWrite51",
-    first_name: "Шейн",
-    second_name: "Райт",
-    display_name: "Шейнни",
-    phone: "8800553535",
-    oldPassword: "",
-    newPassword: "",
-    newPasswordAgain: "",
-  },
-};
-
-function mapUserToProps(state: any) {
+function mapUserToProps(state: storeDataType) {
   return {
     login: state.user?.login,
     email: state.user?.email,
     first_name: state.user?.first_name,
     second_name: state.user?.second_name,
     display_name: state.user?.display_name ? state.user.display_name : "",
-    avatar: state.user?.avatar ? `https://ya-praktikum.tech/api/v2/resources/${state.user.avatar}`
+    avatar: state.user?.avatar
+      ? `https://ya-praktikum.tech/api/v2/resources/${state.user.avatar}`
       : defaultUserPhoto,
     phone: state.user?.phone,
   };
 }
 
-export default connect(mapUserToProps)(changeData);
+export default connect(mapUserToProps)((changeData as unknown as typeof Block));

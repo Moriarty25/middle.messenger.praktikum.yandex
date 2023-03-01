@@ -36,22 +36,22 @@
       {{{headTooltip}}}
     </header>
     <div class="main-layout__content">
-      {{{date}}}
+      {{!-- {{{date}}} --}}
               
               
               
               {{{dialog}}}
                        
                   
-       {{{me}}}
+
        {{{massenger}}}
     </div>
     <footer class="main-layout__footer">
      
       {{{buttonAttachment}}}
       {{{footTooltip}}}
-      {{{inputMessehger}}}
-      <input type="text" name="message" class="input__message" placeholder="Сообщение"/>
+      {{{inputMessenger}}}
+      
       {{{buttonSend}}}
     </footer>
   </div>
@@ -88,7 +88,8 @@
       {{{buttonSend}}}
     </footer>
   </div> --}}
-  {{#if popup}}
+  {{#if popupIsActive}}
   {{{popup}}}
   {{/if}}
+  {{{nav}}}
 </div>

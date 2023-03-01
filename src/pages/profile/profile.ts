@@ -1,4 +1,3 @@
-// import { UserAvatar } from './../../components/UserAvatar/userAvatar';
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-console */
 import { Button } from "../../components/Button/button";
@@ -6,20 +5,21 @@ import Block from "../../utils/Block";
 import template from "./profile.hbs";
 import "./profile.scss";
 import defaultUserPhoto from "../../../static/defaultUserPhoto.png";
-import { Input } from "../../components/Input/input";
 import {
-  onValidate, validateEmail, validateFirstName, validateLogin, validatePassword, validatePhone,
+  validateEmail,
+  validateFirstName,
+  validateLogin,
+  validatePhone,
   validateSecondName,
 } from "../../utils/validate";
 import { Fieldset } from "../../components/Fieldset/fieldset";
 import { router } from "../../router/router";
 import connect from "../../store/connect";
 import Actions from "../../store/actions";
-import store from "../../store/store";
-import { userAvatar } from "../../components/UserAvatar/userAvatar";
 import UserAvatar from "../../components/UserAvatar";
-import actions from "../../store/actions";
 import { getFormData } from "../../utils/file";
+import { Navigation } from "../../components/Navigation/navigation";
+import { storeDataType } from "../../store/store";
 
 interface ProfileProps {
   profilePage?: boolean;
@@ -44,12 +44,6 @@ export class Profile extends Block {
     super("div", props);
     Actions.getUserController();
     this.props.defaultUserPhoto = defaultUserPhoto;
-    // this.props.email = this.props.user ? this.props.user.email : "privet@yandex.com";
-    // this.props.login = this.props.user ? this.props.user.login : "shaneWrite51";
-    // this.props.first_name = this.props.user ? this.props.user.first_name : "Шейн";
-    // this.props.second_name = this.props.user ? this.props.user.second_name : "Райт";
-    // this.props.display_name = this.props.user ? this.props.user.display_name : "Шейнни";
-    // this.props.phone = this.props.user ? this.props.user.phone : "+ 7 (909) 967 30 30";
   }
 
   protected init(): void {
@@ -62,6 +56,10 @@ export class Profile extends Block {
         click: (event) => {
           event.preventDefault();
           router.go("/changeData");
+          // this.props.profilePage = false;
+          // this.props.changeUserData = true;
+          // render(".root", new changeData({}))
+          // console.log(render("#root", new changeData({})));
         },
       },
     });
@@ -80,7 +78,7 @@ export class Profile extends Block {
     this.children.exit = new Button({
       isExit: true,
       name: "Выйти",
-      link: "/login",
+      link: "/",
       events: {
         click: (event) => {
           event?.preventDefault();
@@ -91,24 +89,43 @@ export class Profile extends Block {
 
     this.children.buttonBack = new Button({
       isBack: true,
-      link: "/",
+      link: "/messenger",
       events: {
         click: (event) => {
           event.preventDefault();
-          router.go("/");
+          router.go("/messenger");
         },
       },
     });
 
     this.children.userAvatar = new UserAvatar({
-      // defaultUserPhoto,
-      // avatar: this.props.avatar,
       events: {
-        change: (event) => {
-          actions.changeAvatarController(getFormData(event));
+        change: (event: InputEvent) => {
+          Actions.changeAvatarController(getFormData(event));
         },
       },
     });
+
+    this.children.nav = new Navigation({});
+  }
+
+  onSubmitValidationChangeData(event: MouseEvent) {
+    event.preventDefault();
+    // document.querySelector('[name=login]').focus()
+    if (
+      validateLogin(state.userData.login) === ""
+      && validateEmail(state.userData.email) === ""
+      && validateFirstName(state.userData.first_name) === ""
+      && validateSecondName(state.userData.second_name) === ""
+      && validatePhone(state.userData.phone) === ""
+    ) {
+      console.log(
+        Object.fromEntries(Object.entries(state.userData).slice(0, 6)),
+      );
+      Actions.changeUserDataController(state.userData);
+    } else {
+      console.log("Пожалуйста, исправьте ошибки");
+    }
   }
 
   componentDidMount(): void {
@@ -131,23 +148,21 @@ const state = {
     second_name: "Райт",
     display_name: "Шейнни",
     phone: "8800553535",
-    oldPassword: "",
-    newPassword: "",
-    newPasswordAgain: "",
   },
 };
 
-function mapUserToProps(state: any) {
+function mapUserToProps(state: storeDataType) {
   return {
     login: state.user?.login,
     email: state.user?.email,
     first_name: state.user?.first_name,
     second_name: state.user?.second_name,
     display_name: state.user?.display_name ? state.user.display_name : "",
-    avatar: state.user?.avatar ? `https://ya-praktikum.tech/api/v2/resources/${state.user.avatar}`
+    avatar: state.user?.avatar
+      ? `https://ya-praktikum.tech/api/v2/resources/${state.user.avatar}`
       : defaultUserPhoto,
     phone: state.user?.phone,
   };
 }
 
-export default connect(mapUserToProps)(Profile);
+export default connect(mapUserToProps)((Profile as unknown as typeof Block));

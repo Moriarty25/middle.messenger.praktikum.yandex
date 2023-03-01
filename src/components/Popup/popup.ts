@@ -3,9 +3,9 @@ import "./popup.scss";
 import Block from "../../utils/Block";
 import { Fieldset } from "../Fieldset/fieldset";
 import { Button } from "../Button/button";
+import SearchList from "../SearchList";
 
 interface PopupProps {
-    // defaultUserPhoto: string;
     inputLogin: Fieldset;
     addUserBtn: Button;
     events?: {
@@ -19,6 +19,10 @@ export class Popup extends Block {
   }
 
   render() {
+    this.children.chatUser = new SearchList({
+      callback: this.props.callback,
+    });
+
     return this.compile(template, { ...this.props });
   }
 }

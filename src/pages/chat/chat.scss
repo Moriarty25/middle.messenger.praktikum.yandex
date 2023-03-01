@@ -36,7 +36,7 @@
     width: 322px;
     display: flex;
     flex-direction: column-reverse;
-    align-items: center;  
+    align-items: center;
     gap: 15px;
   }
 
@@ -99,21 +99,12 @@
   &__modal {
     display: flex;
     justify-content: flex-start;
-    // flex-direction: column;
-    // height: 100px;
-    // gap: 10px;
     position: relative;
-    // height: 50px;
-    // top: -100px;
     background-color: $background;
     border-radius: 12px;
     width: 303px;
     height: 100px;
     padding: 20px;
-    // position: absolute;
-    // bottom: 10px;
-    // left: 11px;
-    display: flex;
     flex-direction: column-reverse;
     align-items: center;
     gap: 15px;
@@ -199,8 +190,8 @@
     outline: none;
     border: none;
     background: $menu;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 500;
@@ -277,7 +268,3 @@
     }
   }
 }
-
-
-
-

@@ -5,6 +5,7 @@ import template from "./tooltip.hbs";
 import "./tooltip.scss";
 
 interface TooltipProps {
+  createChatSend?: Button;
   headTooltip?: boolean;
   footTooltip?: boolean;
   deleteUser?: Button;

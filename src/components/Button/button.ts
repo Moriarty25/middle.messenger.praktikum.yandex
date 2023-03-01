@@ -12,8 +12,10 @@ interface ButtonProps {
   isAddUser?: boolean;
   isDeleteUser?: boolean;
   isSend?: boolean;
+  isBasket?: boolean;
   isPrimary?: boolean;
   isExit?: boolean;
+  isNav?: boolean;
   events?: {
     click?: (event: MouseEvent) => void;
     mouseenter?: (event: MouseEvent) => void;

@@ -3,7 +3,10 @@ import { Popup } from "./popup";
 
 function mapUserToProps(state: any) {
   return {
-    state,
+    // state,
+    chatUser: state?.chatUser,
+    searchedUsers: state?.searchedUser,
+    searchedUserId: state?.searchedUserId,
   };
 }
 

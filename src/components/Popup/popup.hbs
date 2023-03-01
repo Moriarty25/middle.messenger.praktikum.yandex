@@ -1,17 +1,17 @@
 <div class="popup active">
     <div class="popup__body">
         <div class="popup__content">
-            <div class="popup-close__body chat-menu__item">
-              <div class="item__image item__image--red">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" class="image__cross">
-                  <line x1="5.99988" y1="0.5" x2="5.99988" y2="11.5"  stroke-width="1.5"/>
-                  <line x1="0.499878" y1="6" x2="11.4999" y2="6"  stroke-width="1.5"/>
-                </svg>
-              </div>
-            </div>
-            <div class="popup__title ">Добавить пользователя</div>
+            <div class="popup__title ">{{name}}</div>
             <form class="popup__form">
+                  {{#if isAddUserPopup}}
                     {{{inputLogin}}}
+                    {{!-- {{#each searchedUsers}}
+                        {{{this}}}
+                    {{/each}} --}}
+                    {{{searchedUsers}}}
+                    {{else}}
+                    {{{chatUser}}}
+                    {{/if}}
                 <div class="popup__button">
                     {{{addUserBtn}}}
                 </div>

@@ -21,13 +21,7 @@ export default abstract class Block<Props extends Record<string, any> = any> {
 
   protected eventBus: () => EventBus;
 
-  /**
-   * JSDoc
-   * @param {string} tagName
-   * @param {Object} propsWithChildren
-   * @returns {void}
-   */
-  constructor(tagName: string | undefined = "div", propsWithChildren: any = {}) {
+  constructor(tagName: string = "div", propsWithChildren: any = {}) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
@@ -238,7 +232,7 @@ export default abstract class Block<Props extends Record<string, any> = any> {
   }
 
   show() {
-    this.getContent()!.style.display = "block";
+    this.getContent()!.style.display = "grid";
   }
 
   hide() {

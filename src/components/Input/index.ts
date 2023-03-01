@@ -1,7 +1,9 @@
 import connect from "../../store/connect";
+import { storeDataType } from "../../store/store";
+import Block from "../../utils/Block";
 import { Input } from "./input";
 
-function mapUserToProps(state: any) {
+function mapUserToProps(state: storeDataType) {
   return {
     login: state.user?.login,
     email: state.user?.email,
@@ -14,4 +16,4 @@ function mapUserToProps(state: any) {
   };
 }
 
-export default connect(mapUserToProps)(Input);
+export default connect(mapUserToProps)((Input as unknown as typeof Block));
