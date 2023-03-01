@@ -1,6 +1,6 @@
 import { Button } from "../../components/Button/button";
-import { Navigation } from "../../components/Navigation/navigation";
 import { router } from "../../router/router";
+import { Navigation } from "../../components/Nav/navigation";
 import Block from "../../utils/Block";
 import template from "./erorrs.hbs";
 import "./erorrs.scss";

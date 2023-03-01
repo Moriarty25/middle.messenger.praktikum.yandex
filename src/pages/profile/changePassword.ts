@@ -6,17 +6,14 @@ import template from "./profile.hbs";
 import "./profile.scss";
 import defaultUserPhoto from "../../../static/defaultUserPhoto.png";
 import { Input } from "../../components/Input/input";
-import {
-  onValidate,
-  validatePassword,
-} from "../../utils/validate";
+import { onValidate, validatePassword } from "../../utils/validate";
 import { Fieldset } from "../../components/Fieldset/fieldset";
 import { router } from "../../router/router";
 import connect from "../../store/connect";
 import actions from "../../store/actions";
 import { getFormData } from "../../utils/file";
 import UserAvatar from "../../components/UserAvatar";
-import { Navigation } from "../../components/Navigation/navigation";
+import { Navigation } from "../../components/Nav/navigation";
 import { storeDataType } from "../../store/store";
 
 interface ProfileProps {
@@ -77,7 +74,7 @@ export class changePassword extends Block {
             state.userData.oldPassword = onValidate(
               event,
               this.children.oldPasswordInput,
-              validatePassword,
+              validatePassword
             );
           },
         },
@@ -98,7 +95,7 @@ export class changePassword extends Block {
             state.userData.newPassword = onValidate(
               event,
               this.children.newPasswordInput,
-              validatePassword,
+              validatePassword
             );
           },
         },
@@ -119,7 +116,7 @@ export class changePassword extends Block {
             state.userData.newPasswordAgain = onValidate(
               event,
               this.children.newPasswordAgainInput,
-              validatePassword,
+              validatePassword
             );
           },
         },
@@ -144,18 +141,18 @@ export class changePassword extends Block {
     event.preventDefault();
 
     if (
-      validatePassword(state.userData.newPassword) === ""
-      && validatePassword(state.userData.newPasswordAgain) === ""
-      && state.userData.newPassword === state.userData.newPasswordAgain
+      validatePassword(state.userData.newPassword) === "" &&
+      validatePassword(state.userData.newPasswordAgain) === "" &&
+      state.userData.newPassword === state.userData.newPasswordAgain
     ) {
       console.log(Object.fromEntries(Object.entries(state.userData).slice(-3)));
       actions.changeUserPasswordController(state.userData).then((res) => {
         this.children.oldPasswordInput.setProps({ message: res });
       });
     } else if (
-      validatePassword(state.userData.newPassword) === ""
-      && validatePassword(state.userData.newPasswordAgain) === ""
-      && state.userData.newPassword !== state.userData.newPasswordAgain
+      validatePassword(state.userData.newPassword) === "" &&
+      validatePassword(state.userData.newPasswordAgain) === "" &&
+      state.userData.newPassword !== state.userData.newPasswordAgain
     ) {
       this.children.newPasswordAgainInput.setProps({
         message: "Пароли не совпадают",
@@ -202,4 +199,6 @@ function mapUserToProps(state: storeDataType) {
   };
 }
 
-export default connect(mapUserToProps)((changePassword as unknown as typeof Block));
+export default connect(mapUserToProps)(
+  changePassword as unknown as typeof Block
+);
