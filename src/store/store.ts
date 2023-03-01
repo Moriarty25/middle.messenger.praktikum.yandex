@@ -7,15 +7,57 @@ export type Indexed<T = unknown> = {
   }
 
 export enum StoreEvents {
-    Updated = "updated",
-  }
+  Updated = "updated",
+  EVENT_UPDATE = "EVENT_UPDATE"
+}
+
+export type storeUserType = {
+    id: number;
+    email: string;
+    login: string;
+    first_name: string;
+    second_name: string;
+    phone: string;
+    display_name: string;
+    avatar: string;
+}
+
+type storeDialogType = {
+    owner: string;
+    text: string;
+    time: string;
+
+}
+
+type storeChatType = {
+    id: number;
+    title: string;
+    avatar: string;
+}
+
+export type storeDataType = {
+    user?: storeUserType;
+    foundUsers?: Indexed;
+    name?: string;
+    selectedChat?: number;
+    token?: {
+      token: string;
+    };
+    socket?: WebSocket;
+    chats?: {[key: number]: storeChatType};
+    dialog?: {
+      [x: string]: any;[key: number]: storeDialogType
+};
+    currentChatId?: number;
+    searchedUserId?: number;
+} & Indexed;
 
 class Store extends EventBus {
   static STORE_NAME = "myAppStore";
 
   static _instance: any;
 
-  static EVENT_UPDATE: any = 1;
+  static EVENT_UPDATE: any = "updated";
 
   private state: Indexed = {};
 
@@ -23,19 +65,9 @@ class Store extends EventBus {
     if (Store._instance) return Store._instance;
 
     super();
-
-    const savedState = localStorage.getItem(Store.STORE_NAME);
-
-    this.state = savedState ? JSON.parse(savedState) ?? {} : {};
-
-    Store._instance = this;
-
-    this.on(Store.EVENT_UPDATE, () => {
-      localStorage.setItem(Store.STORE_NAME, JSON.stringify(this.state));
-    });
   }
 
-  public getState() {
+  public getState(): storeDataType {
     return this.state;
   }
 

@@ -8,14 +8,14 @@ enum METHODS {
 
 interface Options {
     headers?: Record<string, string>
-    data?: string,
+    data?: Record<string, any>,
     method?: METHODS,
     timeout?: number,
 }
 
 type Url = string;
 type Data = Record<string, string> | string;
-type Method = (url: Url, options?: Options) => Promise<any>
+type Method = (url: Url, options?: Options) => Promise<XMLHttpRequest>
 
 function queryStringify(data: Data) {
   if (typeof data !== "object") {
@@ -58,8 +58,8 @@ export class HTTPTransport {
     options.timeout,
   );
 
-  request = (url: Url, options: Options = {}, timeout = 5000) => {
-    const { headers = { "Content-Type": "application/json" }, method, data } = options;
+  request = (url: Url, options: Options = {}, timeout = 5000): Promise<XMLHttpRequest> => {
+    const { headers = {}, method, data } = options;
 
     return new Promise((resolve, reject) => {
       if (!method) {
@@ -70,7 +70,8 @@ export class HTTPTransport {
       const xhr = new XMLHttpRequest();
       const isGet = method === METHODS.GET;
 
-      xhr.open(method, isGet && !!data ? `${this.baseURl}${url}${queryStringify(data)}` : `${this.baseURl}${url}`);
+      xhr.open(method, isGet && !!data ? `${this.baseURl}${url}${queryStringify(data)}`
+        : `${this.baseURl}${url}`);
       xhr.withCredentials = true;
 
       Object.keys(headers).forEach((key) => {
@@ -89,7 +90,10 @@ export class HTTPTransport {
 
       if (isGet || !data) {
         xhr.send();
+      } else if (data instanceof FormData) {
+        xhr.send(data);
       } else {
+        xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify(data));
       }
     });

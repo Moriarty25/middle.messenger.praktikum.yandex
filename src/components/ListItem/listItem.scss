@@ -1,0 +1,23 @@
+@import "/src/variables.scss";
+
+.list-item {
+  background-color: $background-item;
+  border-radius: 12px;
+  width: 220px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  box-shadow: $shadow;
+
+  & p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-word;
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+  }
+}

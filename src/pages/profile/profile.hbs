@@ -3,18 +3,7 @@
     {{{buttonBack}}}
   </div>
   <main class="profile__wrapper">
-    <div class="profile__avatar">
-      {{#if defaultUserPhoto}}
-        <img src="{{{defaultUserPhoto}}}" alt="userPhoto" />
-        <input
-          class="avatar-photo"
-          type="file"
-          accept="image/*"
-          name="avatar"
-        />
-      {{/if}}
-      <p>Поменять аватар</p>
-    </div>
+    {{{userAvatar}}}
     <div class="profile__user-name">{{{first_name}}}</div>
     {{#if changeUserPassword}}
       <form class="profile__content">
@@ -108,4 +97,5 @@
       </div>
     {{/if}}
   </main>
+  {{{nav}}}
 </div>

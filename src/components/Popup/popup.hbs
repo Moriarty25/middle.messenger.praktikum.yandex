@@ -1,0 +1,21 @@
+<div class="popup active">
+    <div class="popup__body">
+        <div class="popup__content">
+            <div class="popup__title ">{{name}}</div>
+            <form class="popup__form">
+                  {{#if isAddUserPopup}}
+                    {{{inputLogin}}}
+                    {{!-- {{#each searchedUsers}}
+                        {{{this}}}
+                    {{/each}} --}}
+                    {{{searchedUsers}}}
+                    {{else}}
+                    {{{chatUser}}}
+                    {{/if}}
+                <div class="popup__button">
+                    {{{addUserBtn}}}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

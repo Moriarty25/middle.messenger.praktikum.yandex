@@ -6,15 +6,14 @@ export default class Route {
 
   public title: string;
 
-  // private readonly getBlock: () => { new (): Block };
-  private _block: Block | null | any;
+  private _block: Block | null;
 
-  private _blockClass: Block;
+  private _blockClass: typeof Block;
 
   private _props: Record<string, any>;
 
   // eslint-disable-next-line max-len
-  constructor(pathname: string, title: string, view: Block, props: Record<string, any>) {
+  constructor(pathname: string, title: string, view: typeof Block, props: Record<string, any>) {
     this._pathname = pathname;
 
     this._blockClass = view;
@@ -32,7 +31,7 @@ export default class Route {
 
   leave(): void {
     if (this._block) {
-      this._block.element.remove();
+      this._block.element!.remove();
       this._block = null;
     }
   }
@@ -45,9 +44,8 @@ export default class Route {
     if (!this._block) {
       document.title = this.title;
 
-      this._block = this._blockClass;
-
-      render(this._props.rootQuery, this._block);
+      this._block = new (this._blockClass as any)();
+      render(this._props.rootQuery, this._block!);
       return;
     }
 
