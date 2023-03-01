@@ -17,7 +17,7 @@ import Popup from "../../components/Popup";
 import Fieldset from "../../components/Fieldset";
 import SearchList from "../../components/SearchList";
 import { debounce } from "../../utils/debounce";
-import { Navigation } from "../../components/Navigation/navigation";
+import { Navigation } from "../../components/Nav/navigation";
 
 interface ChatProps {
   defaultUserPhoto: string;
@@ -108,8 +108,11 @@ export class Chat extends Block {
               isAddUserPopup: true,
               name: "Добавить пользователя",
               events: {
-                click: (event:{ target: HTMLInputElement }) => {
-                  if ((event.target as HTMLInputElement).className === "popup__body") {
+                click: (event: { target: HTMLInputElement }) => {
+                  if (
+                    (event.target as HTMLInputElement).className
+                    === "popup__body"
+                  ) {
                     this.props.popupIsActive = false;
                   }
                 },
@@ -121,7 +124,9 @@ export class Chat extends Block {
                   inputPlaceholder: "Логин",
                   events: {
                     input: (event: { target: HTMLInputElement }) => {
-                      this.addUserInDialog = (event.target as HTMLInputElement)?.value;
+                      this.addUserInDialog = (
+                        event.target as HTMLInputElement
+                      )?.value;
                       const searchUser = () => {
                         Actions.searchUserController({
                           login: this.addUserInDialog,
@@ -183,8 +188,8 @@ export class Chat extends Block {
                   inputName: "login",
                   inputPlaceholder: "Логин",
                   events: {
-                    input: (event:{ target: HTMLInputElement }) => {
-                      (this.addUserInDialog = event.target?.value);
+                    input: (event: { target: HTMLInputElement }) => {
+                      this.addUserInDialog = event.target?.value;
                       Actions.searchUserController({
                         login: this.addUserInDialog,
                       });
@@ -275,9 +280,7 @@ export class Chat extends Block {
       isMessage: true,
       events: {
         input: (event: { target: HTMLInputElement }) => {
-          const message = (
-            event.target as HTMLInputElement
-          ).value;
+          const message = (event.target as HTMLInputElement).value;
           this.newMessage = message;
         },
       },
@@ -285,7 +288,7 @@ export class Chat extends Block {
 
     this.children.chats = new ContactList({
       callback: () => {
-        (this.props.chatIsActive = true);
+        this.props.chatIsActive = true;
         Actions.createDialogSocketController({
           chatId: this.props?.selectedChat,
         });
@@ -297,8 +300,7 @@ export class Chat extends Block {
     });
 
     this.children.placeholder = new ChatPlaceholder({});
-    this.children.dialog = new DialogList({
-    });
+    this.children.dialog = new DialogList({});
     this.props.chatIsActive = false;
     if (this.props?.selectedChat) {
       this.props.chatIsActive = true;

@@ -20,7 +20,7 @@ import connect from "../../store/connect";
 import actions from "../../store/actions";
 import { getFormData } from "../../utils/file";
 import UserAvatar from "../../components/UserAvatar";
-import { Navigation } from "../../components/Navigation/navigation";
+import { Navigation } from "../../components/Nav/navigation";
 import { storeDataType } from "../../store/store";
 
 interface ProfileProps {
@@ -79,11 +79,11 @@ export class changeData extends Block {
     event.preventDefault();
     // document.querySelector('[name=login]').focus()
     if (
-      validateLogin(this.localState?.userData?.login) === ""
-      && validateEmail(this.localState?.userData?.email) === ""
-      && validateFirstName(this.localState?.userData?.first_name) === ""
-      && validateSecondName(this.localState.userData?.second_name) === ""
-      && validatePhone(this.localState.userData?.phone) === ""
+      validateLogin(this.localState?.userData?.login) === "" &&
+      validateEmail(this.localState?.userData?.email) === "" &&
+      validateFirstName(this.localState?.userData?.first_name) === "" &&
+      validateSecondName(this.localState.userData?.second_name) === "" &&
+      validatePhone(this.localState.userData?.phone) === ""
     ) {
       actions.changeUserDataController(this.localState?.userData);
     } else {
@@ -129,7 +129,7 @@ export class changeData extends Block {
             this.localState.userData!.email = onValidate(
               event,
               this.children.emailInpit,
-              validateEmail,
+              validateEmail
             );
           },
         },
@@ -150,7 +150,7 @@ export class changeData extends Block {
             this.localState.userData!.login = onValidate(
               event,
               this.children.loginInpit,
-              validateLogin,
+              validateLogin
             );
           },
         },
@@ -171,7 +171,7 @@ export class changeData extends Block {
             this.localState.userData!.first_name = onValidate(
               event,
               this.children.firstNameInpit,
-              validateFirstName,
+              validateFirstName
             );
           },
         },
@@ -192,7 +192,7 @@ export class changeData extends Block {
             this.localState.userData!.second_name = onValidate(
               event,
               this.children.secondNameInpit,
-              validateSecondName,
+              validateSecondName
             );
           },
         },
@@ -232,7 +232,7 @@ export class changeData extends Block {
             this.localState.userData!.phone = onValidate(
               event,
               this.children.phoneInpit,
-              validatePhone,
+              validatePhone
             );
           },
         },
@@ -282,4 +282,4 @@ function mapUserToProps(state: storeDataType) {
   };
 }
 
-export default connect(mapUserToProps)((changeData as unknown as typeof Block));
+export default connect(mapUserToProps)(changeData as unknown as typeof Block);
