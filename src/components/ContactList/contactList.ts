@@ -5,6 +5,7 @@ import actions from "../../store/actions";
 import defaultUserPhoto from "../../../static/defaultUserPhoto.png";
 import { stringifyDate } from "../../utils/stringifyDate";
 import { Contact as ContactProps } from "../../types/chatPage";
+import { BASE_URL } from "../../utils/HTTPTransport";
 
 export interface ContactListProps {
     content: Contact | Contact[];
@@ -21,7 +22,7 @@ export class ContactList extends Block {
         selected: this.props.selectedChat === chat.id,
         id: chat.id,
         title: chat.title,
-        avatar: chat.avatar ? `https://ya-praktikum.tech/api/v2/resources${chat.avatar}`
+        avatar: chat.avatar ? `${BASE_URL}/resources${chat.avatar}`
           : defaultUserPhoto,
         unread_count: chat.unread_count,
         isCount: chat.unread_count > 0,

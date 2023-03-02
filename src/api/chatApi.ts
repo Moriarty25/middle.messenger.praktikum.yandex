@@ -4,31 +4,31 @@ import {
   AddChatUserData, CreateChat, DeleteChatUserData, getChatParamers, getChatToken, getChatUserData,
 } from "../types/chatPage";
 
-const chatAPIInstance = new HTTPTransport("https://ya-praktikum.tech/api/v2");
+const chatAPIInstance = new HTTPTransport("/chats");
 
 class UserAPI extends BaseAPI {
   createChat(data: CreateChat) {
-    return chatAPIInstance.post("/chats", { data });
+    return chatAPIInstance.post("", { data });
   }
 
   getChat(data?: getChatParamers) {
-    return chatAPIInstance.get("/chats", { data });
+    return chatAPIInstance.get("", { data });
   }
 
   addUser(data: AddChatUserData) {
-    return chatAPIInstance.put("/chats/users", { data });
+    return chatAPIInstance.put("/users", { data });
   }
 
   getToken(id: getChatToken) {
-    return chatAPIInstance.post(`/chats/token/${id}`);
+    return chatAPIInstance.post(`/token/${id}`);
   }
 
   getChatUsers(id: getChatUserData) {
-    return chatAPIInstance.get(`/chats/${id}/users`);
+    return chatAPIInstance.get(`/${id}/users`);
   }
 
   deleteUser(data: DeleteChatUserData) {
-    return chatAPIInstance.delete("/chats/users", { data });
+    return chatAPIInstance.delete("/users", { data });
   }
 }
 

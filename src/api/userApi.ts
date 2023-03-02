@@ -4,27 +4,27 @@ import {
   GetUserByIDData, SearchByLoginData, User, UserPassword,
 } from "../types/user";
 
-const userAPIInstance = new HTTPTransport("https://ya-praktikum.tech/api/v2");
+const userAPIInstance = new HTTPTransport("/user");
 
 class UserAPI extends BaseAPI {
   changeUserProfile(data: User) {
-    return userAPIInstance.put("/user/profile", { data });
+    return userAPIInstance.put("/profile", { data });
   }
 
   changePassword(data: UserPassword) {
-    return userAPIInstance.put("/user/password", { data });
+    return userAPIInstance.put("/password", { data });
   }
 
   changeAvatar(data: FormData) {
-    return userAPIInstance.put("/user/profile/avatar", { data });
+    return userAPIInstance.put("/profile/avatar", { data });
   }
 
   searchUserByLogin(data: SearchByLoginData) {
-    return userAPIInstance.post("/user/search", { data });
+    return userAPIInstance.post("/search", { data });
   }
 
   getUserByID(id: GetUserByIDData) {
-    return userAPIInstance.get(`/user/${id}`);
+    return userAPIInstance.get(`/${id}`);
   }
 }
 

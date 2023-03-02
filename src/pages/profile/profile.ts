@@ -20,6 +20,7 @@ import UserAvatar from "../../components/UserAvatar";
 import { getFormData } from "../../utils/file";
 import { Navigation } from "../../components/Nav/navigation";
 import { storeDataType } from "../../store/store";
+import { BASE_URL } from "../../utils/HTTPTransport";
 
 interface ProfileProps {
   profilePage?: boolean;
@@ -113,14 +114,14 @@ export class Profile extends Block {
     event.preventDefault();
     // document.querySelector('[name=login]').focus()
     if (
-      validateLogin(state.userData.login) === "" &&
-      validateEmail(state.userData.email) === "" &&
-      validateFirstName(state.userData.first_name) === "" &&
-      validateSecondName(state.userData.second_name) === "" &&
-      validatePhone(state.userData.phone) === ""
+      validateLogin(state.userData.login) === ""
+      && validateEmail(state.userData.email) === ""
+      && validateFirstName(state.userData.first_name) === ""
+      && validateSecondName(state.userData.second_name) === ""
+      && validatePhone(state.userData.phone) === ""
     ) {
       console.log(
-        Object.fromEntries(Object.entries(state.userData).slice(0, 6))
+        Object.fromEntries(Object.entries(state.userData).slice(0, 6)),
       );
       Actions.changeUserDataController(state.userData);
     } else {
@@ -159,7 +160,7 @@ function mapUserToProps(state: storeDataType) {
     second_name: state.user?.second_name,
     display_name: state.user?.display_name ? state.user.display_name : "",
     avatar: state.user?.avatar
-      ? `https://ya-praktikum.tech/api/v2/resources/${state.user.avatar}`
+      ? `${BASE_URL}/resources/${state.user.avatar}`
       : defaultUserPhoto,
     phone: state.user?.phone,
   };

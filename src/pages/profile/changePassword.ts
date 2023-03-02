@@ -15,6 +15,7 @@ import { getFormData } from "../../utils/file";
 import UserAvatar from "../../components/UserAvatar";
 import { Navigation } from "../../components/Nav/navigation";
 import { storeDataType } from "../../store/store";
+import { BASE_URL } from "../../utils/HTTPTransport";
 
 interface ProfileProps {
   profilePage?: boolean;
@@ -74,7 +75,7 @@ export class changePassword extends Block {
             state.userData.oldPassword = onValidate(
               event,
               this.children.oldPasswordInput,
-              validatePassword
+              validatePassword,
             );
           },
         },
@@ -95,7 +96,7 @@ export class changePassword extends Block {
             state.userData.newPassword = onValidate(
               event,
               this.children.newPasswordInput,
-              validatePassword
+              validatePassword,
             );
           },
         },
@@ -116,7 +117,7 @@ export class changePassword extends Block {
             state.userData.newPasswordAgain = onValidate(
               event,
               this.children.newPasswordAgainInput,
-              validatePassword
+              validatePassword,
             );
           },
         },
@@ -141,18 +142,18 @@ export class changePassword extends Block {
     event.preventDefault();
 
     if (
-      validatePassword(state.userData.newPassword) === "" &&
-      validatePassword(state.userData.newPasswordAgain) === "" &&
-      state.userData.newPassword === state.userData.newPasswordAgain
+      validatePassword(state.userData.newPassword) === ""
+      && validatePassword(state.userData.newPasswordAgain) === ""
+      && state.userData.newPassword === state.userData.newPasswordAgain
     ) {
       console.log(Object.fromEntries(Object.entries(state.userData).slice(-3)));
       actions.changeUserPasswordController(state.userData).then((res) => {
         this.children.oldPasswordInput.setProps({ message: res });
       });
     } else if (
-      validatePassword(state.userData.newPassword) === "" &&
-      validatePassword(state.userData.newPasswordAgain) === "" &&
-      state.userData.newPassword !== state.userData.newPasswordAgain
+      validatePassword(state.userData.newPassword) === ""
+      && validatePassword(state.userData.newPasswordAgain) === ""
+      && state.userData.newPassword !== state.userData.newPasswordAgain
     ) {
       this.children.newPasswordAgainInput.setProps({
         message: "Пароли не совпадают",
@@ -194,11 +195,11 @@ const state = {
 function mapUserToProps(state: storeDataType) {
   return {
     avatar: state.user?.avatar
-      ? `https://ya-praktikum.tech/api/v2/resources/${state.user.avatar}`
+      ? `${BASE_URL}/resources/${state.user.avatar}`
       : defaultUserPhoto,
   };
 }
 
 export default connect(mapUserToProps)(
-  changePassword as unknown as typeof Block
+  changePassword as unknown as typeof Block,
 );
