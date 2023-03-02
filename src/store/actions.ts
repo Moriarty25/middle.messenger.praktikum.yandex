@@ -140,7 +140,7 @@ function selectChat(id: number | null) {
 function addUsersInChat(data: AddChatUserData) {
   chatAPI.addUser(data)?.then((response: any) => {
     if (response.status === 200) {
-      store.set("activeChat", JSON.parse(response.response));
+      console.log("Пользователь успешно добавлен");
     } else console.log(JSON.parse(response.response).reason);
   }).catch((e) => console.log(e));
 }
@@ -211,30 +211,34 @@ function startDialogController(
       socket.addEventListener("message", (event) => {
         console.log("Получены данные", event.data);
         const result: any = [];
-        let data = JSON.parse(event.data);
-        if (!Array.isArray(data)) {
-          data = [data];
-        }
-        const userId = store.getState().user!.id;
-        data.forEach((message: any) => {
-          if (message.type !== "user connected" && message.type !== "pong") {
-            if (userId === message.user_id) {
-              result.unshift({
-                text: message.content,
-                owner: "me",
-                time: message.time,
-              });
-            } else {
-              result.unshift({
-                text: message.content,
-                owner: "friend",
-                time: message.time,
-              });
-            }
+        try {
+          let data = JSON.parse(event.data);
+          if (!Array.isArray(data)) {
+            data = [data];
           }
-        });
-        store.getState().dialog = store.getState().dialog!.concat(result);
-        store.emit(StoreEvents.Updated);
+          const userId = store.getState().user!.id;
+          data.forEach((message: any) => {
+            if (message.type !== "user connected" && message.type !== "pong") {
+              if (userId === message.user_id) {
+                result.unshift({
+                  text: message.content,
+                  owner: "me",
+                  time: message.time,
+                });
+              } else {
+                result.unshift({
+                  text: message.content,
+                  owner: "friend",
+                  time: message.time,
+                });
+              }
+            }
+          });
+          store.getState().dialog = store.getState().dialog!.concat(result);
+          store.emit(StoreEvents.Updated);
+        } catch (e) {
+          console.log(e);
+        }
       });
 
       socket.addEventListener("error", (event) => {
@@ -245,24 +249,32 @@ function startDialogController(
 
 function sendMessage(message: string) {
   const { socket } = store.getState();
+  try {
   socket!.send(
     JSON.stringify({
       content: message,
       type: "message",
     }),
   );
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function pingSocket() {
   const { socket } = store.getState();
   const pingInterval = setInterval(() => {
     if (store.getState().socket === socket) {
+      try {
       socket!.send(
         JSON.stringify({
           content: "",
           type: "ping",
         }),
       );
+      } catch (e) {
+        console.log(e);
+      }
     } else {
       clearInterval(pingInterval);
     }
@@ -282,8 +294,8 @@ function getChatUsers(id: getChatUserData) {
 function deleteUserFromchat(data: DeleteChatUserData) {
   chatAPI.deleteUser(data)?.then((response: XMLHttpRequest) => {
     if (response.status === 200) {
-      store.set("activeChat", JSON.parse(response.response));
-    } else console.log(JSON.parse(response.response).reason);
+      console.log("Пользователь успешно удален");
+    }
   }).catch((e) => console.log(e));
 }
 
