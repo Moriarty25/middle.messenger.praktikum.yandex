@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { authAPI, RegisterFormData } from "../api/authApi";
+import { authAPI, LoginFormData, RegisterFormData } from "../api/authApi";
 import { chatAPI } from "../api/chatApi";
 import { userAPI } from "../api/userApi";
 import { router } from "../router/router";
@@ -37,7 +37,7 @@ function getUserController() {
   }).catch((e) => console.log(e));
 }
 
-function loginController(data: any): Promise<Record<string, unknown>> {
+function loginController(data: LoginFormData): Promise<Record<string, unknown>> {
   return authAPI.signIn(data)?.then((response: XMLHttpRequest) => {
     if (response.status === 200) {
       if (response.status === 200) {
@@ -138,7 +138,7 @@ function selectChat(id: number | null) {
 }
 
 function addUsersInChat(data: AddChatUserData) {
-  chatAPI.addUser(data)?.then((response: any) => {
+  chatAPI.addUser(data)?.then((response: XMLHttpRequest) => {
     if (response.status === 200) {
       console.log("Пользователь успешно добавлен");
     } else console.log(JSON.parse(response.response).reason);
@@ -150,7 +150,7 @@ function searchUserController(data: SearchByLoginData) {
     if (JSON.parse(response.response)[0]) {
       const userId = JSON.parse(response.response)[0].id;
       store.set("searchedUserId", JSON.parse(response.response)[0].id);
-      userAPI.getUserByID(userId)?.then((response: any) => {
+      userAPI.getUserByID(userId)?.then((response: XMLHttpRequest) => {
         store.set("searchedUser", JSON.parse(response.response).login);
       });
     } else console.log(JSON.parse(response.response).reason);
@@ -169,7 +169,7 @@ function startDialogController(
 ) {
   chatAPI
     .getToken(chatId)
-    ?.then((response: any) => {
+    ?.then((response: XMLHttpRequest) => {
       store.set("token", JSON.parse(response.response));
     })
     .then(() => {
@@ -210,14 +210,14 @@ function startDialogController(
 
       socket.addEventListener("message", (event) => {
         console.log("Получены данные", event.data);
-        const result: any = [];
+        const result: Record<string, any> = [];
         try {
           let data = JSON.parse(event.data);
           if (!Array.isArray(data)) {
             data = [data];
           }
           const userId = store.getState().user!.id;
-          data.forEach((message: any) => {
+          data.forEach((message: Record<string, any>) => {
             if (message.type !== "user connected" && message.type !== "pong") {
               if (userId === message.user_id) {
                 result.unshift({
