@@ -299,6 +299,24 @@ function deleteUserFromchat(data: DeleteChatUserData) {
   }).catch((e) => console.log(e));
 }
 
+function deleteChat(data: getChatUserData) {
+  chatAPI.deleteChat(data)?.then((response: XMLHttpRequest) => {
+    if (response.status === 200) {
+      console.log("Чат успешно удален");
+      if (JSON.parse(response.response).result.id === store.getState().selectedChat) {
+        store.getState().socket!.close();
+        store.getState().selectedChat = 0;
+        store.set("socket", "");
+      }
+      chatAPI.getChat()?.then((response: XMLHttpRequest) => {
+        if (response.status === 200) {
+          store.set("chats", JSON.parse(response.response));
+        } else console.log(JSON.parse(response.response).reason);
+      }).catch((e) => console.log(e));
+    }
+  }).catch((e) => console.log(e));
+}
+
 async function isUserAuthorized() {
   const user = await authAPI.getUserInfo();
   if (user.status === 200) {
@@ -328,5 +346,6 @@ export default {
   getChatTitle,
   getChatUsers,
   deleteUserFromchat,
+  deleteChat,
   isUserAuthorized,
 };

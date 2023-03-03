@@ -1,3 +1,4 @@
+import { Button } from "../components/Button/button";
 import { User } from "./user";
 
 export interface LastMessage {
@@ -7,6 +8,7 @@ export interface LastMessage {
   }
 
 export interface Contact {
+    btnDelete?: Button;
     isCount?: boolean;
     selected: boolean;
     id: number;

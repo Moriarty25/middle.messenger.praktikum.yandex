@@ -30,6 +30,10 @@ class UserAPI extends BaseAPI {
   deleteUser(data: DeleteChatUserData) {
     return chatAPIInstance.delete("/users", { data });
   }
+
+  deleteChat(data: getChatUserData) {
+    return chatAPIInstance.delete("", { data });
+  }
 }
 
 export const chatAPI = new UserAPI();
