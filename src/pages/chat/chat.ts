@@ -287,6 +287,10 @@ export class Chat extends Block {
     });
 
     this.children.chats = new ContactList({
+      deleteChatCb: (id: number) => {
+        Actions.deleteChat({ chatId: id });
+        if (this.props.selectedChat === id) this.props.chatIsActive = false;
+      },
       callback: () => {
         this.props.chatIsActive = true;
         Actions.createDialogSocketController({

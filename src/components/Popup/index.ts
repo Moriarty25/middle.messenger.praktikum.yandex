@@ -1,13 +1,14 @@
 import connect from "../../store/connect";
+import { storeDataType } from "../../store/store";
+import Block from "../../utils/Block";
 import { Popup } from "./popup";
 
-function mapUserToProps(state: any) {
+function mapUserToProps(state: storeDataType) {
   return {
-    // state,
     chatUser: state?.chatUser,
     searchedUsers: state?.searchedUser,
     searchedUserId: state?.searchedUserId,
   };
 }
 
-export default connect(mapUserToProps)(Popup);
+export default connect(mapUserToProps)((Popup as unknown as typeof Block));

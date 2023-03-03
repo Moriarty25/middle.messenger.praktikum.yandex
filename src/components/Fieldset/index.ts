@@ -1,7 +1,9 @@
 import connect from "../../store/connect";
+import { storeDataType } from "../../store/store";
+import Block from "../../utils/Block";
 import { Fieldset } from "./fieldset";
 
-function mapUserToProps(state: any) {
+function mapUserToProps(state: storeDataType) {
   return {
     login: state.user?.login,
     email: state.user?.email,
@@ -12,4 +14,4 @@ function mapUserToProps(state: any) {
   };
 }
 
-export default connect(mapUserToProps)(Fieldset);
+export default connect(mapUserToProps)((Fieldset as unknown as typeof Block));

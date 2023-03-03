@@ -15,23 +15,23 @@ export interface LoginFormData {
   password: string;
 }
 
-const authAPIInstance = new HTTPTransport("https://ya-praktikum.tech/api/v2");
+const authAPIInstance = new HTTPTransport("/auth");
 
 class AuthAPI extends BaseAPI {
   signUp(data: RegisterFormData) {
-    return authAPIInstance.post("/auth/signup", { data });
+    return authAPIInstance.post("/signup", { data });
   }
 
   signIn(data: LoginFormData) {
-    return authAPIInstance.post("/auth/signin", { data });
+    return authAPIInstance.post("/signin", { data });
   }
 
   getUserInfo() {
-    return authAPIInstance.get("/auth/user");
+    return authAPIInstance.get("/user");
   }
 
   logout() {
-    return authAPIInstance.post("/auth/logout");
+    return authAPIInstance.post("/logout");
   }
 }
 

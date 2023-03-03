@@ -17,6 +17,8 @@ type Url = string;
 type Data = Record<string, string> | string;
 type Method = (url: Url, options?: Options) => Promise<XMLHttpRequest>
 
+export const BASE_URL = "https://ya-praktikum.tech/api/v2";
+
 function queryStringify(data: Data) {
   if (typeof data !== "object") {
     throw new Error("Data must be object");
@@ -30,8 +32,8 @@ function queryStringify(data: Data) {
 export class HTTPTransport {
   private readonly baseURl: string;
 
-  constructor(baseURL: string) {
-    this.baseURl = baseURL;
+  constructor(endpoint: string) {
+    this.baseURl = `${BASE_URL}${endpoint}`;
   }
 
   get: Method = (url, options = {}) => this.request(
