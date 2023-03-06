@@ -8,14 +8,16 @@ enum METHODS {
 
 interface Options {
     headers?: Record<string, string>
-    data?: string,
+    data?: Record<string, any>,
     method?: METHODS,
     timeout?: number,
 }
 
 type Url = string;
 type Data = Record<string, string> | string;
-type Method = (url: Url, options?: Options) => Promise<any>
+type Method = (url: Url, options?: Options) => Promise<XMLHttpRequest>
+
+export const BASE_URL = "https://ya-praktikum.tech/api/v2";
 
 function queryStringify(data: Data) {
   if (typeof data !== "object") {
@@ -28,6 +30,12 @@ function queryStringify(data: Data) {
 }
 
 export class HTTPTransport {
+  private readonly baseURl: string;
+
+  constructor(endpoint: string) {
+    this.baseURl = `${BASE_URL}${endpoint}`;
+  }
+
   get: Method = (url, options = {}) => this.request(
     url,
     { ...options, method: METHODS.GET },
@@ -52,7 +60,7 @@ export class HTTPTransport {
     options.timeout,
   );
 
-  request = (url: Url, options: Options = {}, timeout = 5000) => {
+  request = (url: Url, options: Options = {}, timeout = 5000): Promise<XMLHttpRequest> => {
     const { headers = {}, method, data } = options;
 
     return new Promise((resolve, reject) => {
@@ -64,7 +72,9 @@ export class HTTPTransport {
       const xhr = new XMLHttpRequest();
       const isGet = method === METHODS.GET;
 
-      xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
+      xhr.open(method, isGet && !!data ? `${this.baseURl}${url}${queryStringify(data)}`
+        : `${this.baseURl}${url}`);
+      xhr.withCredentials = true;
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
@@ -82,8 +92,11 @@ export class HTTPTransport {
 
       if (isGet || !data) {
         xhr.send();
-      } else {
+      } else if (data instanceof FormData) {
         xhr.send(data);
+      } else {
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(data));
       }
     });
   };

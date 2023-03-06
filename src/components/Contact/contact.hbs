@@ -4,15 +4,21 @@
           <img src="{{{avatar}}}" alt="user-photo">
         </div>
         <div class="contact__body">
-          <p class="contact__title">Андрей</p>
+          <p class="contact__title">{{{title}}}</p>
           <p class="contact__last-message">{{{last_message.content}}}</p>
+          <div class="contact__delete">
+          {{{btnDelete}}}
+          </div>
         </div>
         <div class="contact__info">
           <div class="info__time">
             <p>{{{last_message.time}}}</p>
           </div>
+          {{#if isCount}}
           <div class="info__unread">
             <p>{{{unread_count}}}</p>
+          </div>
+          {{/if}}
           </div>
         </div>
       </div>

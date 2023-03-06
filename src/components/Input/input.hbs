@@ -1,3 +1,6 @@
+  {{#if isMessage}}
+  <input type="text" name="message" class="input__message" placeholder="Сообщение" autocomplete="off"/>
+  {{else}}
   <input
     class="field__input {{#if invalid }}{{#if passwordInvalid}}field__input--invalid{{/if}}{{/if}} "
     type="{{{inputType}}}"
@@ -7,3 +10,4 @@
     value="{{{value}}}"
     required
   />
+{{/if}}

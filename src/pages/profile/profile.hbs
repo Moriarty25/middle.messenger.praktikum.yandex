@@ -3,18 +3,7 @@
     {{{buttonBack}}}
   </div>
   <main class="profile__wrapper">
-    <div class="profile__avatar">
-      {{#if defaultUserPhoto}}
-        <img src="{{{defaultUserPhoto}}}" alt="userPhoto" />
-        <input
-          class="avatar-photo"
-          type="file"
-          accept="image/*"
-          name="avatar"
-        />
-      {{/if}}
-      <p>Поменять аватар</p>
-    </div>
+    {{{userAvatar}}}
     <div class="profile__user-name">{{{first_name}}}</div>
     {{#if changeUserPassword}}
       <form class="profile__content">
@@ -96,18 +85,17 @@
         </div>
       </div>
       <div class="profile__footer">
-        <a href="changeData">
+        <div>
           <div class="profile__item profile__item--btn">{{{changeData}}}</div>
-        </a>
-        <a href="changePassword">
-          <div
-            class="profile__item profile__item--btn"
-          >{{{changePassword}}}</div>
-        </a>
-        <a href="login">
+        </div>
+        <div>
+          <div class="profile__item profile__item--btn">{{{changePassword}}}</div>
+        </div>
+        <div>
           <div class="profile__item profile__item--btn">{{{exit}}}</div>
-        </a>
+        </div>
       </div>
     {{/if}}
   </main>
+  {{{nav}}}
 </div>

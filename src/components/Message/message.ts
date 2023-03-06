@@ -2,9 +2,10 @@ import "./message.scss";
 import template from "./message.hbs";
 import Block from "../../utils/Block";
 
-interface MessageProps {
+export interface MessageProps {
   text?: string;
   isOwner?: boolean;
+  time?: string;
   events?: {
     click?: () => void;
   };

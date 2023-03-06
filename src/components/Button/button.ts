@@ -4,12 +4,18 @@ import "./button.scss";
 
 interface ButtonProps {
   name?: string;
+  link?: string;
   isBack?: boolean;
   isMenu?: boolean;
+  isProfile?: boolean;
   isAttachment?: boolean;
+  isAddUser?: boolean;
+  isDeleteUser?: boolean;
   isSend?: boolean;
+  isBasket?: boolean;
   isPrimary?: boolean;
   isExit?: boolean;
+  isNav?: boolean;
   events?: {
     click?: (event: MouseEvent) => void;
     mouseenter?: (event: MouseEvent) => void;
