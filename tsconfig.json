@@ -1,16 +1,21 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "module": "commonjs",
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strictNullChecks": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "allowJs": true,
-    "strict": true,
-    "target": "es2022"
+    "allowSyntheticDefaultImports": true,
+		"noImplicitAny": true,
+		"module": "es6",
+		"target": "es5",
+		"allowJs": true,
+		"sourceMap": true,
+		"moduleResolution": "Node",
+		"baseUrl": "./",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"strictNullChecks": true,
+		"outDir": "dist",
+		"declaration": false,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"suppressImplicitAnyIndexErrors": true
   },
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.hbs"]
 }

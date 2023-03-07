@@ -50,7 +50,7 @@ export class Profile extends Block {
   protected init(): void {
     this.props.profilePage = true;
 
-    this.children.changeData = new Button({
+    this.children.changeDataBtn = new Button({
       name: "Изменить данные",
       link: "/changeData",
       events: {
@@ -65,7 +65,7 @@ export class Profile extends Block {
       },
     });
 
-    this.children.changePassword = new Button({
+    this.children.changePasswordBtn = new Button({
       name: "Изменить пароль",
       link: "/changePassword",
       events: {
