@@ -5,13 +5,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel static/index.html --open -p 3000 --no-cache",
-    "build": "webpack --mode=production --node-env=production",
-    "start": "npm run build && npm run serve",
+    "start": "webpack --mode=production --node-env=production && node server.js",
     "serve": "webpack serve",
     "lint": "eslint \"**/*.ts\"",
     "lint:fix": "eslint ./src --fix",
     "stylelint": "stylelint \"**/*.scss\"",
     "stylelint:fix": "stylelint \"**/*.scss\" --fix",
+    "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch"
@@ -47,6 +47,7 @@
     "express": "4.18.2",
     "handlebars-loader": "^1.7.3",
     "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.2",
     "prettier": "^2.8.4",
     "sass": "^1.57.1",
     "sass-loader": "^13.0.2",
