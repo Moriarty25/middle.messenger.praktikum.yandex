@@ -1,11 +1,11 @@
-/* eslint-disable no-multiple-empty-lines */
-/* eslint-disable indent */
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const isProduction = process.env.NODE_ENV == "production";
+
+const isProduction = process.env.NODE_ENV === "production";
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const stylesHandler = MiniCssExtractPlugin.loader;
 
 const config = {
@@ -14,11 +14,11 @@ const config = {
     path: path.resolve(__dirname, "dist"),
   },
   devServer: {
-    open: false,
+    open: true,
     host: "localhost",
     port: 3000,
     historyApiFallback: true,
-},
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./static/index.html",
@@ -44,7 +44,7 @@ const config = {
       },
       {
         test: /\.hbs$/,
-          loader: "handlebars-loader",
+        loader: "handlebars-loader",
       },
 
       // Add your rules for custom modules here
@@ -54,7 +54,7 @@ const config = {
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
     alias: {
-        handlebars: "handlebars/dist/handlebars.min.js",
+      handlebars: "handlebars/dist/handlebars.min.js",
     },
   },
 };

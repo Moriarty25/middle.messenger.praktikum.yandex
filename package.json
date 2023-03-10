@@ -5,6 +5,7 @@
   "scripts": {
     "test": "mocha --require ts-node/register --require ./mochaSetup.js './src/**/*.test.ts'",
     "start": "webpack --mode=production --node-env=production && node server.js",
+    "dev": "webpack serve",
     "serve": "webpack serve",
     "lint": "eslint \"**/*.ts\"",
     "lint:fix": "eslint ./src --fix",
