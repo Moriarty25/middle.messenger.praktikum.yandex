@@ -2,9 +2,10 @@
 
 Приложение веб-мессенджера.
 
-- Собирается в parcel
+- Собирается в webpack
 - Запускается на express
-- Деплой в netlify
+- Деплой в [netlify](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
+- Деплой в [render](https://web-messenger-oehr.onrender.com/)
 
 В проекте используется шаблонизатор [Handlebars](https://handlebarsjs.com/).
 Используется TypeScript.
@@ -16,6 +17,8 @@
 - `npm install` — установка стабильной версии,
 - `npm run dev` — запуск версии для разработчика,
 - `npm run start` — сборка стабильной версии и запуск на express.
+
+- `npm run test` — запуск тестов.
 
 ## Макет
 

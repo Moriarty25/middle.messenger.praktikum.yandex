@@ -36,7 +36,7 @@ export class Login extends Block {
   }
 
   protected init(): void {
-    this.children.login = new Fieldset({
+    this.children.loginInp = new Fieldset({
       input: new Input({
         inputType: "text",
         inputName: "login",
@@ -45,8 +45,8 @@ export class Login extends Block {
           blur: (event) => {
             state.formAutorization.login = onValidate(
               event,
-              this.children.login,
-              validateLogin
+              this.children.loginInp,
+              validateLogin,
             );
           },
         },
@@ -67,7 +67,7 @@ export class Login extends Block {
             state.formAutorization.password = onValidate(
               event,
               this.children.password,
-              validatePassword
+              validatePassword,
             );
           },
         },
@@ -107,8 +107,8 @@ export class Login extends Block {
     event.preventDefault();
     // document.querySelector('[name=login]').focus()
     if (
-      validateLogin(state.formAutorization.login) === "" &&
-      validatePassword(state.formAutorization.password) === ""
+      validateLogin(state.formAutorization.login) === ""
+      && validatePassword(state.formAutorization.password) === ""
     ) {
       // eslint-disable-next-line no-console
       console.log(state.formAutorization);
@@ -116,8 +116,8 @@ export class Login extends Block {
         this.children.password.setProps({ message: res });
       });
     } else if (
-      !state.formAutorization.login &&
-      !state.formAutorization.password
+      !state.formAutorization.login
+      && !state.formAutorization.password
     ) {
       this.children.login.setProps({
         message: validateLogin(state.formAutorization.login),
