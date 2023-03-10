@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { describe, it } from "mocha";
 import isEqual from "./isEqual";
 
-describe.only("isEqual", () => {
+describe("isEqual", () => {
   const user1 = {
     avatar: "png",
     name: "Robin",
