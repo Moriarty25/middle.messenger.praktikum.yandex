@@ -2,13 +2,11 @@
 
 Приложение веб-мессенджера.
 
-- Собирается в webpack
-- Запускается на express
-- Деплой в [netlify](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
 - Деплой в [render](https://web-messenger-oehr.onrender.com/)
+- Деплой в [netlify](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
 
 В проекте используется шаблонизатор [Handlebars](https://handlebarsjs.com/).
-Используется TypeScript.
+Используется TypeScript. Собирается в Webpack. Запускается на express.
 
 Реализована авторизация и регистрация пользователя. Подключена отправка текстовых сообщений.
 
