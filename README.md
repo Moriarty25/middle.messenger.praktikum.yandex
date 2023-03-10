@@ -32,6 +32,8 @@
 
 [Sprint 3](https://github.com/Moriarty25/middle.messenger.praktikum.yandex/pull/4)
 
+[Sprint 4](https://github.com/Moriarty25/middle.messenger.praktikum.yandex/pull/5)
+
 ## Ссылка на опубликованное приложение [![Netlify Status](https://api.netlify.com/api/v1/badges/498fb90c-5d7c-416c-95ac-d2c82a3e6003/deploy-status)](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
 
 - [Страница Чата](https://deploy--roaring-tanuki-6ce7ec.netlify.app/messenger)
