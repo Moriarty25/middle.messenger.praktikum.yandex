@@ -6,7 +6,7 @@ export default class Router {
 
   private routes!: Route[];
 
-  private history: History | undefined;
+  public history: History | undefined;
 
   private _currentRoute!: Route | null;
 

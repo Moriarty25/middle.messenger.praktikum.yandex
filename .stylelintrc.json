@@ -1,5 +1,6 @@
 {
     "extends": "stylelint-config-standard",
+    "customSyntax": "postcss-scss",
     "rules": {
       "color-hex-case": "lower",
       "import-notation": null

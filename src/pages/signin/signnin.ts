@@ -47,7 +47,7 @@ export class Signin extends Block {
             state.formRegistration.email = onValidate(
               event,
               this.children.email,
-              validateEmail
+              validateEmail,
             );
           },
         },
@@ -67,7 +67,7 @@ export class Signin extends Block {
             state.formRegistration.login = onValidate(
               event,
               this.children.login,
-              validateLogin
+              validateLogin,
             );
             // const text = (event.target as HTMLInputElement).value;
             // pageBuilder.login.setProps({
@@ -92,7 +92,7 @@ export class Signin extends Block {
             state.formRegistration.first_name = onValidate(
               event,
               this.children.firstName,
-              validateFirstName
+              validateFirstName,
             );
           },
         },
@@ -111,7 +111,7 @@ export class Signin extends Block {
             state.formRegistration.second_name = onValidate(
               event,
               this.children.secondName,
-              validateSecondName
+              validateSecondName,
             );
           },
         },
@@ -131,7 +131,7 @@ export class Signin extends Block {
             state.formRegistration.phone = onValidate(
               event,
               this.children.phone,
-              validatePhone
+              validatePhone,
             );
           },
         },
@@ -219,20 +219,20 @@ export class Signin extends Block {
         message: "Пароли не совпадают",
       });
     } else if (
-      validateLogin(state.formRegistration.login) === "" &&
-      validateEmail(state.formRegistration.email) === "" &&
-      validateFirstName(state.formRegistration.first_name) === "" &&
-      validateSecondName(state.formRegistration.second_name) === "" &&
-      validatePhone(state.formRegistration.phone) === "" &&
-      validatePassword(state.formRegistration.password) === "" &&
-      validatePassword(state.formRegistration.passwordAgain) === ""
+      validateLogin(state.formRegistration.login) === ""
+      && validateEmail(state.formRegistration.email) === ""
+      && validateFirstName(state.formRegistration.first_name) === ""
+      && validateSecondName(state.formRegistration.second_name) === ""
+      && validatePhone(state.formRegistration.phone) === ""
+      && validatePassword(state.formRegistration.password) === ""
+      && validatePassword(state.formRegistration.passwordAgain) === ""
     ) {
       // eslint-disable-next-line no-console
       console.log(
-        Object.fromEntries(Object.entries(state.formRegistration).slice(0, 6))
+        Object.fromEntries(Object.entries(state.formRegistration).slice(0, 6)),
       );
       Actions.signupContoller(
-        Object.fromEntries(Object.entries(state.formRegistration).slice(0, 6))
+        (Object.fromEntries(Object.entries(state.formRegistration).slice(0, 6)) as any),
       ).then((res) => {
         this.children.login.setProps({ message: res });
       });
