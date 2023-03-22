@@ -2,12 +2,11 @@
 
 Приложение веб-мессенджера.
 
-- Собирается в parcel
-- Запускается на express
-- Деплой в netlify
+- Деплой в [render](https://web-messenger-oehr.onrender.com/)
+- Деплой в [netlify](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
 
 В проекте используется шаблонизатор [Handlebars](https://handlebarsjs.com/).
-Используется TypeScript.
+Используется TypeScript. Собирается в Webpack. Запускается на express.
 
 Реализована авторизация и регистрация пользователя. Подключена отправка текстовых сообщений.
 
@@ -16,6 +15,8 @@
 - `npm install` — установка стабильной версии,
 - `npm run dev` — запуск версии для разработчика,
 - `npm run start` — сборка стабильной версии и запуск на express.
+
+- `npm run test` — запуск тестов.
 
 ## Макет
 
@@ -28,6 +29,8 @@
 [Sprint 2](https://github.com/Moriarty25/middle.messenger.praktikum.yandex/pull/3)
 
 [Sprint 3](https://github.com/Moriarty25/middle.messenger.praktikum.yandex/pull/4)
+
+[Sprint 4](https://github.com/Moriarty25/middle.messenger.praktikum.yandex/pull/5)
 
 ## Ссылка на опубликованное приложение [![Netlify Status](https://api.netlify.com/api/v1/badges/498fb90c-5d7c-416c-95ac-d2c82a3e6003/deploy-status)](https://deploy--roaring-tanuki-6ce7ec.netlify.app/)
 
